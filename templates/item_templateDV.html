@@ -1,0 +1,550 @@
+<!-- Edit this file to change the layout of the detail view form -->
+
+<a name="detail-view"></a>
+<div class="panel-heading"><h3 class="panel-title"><strong><%%DETAIL_VIEW_TITLE%%></strong></h3></div>
+
+<div class="panel-body" id="item_dv_container">
+	<!-- child links -->
+	<div class="row vspacer-md">
+		<div class="col-xs-12">
+			<input type="hidden" id="item_hclink" value="item_view.php?filterer_documentos_relacionados=<%%URLVALUE(id)%%>&<%%EMBEDDED%%>">
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<hr class="hidden-xs hidden-sm">
+
+	<div class="row">
+		<!-- form inputs -->
+		<div class="col-md-8 col-lg-10" id="item_dv_form">
+			<fieldset class="form-horizontal">
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="identificacao" class="control-label col-lg-3">Identifica&#231;&#227;o:<span class="text-danger"><%%TRANSLATION(*)%%></span> <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#identificacao-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="identificacao-description"><div class="alert alert-info">C&#243;digo atribu&#237;do aos documentos</div></span>
+
+						<input maxlength="80" type="text" class="form-control" name="identificacao" id="identificacao" value="<%%VALUE(identificacao)%%>" required><div class="text-danger vspacer-md" id="identificacao-uniqueness-note" style="display: none;"><%%TRANSLATION(unique field error)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="colecao" class="control-label col-lg-3" data-parent_link="view_parent_modal">Cole&#231;&#227;o:<span class="text-danger"><%%TRANSLATION(*)%%></span> <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#colecao-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="colecao-description"><div class="alert alert-info">Nome do titular dos documentos</div></span>
+
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(colecao)%%><%%PLINK(colecao)%%><%%ADDNEW(colecao)%%><span id="colecaoLoading"></span></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="colecao_codigo" class="control-label col-lg-3">C&#243;digo da Cole&#231;&#227;o:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" id="colecao_codigo"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="grupo" class="control-label col-lg-3" data-parent_link="view_parent_modal">Grupo:<span class="text-danger"><%%TRANSLATION(*)%%></span> <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#grupo-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="grupo-description"><div class="alert alert-info">Atividades do titular dentro da &#225;rea de atua&#231;&#227;o</div></span>
+
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(grupo)%%><%%PLINK(grupo)%%><%%ADDNEW(grupo)%%><span id="grupoLoading"></span></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="grupo_codigo" class="control-label col-lg-3">C&#243;digo do Grupo:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" id="grupo_codigo"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="serie" class="control-label col-lg-3" data-parent_link="view_parent_modal">S&#233;rie:<span class="text-danger"><%%TRANSLATION(*)%%></span> <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#serie-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="serie-description"><div class="alert alert-info">Documentos produzidos e/ou acumulados na realiza&#231;&#227;o das atividades do titular: fortuna cr&#237;tica (conjunto de textos e cr&#237;ticas sobre um evento ou uma publica&#231;&#227;o); artigos (textos interpretativos e opinativos que desenvolvem uma ideia ou comentam um assunto a partir de uma fundamenta&#231;&#227;o, podem conter cr&#237;ticas, exame ou julgamento de uma produ&#231;&#227;o art&#237;stica); entrevistas (documentos que representam a conversa entre duas ou mais pessoas, com perguntas do jornalista e respostas do entrevistado para obter informa&#231;&#227;o, podem ser realizadas ou concedidas); reportagens (notici&#225;rios resultantes de um conjunto de informa&#231;&#245;es sobre determinado assunto);  ensaios (texto liter&#225;rio breve, mais ou menos po&#233;tico, expondo ideias, cr&#237;ticas e reflex&#245;es &#233;ticas e filos&#243;ficas sobre certo tema. Forma livre, sem um estilo definido) e roteiros (documentos que narram uma diretriz ou um guia para locais, eventos e acontecimentos art&#237;sticos). </div></span>
+
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(serie)%%><%%PLINK(serie)%%><%%ADDNEW(serie)%%><span id="serieLoading"></span></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="serie_codigo" class="control-label col-lg-3">C&#243;digo da S&#233;rie:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" id="serie_codigo"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="subserie" class="control-label col-lg-3" data-parent_link="view_parent_modal">Subs&#233;rie: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#subserie-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="subserie-description"><div class="alert alert-info">Subdivis&#227;o da s&#233;rie que nesta Cole&#231;&#227;o representa os documentos seriados reunidos nos Dossi&#234;s.</div></span>
+
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(subserie)%%><%%PLINK(subserie)%%><%%ADDNEW(subserie)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="tipologia" class="control-label col-lg-3" data-parent_link="view_parent_modal">Tipologia / Esp&#233;cie:<span class="text-danger"><%%TRANSLATION(*)%%></span></label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(tipologia)%%><%%PLINK(tipologia)%%><%%ADDNEW(tipologia)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="descricao" class="control-label col-lg-3">Descri&#231;&#227;o: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#descricao-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="descricao-description"><div class="alert alert-info">Registro de conte&#250;do do documento, com a identifica&#231;&#227;o dos elementos e informa&#231;&#245;es nele contidos.
+Caso tenha refer&#234;ncia com outro documento, escrever aqui.</div></span>
+
+						<textarea class="form-control" name="descricao" id="descricao" rows="5"><%%VALUE(descricao)%%></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="titulo" class="control-label col-lg-3">T&#237;tulo: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#titulo-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="titulo-description"><div class="alert alert-info">Nome do documento</div></span>
+
+						<input maxlength="" type="text" class="form-control" name="titulo" id="titulo" value="<%%VALUE(titulo)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<div class="col-lg-offset-3 col-lg-9">
+						<div class="checkbox"><label for="titulo_atribuido"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%>> T&#237;tulo Atribu&#237;do</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="date" class="control-label col-lg-3">Data:</label>
+					<div class="col-lg-9">
+						<%%COMBO(date)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="data_livre" class="control-label col-lg-3">Data / Per&#237;odo:</label>
+					<div class="col-lg-9">
+						<input maxlength="120" type="text" class="form-control" name="data_livre" id="data_livre" value="<%%VALUE(data_livre)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<div class="col-lg-offset-3 col-lg-9">
+						<div class="checkbox"><label for="data_atribuida"><input type="checkbox" name="data_atribuida" id="data_atribuida" value="1" <%%CHECKED(data_atribuida)%%>> Data Atribu&#237;da</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="autoria" class="control-label col-lg-3">Autoria: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#autoria-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="autoria-description"><div class="alert alert-info">Nome do autor do documento</div></span>
+
+						<input maxlength="" type="text" class="form-control" name="autoria" id="autoria" value="<%%VALUE(autoria)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="quantidade" class="control-label col-lg-3">Quantidade: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#quantidade-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="quantidade-description"><div class="alert alert-info">N&#250;mero de p&#225;ginas</div></span>
+
+						<input maxlength="40" type="text" class="form-control" name="quantidade" id="quantidade" value="<%%VALUE(quantidade)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="idioma" class="control-label col-lg-3" data-parent_link="view_parent_modal">Idioma:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(idioma)%%><%%PLINK(idioma)%%><%%ADDNEW(idioma)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="local_producao" class="control-label col-lg-3">Local de Produ&#231;&#227;o:</label>
+					<div class="col-lg-9">
+						<input maxlength="" type="text" class="form-control" name="local_producao" id="local_producao" value="<%%VALUE(local_producao)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="local_publicacao_veiculo" class="control-label col-lg-3" data-parent_link="view_parent_modal">Ve&#237;culo de Publica&#231;&#227;o: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#local_publicacao_veiculo-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="local_publicacao_veiculo-description"><div class="alert alert-info">Ve&#237;culo de comunica&#231;&#227;o mais nome da coluna, do caderno, do suplemento</div></span>
+
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(local_publicacao_veiculo)%%><%%PLINK(local_publicacao_veiculo)%%><%%ADDNEW(local_comunicacao)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="local_publicacao" class="control-label col-lg-3">Local de Publica&#231;&#227;o:</label>
+					<div class="col-lg-9">
+						<input maxlength="" type="text" class="form-control" name="local_publicacao" id="local_publicacao" value="<%%VALUE(local_publicacao)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="tipo_publicacao" class="control-label col-lg-3" data-parent_link="view_parent_modal">Tipo de Publica&#231;&#227;o: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#tipo_publicacao-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="tipo_publicacao-description"><div class="alert alert-info">A forma f&#237;sica que o texto adquire. 
+Cap&#237;tulo de livro, coluna, cadernos e suplementos (para publica&#231;&#245;es em jornais, livros e revistas)</div></span>
+
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(tipo_publicacao)%%><%%PLINK(tipo_publicacao)%%><%%ADDNEW(tipo_publicacao)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="genero" class="control-label col-lg-3" data-parent_link="view_parent_modal">G&#234;nero: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#genero-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="genero-description"><div class="alert alert-info">Textuais, iconogr&#225;ficos, audiovisuais, eletr&#244;nicos, cartogr&#225;ficos, plantas, perfis...</div></span>
+
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(genero)%%><%%PLINK(genero)%%><%%ADDNEW(genero)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="forma" class="control-label col-lg-3">Forma:</label>
+					<div class="col-lg-9">
+						<%%COMBO(forma)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="formato" class="control-label col-lg-3" data-parent_link="view_parent_modal">Formato:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(formato)%%><%%PLINK(formato)%%><%%ADDNEW(formato)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="escritura" class="control-label col-lg-3">Escritura:</label>
+					<div class="col-lg-9">
+						<%%COMBO(escritura)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="suporte" class="control-label col-lg-3" data-parent_link="view_parent_modal">Suporte:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(suporte)%%><%%PLINK(suporte)%%><%%ADDNEW(suporte)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="dimensao" class="control-label col-lg-3">Dimens&#227;o: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#dimensao-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="dimensao-description"><div class="alert alert-info">Unidade padr&#227;o de mensura&#231;&#227;o &#233; em cent&#237;metros.</div></span>
+
+						<input maxlength="120" type="text" class="form-control" name="dimensao" id="dimensao" value="<%%VALUE(dimensao)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="estado_conservacao" class="control-label col-lg-3">Estado de Conserva&#231;&#227;o:</label>
+					<div class="col-lg-9">
+						<%%COMBO(estado_conservacao)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="observacoes" class="control-label col-lg-3">Observa&#231;&#245;es:</label>
+					<div class="col-lg-9">
+						<textarea class="form-control" name="observacoes" id="observacoes" rows="5"><%%VALUE(observacoes)%%></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="documentos_relacionados" class="control-label col-lg-3" data-parent_link="view_parent_modal">Documentos Relacionados:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(documentos_relacionados)%%><%%PLINK(documentos_relacionados)%%><%%ADDNEW(item)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="numero_caixa" class="control-label col-lg-3" data-parent_link="view_parent_modal">N&#250;mero da Caixa:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(numero_caixa)%%><%%PLINK(numero_caixa)%%><%%ADDNEW(numero_caixa)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="nome_caixa" class="control-label col-lg-3" data-parent_link="view_parent_modal">Nome da Caixa:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(nome_caixa)%%><%%PLINK(nome_caixa)%%><%%ADDNEW(nome_caixa)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="numero_pasta" class="control-label col-lg-3" data-parent_link="view_parent_modal">N&#250;mero da Pasta:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(numero_pasta)%%><%%PLINK(numero_pasta)%%><%%ADDNEW(numero_pasta)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="nome_pasta" class="control-label col-lg-3" data-parent_link="view_parent_modal">Nome da pasta:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" style="white-space: nowrap; overflow-x: hidden;"><%%COMBO(nome_pasta)%%><%%PLINK(nome_pasta)%%><%%ADDNEW(nome_pasta)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3">Upload <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#upload-description"></i></label>
+					<div class="col-lg-9">
+						<span class="help-block collapse" id="upload-description"><div class="alert alert-info">Maximum file size allowed: 20000 KB.<br>Allowed file types: txt, doc, docx, docm, odt, pdf, rtf</div></span>
+
+						
+						<div class="row">
+							<div class="col-md-1">
+								<a id="upload-link" href="link.php?t=item&f=upload&i=<%%VALUE(id)%%>" target="_blank"><i class="glyphicon glyphicon-file" title="<%%VALUE(upload)%%>" style="font-size: x-large; top: .35em;"></i></a>
+							</div> <!-- /div.col-* -->
+							<script>jQuery(function(){ /* */ var e_upload = '<%%VALUE(upload)%%>'; if(e_upload == '' || e_upload == '&nbsp;' || e_upload == 'blank.gif') jQuery('#upload-link').hide(); });</script>						<div class="pull-right" style="overflow-x: hidden;">
+							<div class="hidden-md hidden-lg vspacer-lg"></div>
+							<%%UPLOADFILE(upload)%%>
+							<%%REMOVEFILE(upload)%%>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="usuario_cadastro" class="control-label col-lg-3">Cadastro feito pelo usu&#225;rio:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" id="usuario_cadastro"><%%VALUE(usuario_cadastro)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<label for="usuario_alteracao" class="control-label col-lg-3">&#218;ltima edi&#231;&#227;o feita pelo usu&#225;rio:</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" id="usuario_alteracao"><%%VALUE(usuario_alteracao)%%></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr class="hidden-md hidden-lg">
+					<div class="col-lg-offset-3 col-lg-9">
+						<div class="checkbox"><label for="publicar"><input type="checkbox" name="publicar" id="publicar" value="1" <%%CHECKED(publicar)%%>> Publicar</label>
+						</div>
+					</div>
+				</div>
+
+			</fieldset>
+		</div>
+
+		<!-- DV action buttons -->
+		<hr class="hidden-md hidden-lg">
+		<div class="col-md-4 col-lg-2" id="item_dv_action_buttons">
+			<div class="btn-toolbar">
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%UPDATE_BUTTON%%>
+				</div><p></p>
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%DESELECT_BUTTON%%>
+					<%%DVPRINT_BUTTON%%>
+					<%%DELETE_BUTTON%%>
+				</div><p></p>
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%INSERT_BUTTON%%>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- child records -->
+	<hr>
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1">
+			<div id="item-children" class="children-tabs"></div>
+		</div>
+	</div>
+
+</div><!-- /div class="panel-body" -->
+	<script>
+		$j(function() {
+			var add_new_mode = (!$j('input[name=SelectedID]').val());
+			var embedded_mode = ($j('input[name=Embedded]').val() == 1);
+
+			/* auto-close embedded page? */
+			var autoclose_mode = ($j('input[name=AutoClose]').val() == 1);
+			var record_added_ok = (location.search.split('record-added-ok=').length == 2);
+			var record_updated_ok = (location.search.split('record-updated-ok=').length == 2);
+			if((record_added_ok || record_updated_ok) && embedded_mode && autoclose_mode){
+				setTimeout(AppGini.closeParentModal, 2000);
+			}
+
+			/* enable DV action buttons to float on scrolling down the form */
+			enable_dvab_floating();
+
+			if(!(embedded_mode && AppGini.mobileDevice())){
+				$j('select, input[type=text], textarea').not(':disabled').eq(0).focus();
+			}
+
+			$j('form').eq(0).change(function(){
+				if($j(this).data('already_changed')) return;
+				if($j('#deselect').length) $j('#deselect').removeClass('btn-default').addClass('btn-warning').get(0).lastChild.data = " <%%TRANSLATION(Cancel)%%>";
+				$j(this).data('already_changed', true);
+			});
+
+			$j('a[href="<%%TRANSLATION(ImageFolder)%%>"]').click(function(){ /* */ return false; });
+
+			if(embedded_mode){
+				/* hide links to children tables in embedded mode */
+				$j('.detail_view a[id$=_link]').remove();
+
+				/* append embedded mode to all links */
+				var append_embedded = function(){
+					$j('a[href]:not([href^="#"]):not([href^="javascript"]):not([href$="Embedded=1"]):not([href*="link.php?t="]):not([href^="mailto:"])').each(
+						function(){
+							$j(this).attr('href', $j(this).attr('href') + '&Embedded=1');
+						}
+					);
+				}
+				setTimeout(append_embedded, 500);
+				setTimeout(append_embedded, 1500);
+				setTimeout(append_embedded, 2500);
+				setTimeout(append_embedded, 3500);
+			}
+
+			/* when no record is selected ('add new' mode) */
+			if(add_new_mode){
+				/* hide links to children tables */
+				$j('.detail_view a[id$=_link]').remove();
+			}else{
+				post(
+					'parent-children.php', {
+						ParentTable: 'item',
+						SelectedID: '<%%VALUE(id)%%>',
+						Operation: 'show-children'
+					},
+					'item-children'
+				);
+			}
+
+			if(!embedded_mode){
+				/* add a horizontal spacer to [add new parent] buttons that don't have a spacered element before them */
+				$j('.add_new_parent').prev(':not(.hspacer-md)').next().addClass('hspacer-md');
+
+				$j('.add_new_parent').click(function(){
+					var pt = $j(this).attr('id').replace(/_add_new$/, '');
+					modal_window({
+						url: pt + '_view.php?addNew_x=1&Embedded=1',
+						close: function(){
+							var field_id = $j('#' + pt + '_add_new').prevAll('input:hidden').eq(0).attr('id');
+							$j('#' + field_id + '-container').select2('focus').select2('focus');
+						},
+						size: 'full',
+						title: $j(this).attr('title')
+					});
+				});
+			}
+
+			AppGini.hideViewParentLinks();
+
+			$j('form').on('click', '.view_parent', function(){
+				var pt = $j(this).attr('id').replace(/_view_parent$/, '');
+				if($j(this).prevAll('input:hidden').length){
+					var parent_id = $j(this).prevAll('input:hidden').eq(0).val();
+				}else{
+					var parent_id = $j(this).prevAll().children('input:hidden').eq(0).val();
+				}
+
+				/* handle radio lookups */
+				if($j(this).prevAll('[type=radio]').length){
+					parent_id = $j(this).prevAll('[type=radio]').eq(0).val();
+				}
+
+				if(parent_id != '{empty_value}' && parent_id != undefined && parent_id != ''){
+					var parent_link = $j(this).parents('.form-group').children('label').data('parent_link');
+					switch(parent_link){
+						case 'view_parent_hidden':
+							break;
+						case 'view_parent_modal':
+							modal_window({
+								url: pt + '_view.php?Embedded=1&SelectedID=' + encodeURIComponent(parent_id),
+								close: function(){
+									var field_id = $j('#' + pt + '_view_parent').prevAll('input:hidden').eq(0).attr('id');
+									$j('#' + field_id + '-container').select2('focus').select2('focus');
+								},
+								size: 'full',
+								title: $j(this).attr('title')
+							});
+							break;
+						case 'view_parent_same_window':
+							window.location = pt + '_view.php?Embedded=' + (embedded_mode ? '1' : '') + '&SelectedID=' + encodeURIComponent(parent_id);
+							break;
+						case 'view_parent_new_window':
+							window.open(pt + '_view.php?SelectedID=' + encodeURIComponent(parent_id));
+							break;
+					}
+
+				}
+			});
+
+			enforce_uniqueness('item', 'identificacao');
+
+			/* load admin tools for admin user */
+			if(!add_new_mode){
+				$j('body').append('<div id="admin-tools-appendix"></div>');
+				$j('#admin-tools-appendix').load(
+					'ajax_admin_tools.php?table=item&id=<%%URLVALUE(id)%%>',
+					function(resp){
+						if(!resp.length) return;
+						$j.ajax('ajax_admin_tools.php?action=get_admin_tools_js&table=item&id=<%%URLVALUE(id)%%>');
+					}
+				);
+			}
+
+			/* warn user if 'add new' clicked while unsaved changes exist */
+			$j('#addNew').click(function(){
+				if($j('#deselect.btn-warning').length){
+					return confirm('<%%TRANSLATION(discard changes confirm)%%>');
+				}
+			});
+
+		});
+	</script>

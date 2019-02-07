@@ -1,0 +1,10 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the  and  formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- add the following to the grupo_init() hook (in hooks/grupo.php file) -->
+<!--     $options->ShowTableHeader = 0;     -->
+
+		<td id="grupo-colecao-<%%VALUE(id)%%>" class="grupo-colecao"><%%VALUE(colecao)%%></td>
+		<td id="grupo-grupo-<%%VALUE(id)%%>" class="grupo-grupo"><%%VALUE(grupo)%%></td>
+		<td id="grupo-codigo_grupo-<%%VALUE(id)%%>" class="grupo-codigo_grupo"><%%VALUE(codigo_grupo)%%></td>
