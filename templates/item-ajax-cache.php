@@ -8,6 +8,9 @@
 
 		/* data for selected record, or defaults if none is selected */
 		var data = {
+			idioma: <?php echo json_encode(array('id' => $rdata['idioma'], 'value' => $rdata['idioma'], 'text' => $jdata['idioma'])); ?>,
+			local_publicacao_veiculo: <?php echo json_encode(array('id' => $rdata['local_publicacao_veiculo'], 'value' => $rdata['local_publicacao_veiculo'], 'text' => $jdata['local_publicacao_veiculo'])); ?>,
+			tipo_publicacao: <?php echo json_encode(array('id' => $rdata['tipo_publicacao'], 'value' => $rdata['tipo_publicacao'], 'text' => $jdata['tipo_publicacao'])); ?>,
 			colecao: <?php echo json_encode(array('id' => $rdata['colecao'], 'value' => $rdata['colecao'], 'text' => $jdata['colecao'])); ?>,
 			colecao_codigo: <?php echo json_encode($jdata['colecao_codigo']); ?>,
 			grupo: <?php echo json_encode(array('id' => $rdata['grupo'], 'value' => $rdata['grupo'], 'text' => $jdata['grupo'])); ?>,
@@ -16,9 +19,6 @@
 			serie_codigo: <?php echo json_encode($jdata['serie_codigo']); ?>,
 			subserie: <?php echo json_encode(array('id' => $rdata['subserie'], 'value' => $rdata['subserie'], 'text' => $jdata['subserie'])); ?>,
 			tipologia: <?php echo json_encode(array('id' => $rdata['tipologia'], 'value' => $rdata['tipologia'], 'text' => $jdata['tipologia'])); ?>,
-			idioma: <?php echo json_encode(array('id' => $rdata['idioma'], 'value' => $rdata['idioma'], 'text' => $jdata['idioma'])); ?>,
-			local_publicacao_veiculo: <?php echo json_encode(array('id' => $rdata['local_publicacao_veiculo'], 'value' => $rdata['local_publicacao_veiculo'], 'text' => $jdata['local_publicacao_veiculo'])); ?>,
-			tipo_publicacao: <?php echo json_encode(array('id' => $rdata['tipo_publicacao'], 'value' => $rdata['tipo_publicacao'], 'text' => $jdata['tipo_publicacao'])); ?>,
 			genero: <?php echo json_encode(array('id' => $rdata['genero'], 'value' => $rdata['genero'], 'text' => $jdata['genero'])); ?>,
 			formato: <?php echo json_encode(array('id' => $rdata['formato'], 'value' => $rdata['formato'], 'text' => $jdata['formato'])); ?>,
 			suporte: <?php echo json_encode(array('id' => $rdata['suporte'], 'value' => $rdata['suporte'], 'text' => $jdata['suporte'])); ?>,
@@ -33,6 +33,30 @@
 		AppGini.cache = AppGini.cache || {};
 		AppGini.cache[tn] = AppGini.cache[tn] || AppGini.ajaxCache();
 		var cache = AppGini.cache[tn];
+
+		/* saved value for idioma */
+		cache.addCheck(function(u, d){
+			if(u != 'ajax_combo.php') return false;
+			if(d.t == tn && d.f == 'idioma' && d.id == data.idioma.id)
+				return { results: [ data.idioma ], more: false, elapsed: 0.01 };
+			return false;
+		});
+
+		/* saved value for local_publicacao_veiculo */
+		cache.addCheck(function(u, d){
+			if(u != 'ajax_combo.php') return false;
+			if(d.t == tn && d.f == 'local_publicacao_veiculo' && d.id == data.local_publicacao_veiculo.id)
+				return { results: [ data.local_publicacao_veiculo ], more: false, elapsed: 0.01 };
+			return false;
+		});
+
+		/* saved value for tipo_publicacao */
+		cache.addCheck(function(u, d){
+			if(u != 'ajax_combo.php') return false;
+			if(d.t == tn && d.f == 'tipo_publicacao' && d.id == data.tipo_publicacao.id)
+				return { results: [ data.tipo_publicacao ], more: false, elapsed: 0.01 };
+			return false;
+		});
 
 		/* saved value for colecao */
 		cache.addCheck(function(u, d){
@@ -113,30 +137,6 @@
 			if(u != 'ajax_combo.php') return false;
 			if(d.t == tn && d.f == 'tipologia' && d.id == data.tipologia.id)
 				return { results: [ data.tipologia ], more: false, elapsed: 0.01 };
-			return false;
-		});
-
-		/* saved value for idioma */
-		cache.addCheck(function(u, d){
-			if(u != 'ajax_combo.php') return false;
-			if(d.t == tn && d.f == 'idioma' && d.id == data.idioma.id)
-				return { results: [ data.idioma ], more: false, elapsed: 0.01 };
-			return false;
-		});
-
-		/* saved value for local_publicacao_veiculo */
-		cache.addCheck(function(u, d){
-			if(u != 'ajax_combo.php') return false;
-			if(d.t == tn && d.f == 'local_publicacao_veiculo' && d.id == data.local_publicacao_veiculo.id)
-				return { results: [ data.local_publicacao_veiculo ], more: false, elapsed: 0.01 };
-			return false;
-		});
-
-		/* saved value for tipo_publicacao */
-		cache.addCheck(function(u, d){
-			if(u != 'ajax_combo.php') return false;
-			if(d.t == tn && d.f == 'tipo_publicacao' && d.id == data.tipo_publicacao.id)
-				return { results: [ data.tipo_publicacao ], more: false, elapsed: 0.01 };
 			return false;
 		});
 
