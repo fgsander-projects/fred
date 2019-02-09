@@ -17,7 +17,7 @@
               Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>PDMS &copy; 2018 <a href="#">Piattaforma Digitale Management System</a>.</strong> All rights reserved.
+            <strong>&copy; 2019 <a href="#">Acervo Frederico Morais</a>.</strong> All rights reserved.
             <!-- Add footer template above here -->
             <div class="clearfix"></div>
             <?php if(!defined('APPGINI_SETUP') && is_file(dirname(__FILE__) . '/hooks/footer-extras.php')){ include(dirname(__FILE__).'/hooks/footer-extras.php'); } ?>
