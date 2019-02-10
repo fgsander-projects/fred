@@ -25,7 +25,7 @@ function makeCode() {
     var identificacao = colec.trim() + "_" + group.trim() + "_" + serie.trim() + "_" + numSerie.trim();
 
     $j.get("hooks/item_AJAX.php", 
-        {data: {"colecao_codigo":colec,"grupo_codigo":group,"serie_codigo":serie}, id:"01", cmd:"lastNumber"},
+        {codes: {"colecao_codigo":colec,"grupo_codigo":group,"serie_codigo":serie}, id:"01", cmd:"lastNumber"},
         function (data) {
             console.log(data);
             // $identificacao.val(identificacao);

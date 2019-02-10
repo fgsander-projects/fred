@@ -13,9 +13,8 @@ if(isset($_REQUEST['cmd']) && isset($_REQUEST['id'])){
     echo json_encode($data, true);
 }
 
-function getLastNumber($codes){
-    $data = json_decode($codes);
-    $where_id =" AND item.colecao_codigo = {$data['colecao_codigo']} AND item.grupo_codigo = {$data['grupo_codigo']} AND item.serie_codigo = {$data['serie_codigo']} ORDER BY item.numero_serie DESC LIMIT 1;";
-    $res = getDataTable('item', $where_id,true);
+function getLastNumber($data){
+    $where_id =" AND item.colecao_codigo = '{$data['colecao_codigo']}' AND item.grupo_codigo = '{$data['grupo_codigo']}' AND item.serie_codigo = '{$data['serie_codigo']}' ORDER BY item.numero_serie DESC LIMIT 1;";
+    $res = getDataTable_Values('item', $where_id, true);
     return $res;
 }
