@@ -20,7 +20,7 @@
                                   ?>
                               </h3>
 
-                              <p>New Orders</p>
+                              <p>New itens</p>
                             </div>
                             <div class="icon">
                               <i class="fa fa-shopping-cart"></i>
