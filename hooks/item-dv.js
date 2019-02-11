@@ -16,19 +16,22 @@ $body.on('DOMSubtreeModified', "#colecao_codigo, #grupo_codigo, #serie_codigo", 
     colec = $j("#colecao_codigo").text();
     group = $j("#grupo_codigo").text();
     serie = $j("#serie_codigo").text();
-    console.log(colec.trim(), group.trim(),serie.trim());
     makeCode();
     
 });
 
 function makeCode() {
-    var identificacao = colec.trim() + "_" + group.trim() + "_" + serie.trim() + "_" + numSerie.trim();
 
     $j.get("hooks/item_AJAX.php", 
         {codes: {"colecao_codigo":colec,"grupo_codigo":group,"serie_codigo":serie}, id:"01", cmd:"lastNumber"},
         function (data) {
-            console.log(data);
-            // $identificacao.val(identificacao);
+            if (data){
+                data.numero_serie = null ? 0 : parseInt(data.numero_serie) || 0;
+                numSerie = data.numero_serie + 1;
+                var h=("000" + (numSerie)).slice (-3);
+                var identificacao = colec.trim() + "_" + group.trim() + "_" + serie.trim() + "_" + h;
+                $identificacao.val(identificacao);
+            }
             
         },
         "json"
