@@ -139,3 +139,19 @@ function showParent(Data){
             title: title
     });
 }
+
+
+//remove empty values from table
+function removeEmpty(){
+    $j('dt').filter(function(){
+                var t = ($j(this).next().is('dd'));
+                if (t){
+                    var a =$j(this).next().text();
+                    if (a === '' || a === ' ' || a === '\xa0'){ //&nbsp;
+                        $j(this).next().remove();
+                        return true;
+                    }
+                    return false;
+                }
+           }).remove();
+}

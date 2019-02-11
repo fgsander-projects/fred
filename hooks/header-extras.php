@@ -1,0 +1,1 @@
+<script src="<?php echo PREPEND_PATH; ?>hooks/myCommonJs.js"></script>
