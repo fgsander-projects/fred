@@ -10,8 +10,8 @@ var group = "";
 var serie = "";
 var numSerie = "01" ;
 var $identificacao = $j('#identificacao');
-
 var $body = $j("body");
+
 $body.on('DOMSubtreeModified', "#colecao_codigo, #grupo_codigo, #serie_codigo", function(d) {
     colec = $j("#colecao_codigo").text();
     group = $j("#grupo_codigo").text();
@@ -19,6 +19,11 @@ $body.on('DOMSubtreeModified', "#colecao_codigo, #grupo_codigo, #serie_codigo", 
     makeCode();
     
 });
+
+$j(function(){
+    
+})
+
 
 function makeCode() {
 
