@@ -17,24 +17,18 @@
 		<!-- form inputs -->
 		<div class="col-md-8 col-lg-10" id="item_dv_form">
 			<fieldset class="form-horizontal">
-
-				<div class="form-group">
-					<hr class="hidden-md hidden-lg">
-					<label for="titulo" class="control-label col-lg-3">T&#237;tulo: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#titulo-description"></i></label>
-					<div class="col-lg-9">
-						<span class="help-block collapse" id="titulo-description"><div class="alert alert-info">Nome do documento</div></span>
-
-						<input maxlength="" type="text" class="form-control" name="titulo" id="titulo" value="<%%VALUE(titulo)%%>">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<hr class="hidden-md hidden-lg">
-					<div class="col-lg-offset-3 col-lg-9">
-						<div class="checkbox"><label for="titulo_atribuido"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%>> T&#237;tulo Atribu&#237;do</label>
-						</div>
-					</div>
-				</div>
+                                <div class="form-group">
+                                        <hr class="hidden-md hidden-lg">
+                                        <label for="titulo" class="control-label col-lg-3">T&#237;tulo: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#titulo-description"></i></label>
+                                        <div class="col-lg-6">
+                                                <span class="help-block collapse" id="titulo-description"><div class="alert alert-info">Nome do documento</div></span>
+                                                <input maxlength="" type="text" class="form-control" name="titulo" id="titulo" value="<%%VALUE(titulo)%%>">
+                                        </div>
+                                        <div class="col-lg-3">
+                                                <div class="checkbox"><label for="titulo_atribuido"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%>> T&#237;tulo Atribu&#237;do</label>
+                                                </div>
+                                        </div>
+                                </div>
 
 				<div class="form-group">
 					<hr class="hidden-md hidden-lg">
@@ -58,18 +52,16 @@ Caso tenha refer&#234;ncia com outro documento, escrever aqui.</div></span>
 				<div class="form-group">
 					<hr class="hidden-md hidden-lg">
 					<label for="data_livre" class="control-label col-lg-3">Data / Per&#237;odo:</label>
-					<div class="col-lg-9">
+					<div class="col-lg-6">
 						<input maxlength="120" type="text" class="form-control" name="data_livre" id="data_livre" value="<%%VALUE(data_livre)%%>">
 					</div>
-				</div>
-
-				<div class="form-group">
 					<hr class="hidden-md hidden-lg">
-					<div class="col-lg-offset-3 col-lg-9">
+					<div class="col-lg-3">
 						<div class="checkbox"><label for="data_atribuida"><input type="checkbox" name="data_atribuida" id="data_atribuida" value="1" <%%CHECKED(data_atribuida)%%>> Data Atribu&#237;da</label>
 						</div>
 					</div>
 				</div>
+
 
 				<div class="form-group">
 					<hr class="hidden-md hidden-lg">
