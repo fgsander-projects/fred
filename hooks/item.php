@@ -71,12 +71,29 @@
 	}
 
 	function item_before_insert(&$data, $memberInfo, &$args){
-
+		// antes de insertar
+		// recuperar el código
+		$itemData = getDataTable('item'," item.id = {$data['id']}");
+		if( !function_exists('getLastNumber')){
+			include_once ('item_AJAX.php');
+		}
+		$codes =[
+			"colec"		=> $itemData['colecao_codigo'],
+			"group"		=> $itemData['grupo_codigo'],
+			"serie"		=> $itemData['serie_codigo'],
+			"numSerie" 	=> ""
+		];
+		$res = getLastNumber($codes);
+		$next = 1;
+		if ($res['numero_serie']){
+			$next = $res['numero_serie'] + 1;
+		}
+		sql("UPDATE item set item.'numero_serie = '$next' WHERE item.id = {$data['id']}",$e);
 		return TRUE;
 	}
 
 	function item_after_insert($data, $memberInfo, &$args){
-
+		
 		return TRUE;
 	}
 
