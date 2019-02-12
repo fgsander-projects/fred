@@ -72,23 +72,26 @@
 
 	function item_before_insert(&$data, $memberInfo, &$args){
 		// antes de insertar
-		// recuperar el código
-		$itemData = getDataTable('item'," item.id = {$data['id']}");
 		if( !function_exists('getLastNumber')){
 			include_once ('item_AJAX.php');
 		}
+
 		$codes =[
-			"colec"		=> $itemData['colecao_codigo'],
-			"group"		=> $itemData['grupo_codigo'],
-			"serie"		=> $itemData['serie_codigo'],
-			"numSerie" 	=> ""
+			"colec"		=> sqlValue("select codigo_colecao from colecao where colecao.id = ".$data['colecao_codigo']),
+			"group"		=> sqlValue("select codigo_grupo from grupo where grupo.id = ".$data['grupo_codigo']),
+			"serie"		=> sqlValue("select codigo from serie where serie.id = ".$data['serie_codigo'])
 		];
+
+
 		$res = getLastNumber($codes);
-		$next = 1;
-		if ($res['numero_serie']){
-			$next = $res['numero_serie'] + 1;
+		$next = intval($res['numero_serie']) + 1;
+		
+		if ($data['numero_serie'] != $next){
+			$data['numero_serie'] = $next;
+			$next = substr("000".$next,-3);
+			//hacer el código
+			$data['identificacao'] = $codes['colec']."_".$codes['group']."_".$codes['serie']."_".$next;
 		}
-		sql("UPDATE item set item.'numero_serie = '$next' WHERE item.id = {$data['id']}",$e);
 		return TRUE;
 	}
 
