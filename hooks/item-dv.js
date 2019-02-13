@@ -28,11 +28,11 @@ function getSerie($codigo) {
             }else{
                 $codigo.numSerie = "001";
             }
-            // makeCode($codigo);
+            makeCode($codigo);
         },
         "json"
         );
-    makeCode($codigo);
+//    makeCode($codigo);
 }
     
 function makeCode($codigo){

@@ -73,15 +73,13 @@
 	function item_before_insert(&$data, $memberInfo, &$args){
 		// antes de insertar
 		// recuperar el código
-		$itemData = getDataTable('item'," item.id = {$data['id']}");
 		if( !function_exists('getLastNumber')){
 			include_once ('item_AJAX.php');
 		}
 		$codes =[
-			"colec"		=> $itemData['colecao_codigo'],
-			"group"		=> $itemData['grupo_codigo'],
-			"serie"		=> $itemData['serie_codigo'],
-			"numSerie" 	=> ""
+			"colec"		=> $data['colecao_codigo'],
+			"group"		=> $data['grupo_codigo'],
+			"serie"		=> $data['serie_codigo']
 		];
 		$res = getLastNumber($codes);
 		$next = 1;
