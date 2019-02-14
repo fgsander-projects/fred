@@ -21,18 +21,21 @@
 				<div class="form-group">
 					<hr class="hidden-md hidden-lg">
 					<label for="titulo" class="control-label col-lg-3">T&#237;tulo: <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#titulo-description"></i></label>
-					<div class="col-lg-9">
-						<span class="help-block collapse" id="titulo-description"><div class="alert alert-info">Nome do documento</div></span>
-
+					
+                                        <div class="col-lg-9">
+                                            <div class="input-group">
+                                                <span class="help-block collapse" id="titulo-description"><div class="alert alert-info">Nome do documento</div></span>
 						<input maxlength="" type="text" class="form-control" name="titulo" id="titulo" value="<%%VALUE(titulo)%%>">
+						<span class="input-group-addon">
+                                                    <span for="titulo_atribuido"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%>> <span>T&#237;tulo Atribu&#237;do</span></span>
+						</span>
+                                            </div>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<hr class="hidden-md hidden-lg">
 					<div class="col-lg-offset-3 col-lg-9">
-						<div class="checkbox"><label for="titulo_atribuido"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%>> T&#237;tulo Atribu&#237;do</label>
-						</div>
 					</div>
 				</div>
 
@@ -141,14 +144,7 @@ Caso tenha refer&#234;ncia com outro documento, escrever aqui.</div></span>
 					<hr class="hidden-md hidden-lg">
 					<label for="date" class="control-label col-lg-3">Data:</label>
 					<div class="col-lg-9">
-<<<<<<< HEAD
 						<%%COMBO(date)%%>
-=======
-						<span class="help-block collapse" id="identificacao-description"><div class="alert alert-info">C&#243;digo atribu&#237;do aos documentos</div></span>
-
-						<input maxlength="80" type="text" class="form-control" name="identificacao" id="identificacao" value="<%%VALUE(identificacao)%%>" required><div class="text-danger vspacer-md" id="identificacao-uniqueness-note" style="display: none;"><%%TRANSLATION(unique field error)%%></div>
-						<input maxlength="80" type="text" class="form-control" name="numero_serie" id="numero_serie" value="<%%VALUE(numero_serie)%%>" required><div class="text-danger vspacer-md" id="identificacao-uniqueness-note" style="display: none;"><%%TRANSLATION(unique field error)%%></div>
->>>>>>> 8d0c70b3d7dbeb1c1e684a34bcc3bc834c3c2403
 					</div>
 				</div>
 

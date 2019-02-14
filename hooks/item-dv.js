@@ -42,13 +42,8 @@ function getSerie($codigo) {
             makeCode($codigo);
         },
         "json"
-<<<<<<< HEAD
         );
 //    makeCode($codigo);
-=======
-    );
-    // makeCode($codigo);
->>>>>>> 8d0c70b3d7dbeb1c1e684a34bcc3bc834c3c2403
 }
 
 function makeCode($codigo){
