@@ -71,6 +71,12 @@
 	}
 
 	function item_before_insert(&$data, $memberInfo, &$args){
+		$data = validate_Code($data);
+		return TRUE;
+	}
+
+	
+	function validate_Code(&$data){
 		// antes de insertar
 		// recuperar el código
 		if( !function_exists('getLastNumber')){
@@ -93,8 +99,10 @@
 			//hacer el código
 			$data['identificacao'] = $codes['colec']."_".$codes['group']."_".$codes['serie']."_".$next;
 		}
-		return TRUE;
+		return $data;
 	}
+
+
 
 	function item_after_insert($data, $memberInfo, &$args){
 		
