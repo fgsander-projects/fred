@@ -1,8 +1,10 @@
+/* global $j */
+
 $j(function(){
     $j('#identificacao').attr('readonly',true);
-    $j('#numero_serie').attr('readonly',true)
-    $actionButtons = $j('#item_dv_action_buttons .btn-toolbar')
-    $actionButtons.prepend(' <div id="imagesThumbs"></div>')        
+    $j('#numero_serie').attr('readonly',true);
+    var $actionButtons = $j('#item_dv_action_buttons .btn-toolbar');
+    $actionButtons.prepend(' <div id="imagesThumbs"></div>')    ;    
     $actionButtons.append('<p></p><div id="uploadFrame"></div>');
             
     var $body = $j("body");
@@ -15,10 +17,10 @@ $j(function(){
                 $codigo.numSerie = $j('#numero_serie').val();
                 getSerie($codigo);
             }
-        },500)
+        },500);
     });
     setInterval();
-})
+});
 
 function setValue(){
     var $codigo = {
