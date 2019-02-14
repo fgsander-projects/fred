@@ -1,7 +1,9 @@
 <?php
 header('Content-type: application/json');
 $currDir = dirname(__FILE__);
-include("$currDir/../lib.php");
+if (!function_exists('sql')){
+    include("$currDir/../lib.php");
+}
 
 if(isset($_REQUEST['cmd']) && isset($_REQUEST['id'])){
     $id=makeSafe($_REQUEST['id']);
@@ -13,8 +15,28 @@ if(isset($_REQUEST['cmd']) && isset($_REQUEST['id'])){
     echo json_encode($data, true);
 }
 
-function getLastNumber($data){
-    $where_id =" AND colecao1.codigo_colecao = '{$data['colecao_codigo']}' AND grupo1.codigo_grupo = '{$data['grupo_codigo']}' AND serie1.codigo = '{$data['serie_codigo']}' ORDER BY item.numero_serie DESC LIMIT 1;";
+function getLastNumber($codes){
+    // var_dump($data);
+    array_walk($codes, 'trim_value');
+    $where_id =" AND colecao1.codigo_colecao = '{$codes['colec']}' AND grupo1.codigo_grupo = '{$codes['group']}' AND serie1.codigo = '{$codes['serie']}' ORDER BY item.numero_serie DESC LIMIT 1;";
     $res = getDataTable('item', $where_id);
+    
+    $resCodes = [
+        "colec"		    => $res['colecao_codigo'],
+        "group"		    => $res['grupo_codigo'],
+        "serie"		    => $res['serie_codigo'],
+        "numSerie"	=> $res['numero_serie']
+    ];
+
+    if($resCodes === $codes){
+        //not changue
+        return $null;
+    }
+
     return $res;
+}
+
+function trim_value(&$value) 
+{ 
+    $value = trim($value); 
 }
