@@ -1,19 +1,29 @@
+/* global $j */
+
 $j(function(){
-    $j('#identificacao').attr('readonly',true);
-    $j('#numero_serie').attr('readonly',true)
+    $j('#identificacao, #numero_serie, #uploads').attr('readonly',true);
+    
+    var $actionButtons = $j('#item_dv_action_buttons .btn-toolbar');
+        $actionButtons.prepend(' <div id="imagesThumbs"></div>')    ;    
+        $actionButtons.append('<p></p><div id="uploadFrame"></div>');
+            
     var $body = $j("body");
-    $body.on('DOMSubtreeModified', "#colecao_codigo, #grupo_codigo, #serie_codigo", function(d) {
-        if (is_add_new()){
-            getSerie(setValue());
-        }else{
-            setTimeout(function(){
+    $body.on('DOMSubtreeModified', "#colecao_codigo, #grupo_codigo, #serie_codigo", function() {
+        setTimeout(function(){
+            if (is_add_new()){
+                getSerie(setValue());
+            }else{
                 $codigo = setValue();
                 $codigo.numSerie = $j('#numero_serie').val();
                 getSerie($codigo);
-            },1000)
-        }
+            }
+        },500);
     });
-})
+    
+    $j('#uploadFrame').load('hooks/multipleUpload/index.php',{folder: '/safra/images'});
+        
+    
+});
 
 function setValue(){
     var $codigo = {
