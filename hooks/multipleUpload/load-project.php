@@ -44,31 +44,7 @@
 	  acceptedFiles: ext,
 	  uploadMultiple: false,
 	  accept: function(file, done) {
-                nullFunction();
-                if (thisTable() === 'sinagoga'){
-                    var minSize = parseInt('<?php echo $this->minImageSize; ?>') || 0;
-                    var type = file.type;
-                    type = type.split("/");
-                    if (type[0] === 'image'){
-                        var fr = new FileReader;
-                        fr.onload = function() { // file is loaded
-                            var img = new Image;
-                            img.onload = function() {
-                                if(img.width >= minSize || img.height >= minSize){
-                                    done();
-                                }else{
-                                    done('min file size 1200px');
-                                }
-                            };
-                            img.src = fr.result; // is the data URL because called with readAsDataURL
-                        };
-                        fr.readAsDataURL(this.files[0]); // I'm using a <input type="file"> for demonstrating
-                    }else{
-                        done();
-                    }
-                }else{
                     done();
-                }
 	  },
 	  init: function() {
                         this.on("success", function(file, response) {
@@ -79,7 +55,7 @@
                                                     var successDiv = $j("<div>", {class: "alert alert-success" , style: "display: none; padding-top: 6px; padding-bottom: 6px;"});
                                                     var successMsg = "File uploaded successfully."+(response.isRenamed?"<br>The project name already exists, the file was renamed to "+response.fileName+".":"");
 
-                                            //function in safra_acervo-dv.js
+                                            //function in upload.js
                                                     jsonImages(b);
                                             ////////////////////////////////
 

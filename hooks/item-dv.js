@@ -1,5 +1,9 @@
 /* global $j */
 
+function thisTable(){
+    return 'item';
+}
+
 $j(function(){
     $j('#identificacao, #numero_serie, #uploads').attr('readonly',true);
     
@@ -21,7 +25,9 @@ $j(function(){
     });
     
     $j('#uploadFrame').load('hooks/multipleUpload/index.php',{folder: '/safra/images'});
-        
+    
+    var a = getUploadedFile();
+    loadImages($j('#titulo').val());
     
 });
 

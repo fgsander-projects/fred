@@ -106,7 +106,7 @@
 
 				//if file exceeded the filesize, no file will be sent
 				if(!isset($_FILES['uploadedFile'])) {	
-							throw new RuntimeException("No file sent you must upload a file not greater than $maxFileSize");
+                                    throw new RuntimeException("No file sent you must upload a file not greater than $maxFileSize");
 				}
 				
 				$file = pathinfo($_FILES['uploadedFile']['name']);

@@ -129,6 +129,24 @@
 	}
 
 	function item_dv($selectedID, $memberInfo, &$html, &$args){
+            
+            
+            // add actions buttons
+            if(!function_exists('mkbuttons')){
+                    include'_mkbuttons.php';
+                }
+            $buttons = [];
+            
+            $buttons['gallery']['openGallery']['name'] = 'Arquivos Digitais';
+            $buttons['gallery']['openGallery']['insert'] = false;
+            $buttons['gallery']['openGallery']['update'] = true;
+            $buttons['gallery']['openGallery']['style'] = 'info';
+            $buttons['gallery']['openGallery']['icon'] = 'fa fa-files-o';
+            $buttons['gallery']['openGallery']['onclick'] = "script|var btn = \$j('#openGalery').button('loading');openGalery(btn);";
+            $buttons['gallery']['openGallery']['confirm'] = '';
+            $buttons['gallery']['openGallery']['attr'] = 'data-loading-text="Loading..."';
+            
+            $html .= mkbuttons('item', $selectedID, $buttons);
 
 	}
 

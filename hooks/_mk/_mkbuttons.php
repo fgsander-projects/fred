@@ -190,6 +190,12 @@ function mkbuttons($table, $selectedID, &$buttons) {
 				$icon = '';
 			}
 
+                        if ($button['attr']) {
+                            $attr = $button['attr'].' ';
+                        }else{
+                            $attr = '';
+                        }
+                        
 			// conventions for button ID and default PHP
 
 //			$btnid = "{$table}_{$group}_{$buttonid}";
@@ -200,7 +206,7 @@ function mkbuttons($table, $selectedID, &$buttons) {
 			// output the button code
 
 			$html .= '<button type="button" '
-			       . 'id="'.$btnid.'" '
+			       . 'id="'.$btnid.'" '.$attr
 			       . 'class="btn btn-'.$style.' btn-lg">'
 			       . $icon
 			       . $name
