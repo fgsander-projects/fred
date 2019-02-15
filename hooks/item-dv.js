@@ -1,5 +1,9 @@
 /* global $j */
 
+function thisTable(){
+    return 'item';
+}
+
 $j(function(){
     $j('#identificacao, #numero_serie, #uploads').attr('readonly',true);
     

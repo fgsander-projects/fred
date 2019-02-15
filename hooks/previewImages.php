@@ -120,8 +120,8 @@ if ($cmd !== ''){
                 case 'form':
                     $form = '';
                     //carga un formulario para ver las opciones de la imágen!
-                    include 'pdf-text/PdfToText.phpclass';
-                    include 'requestDownload_AJX.php';
+//                    include 'pdf-text/PdfToText.phpclass';
+//                    include 'requestDownload_AJX.php';
                     $mi= getMemberInfo();
                     usort($json['images'], 'cmp');
                     //vairifica y agrega que todos los item tenga el campo de aprobación, solo se guarda si el usuario hace click en salvar.
