@@ -6,7 +6,7 @@
                 
 		$error_msgs = array();
 		$plugins_error = false;
-                $folder = '';
+                $folder = 'safra/images/';
                 
 		if( !@include("{$base_dir}/lib.php") ) $plugins_error = true;
 		if( !@include("{$resources_dir}/AppGiniPlugin.php") ) $plugins_error = true;
@@ -16,16 +16,12 @@
 		$foldersConfig ->folder= $folder;
 		
 		if($plugins_error) $error_msgs[] = "The plugin was not installed correctly, you must put it inside the plugins folder under you main AppGini application folder.";
-		
-                
                 
                 $base_dir .=$foldersConfig ->folder;
                 $original_dir = $base_dir.$foldersConfig ->original;
                 $thumbs_dir = $base_dir.$foldersConfig ->thumbs;
                 $loRes_dir = $base_dir.$foldersConfig ->loRes;
                         
-                
-                
 		/* Ensure that the projects folder has write permission */
 		if ( !is_dir("{$base_dir}")){
 			if (! @mkdir ( "{$base_dir}" , 0775)){
@@ -47,9 +43,6 @@
 				$error_msgs[] = 'Could not create images directory.<br>Please create \'' . $loRes_dir . '\' directory inside the edirectory.';		
 			}
 		}
-                
-                
-		
 		if ( ! is_writable( "$base_dir" )){
 			$error_msgs[] = 'Please, change the permission of the \'' . $base_dir. '\' folder to be writeable.';		
 		}
@@ -62,7 +55,6 @@
 		if ( ! is_writable( "$loRes_dir" )){
 			$error_msgs[] = 'Please, change the permission of the \'' . $loRes_dir . '\' folder to be writeable.';		
 		}
-                
 		if(count($error_msgs)){
 			?>
 				<div class="container" style="margin-top: 5em;">
