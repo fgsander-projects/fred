@@ -273,7 +273,7 @@
 	$x->QuickSearch = 1;
 	$x->QuickSearchText = $Translation["quick search"];
 	$x->ScriptFileName = "item_view.php";
-	$x->RedirectAfterInsert = "item_view.php?addNew_x=1";
+	$x->RedirectAfterInsert = "item_view.php?SelectedID=#ID#";
 	$x->TableTitle = "Itens";
 	$x->TableIcon = "resources/table_icons/curriculum_vitae.png";
 	$x->PrimaryKey = "`item`.`id`";
