@@ -121,6 +121,15 @@
 			'id' => array('appgini' => 'INT unsigned not null primary key auto_increment '),
 			'numero_pasta' => array('appgini' => 'INT unsigned not null '),
 			'nome_pasta' => array('appgini' => 'TEXT not null ')
+		),
+		'items_salvos' => array(   
+			'id' => array('appgini' => 'INT unsigned not null primary key auto_increment '),
+			'memberID' => array('appgini' => 'VARCHAR(40) null '),
+			'tableName' => array('appgini' => 'VARCHAR(40) null '),
+			'pkValue' => array('appgini' => 'VARCHAR(40) null '),
+			'groupID' => array('appgini' => 'VARCHAR(40) null '),
+			'dateAdded' => array('appgini' => 'VARCHAR(40) null '),
+			'text' => array('appgini' => 'TEXT null ')
 		)
 	);
 

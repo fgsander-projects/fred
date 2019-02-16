@@ -1,4 +1,5 @@
 $j(function(){
+    initTable();
     removeEmpty();
     showTumbs();
 });

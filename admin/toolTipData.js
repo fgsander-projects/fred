@@ -299,6 +299,24 @@ nome_pasta_delete1Tip=["",spacer+"This option allows each member of the group to
 nome_pasta_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Nome da Pasta' table."];
 nome_pasta_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Nome da Pasta' table."];
 
+// items_salvos table
+items_salvos_addTip=["",spacer+"This option allows all members of the group to add records to the 'Items' table. A member who adds a record to the table becomes the 'owner' of that record."];
+
+items_salvos_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Items' table."];
+items_salvos_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Items' table."];
+items_salvos_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Items' table."];
+items_salvos_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Items' table."];
+
+items_salvos_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Items' table."];
+items_salvos_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Items' table."];
+items_salvos_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Items' table."];
+items_salvos_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Items' table, regardless of their owner."];
+
+items_salvos_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Items' table."];
+items_salvos_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Items' table."];
+items_salvos_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Items' table."];
+items_salvos_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Items' table."];
+
 /*
 	Style syntax:
 	-------------

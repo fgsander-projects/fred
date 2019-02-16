@@ -317,6 +317,8 @@
 				'list_type' => 0,
 				'not_null' => true
 			)
+		),
+		'items_salvos' => array(  
 		)
 	);
 
