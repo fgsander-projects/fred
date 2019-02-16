@@ -66,12 +66,7 @@ function recountsItems(tableName){
             success: function(response){
 //                    alert('saved items: '+ response);
                     $j('.itemSalvos').text(response);
-                    if (content_type() !== 'print-tableview'){
-                        checkButtons(tableName);
-                    }else{
-                        $j(".hidden-print").hide();
-                        removeEmpty();
-                    }
+                    checkButtons(tableName);
                     return response;
             }
         });

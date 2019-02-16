@@ -43,7 +43,7 @@
                                     <li class="user-body">
                                       <div class="row">
                                         <div class="col-xs-6 text-center">
-                                          <a href="#" class="btn btn-app"><i class="fa fa-shopping-cart"></i> My Orders</a>
+                                          <a href="items_salvos_view.php" class="btn btn-app"><i class="fa fa-heart"></i> Itens Salvos</a>
                                         </div>
                                             <?php if(getLoggedAdmin()){ ?>
                                             <div class="col-xs-6 text-center">

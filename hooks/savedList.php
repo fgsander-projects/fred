@@ -6,7 +6,10 @@
  * and open the template in the editor.
  */
 
-include("../lib.php");
+
+ if (!function_exists('sql')){
+     include("../lib.php");
+ }
 /* grant access to all logged users */
 $mi = getMemberInfo();
 if(!$mi['username'] || $mi['username'] == 'guest'){
@@ -63,6 +66,6 @@ function addToList($id,$table,$image){
 
 function recountItems(){
     $mi = getMemberInfo();
-    $num = sqlValue("select count(pkValue) from itemsSalvos where memberID = '{$mi['username']}'");
+    $num = sqlValue("select count(pkValue) from items_salvos where memberID = '{$mi['username']}'");
     return $num;
 }
