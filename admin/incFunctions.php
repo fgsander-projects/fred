@@ -203,6 +203,13 @@
 					'tableIcon' => 'resources/table_icons/folders.png',
 					'group' => $tg[3],
 					'homepageShowCount' => 0
+				),
+				'items_salvos' => array(
+					'Caption' => 'Items',
+					'Description' => '',
+					'tableIcon' => 'table.gif',
+					'group' => $tg[0],
+					'homepageShowCount' => 0
 				)
 		);
 
@@ -234,7 +241,8 @@
 				'numero_caixa' => 'N&#250;mero da Caixa',
 				'nome_caixa' => 'Nome da Caixa',
 				'numero_pasta' => 'N&#250;mero da Pasta',
-				'nome_pasta' => 'Nome da Pasta'
+				'nome_pasta' => 'Nome da Pasta',
+				'items_salvos' => 'Items'
 			);
 
 			return $arrTables;

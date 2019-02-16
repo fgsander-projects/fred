@@ -60,7 +60,8 @@
 			'numero_caixa' => array('N&#250;mero da Caixa', '', 'resources/table_icons/box_front.png', 'Localiza&#231;&#227;o'),
 			'nome_caixa' => array('Nome da Caixa', '', 'resources/table_icons/box_front.png', 'Localiza&#231;&#227;o'),
 			'numero_pasta' => array('N&#250;mero da Pasta', '', 'resources/table_icons/folders.png', 'Localiza&#231;&#227;o'),
-			'nome_pasta' => array('Nome da Pasta', '', 'resources/table_icons/folders.png', 'Localiza&#231;&#227;o')
+			'nome_pasta' => array('Nome da Pasta', '', 'resources/table_icons/folders.png', 'Localiza&#231;&#227;o'),
+			'items_salvos' => array('Items', '', 'table.gif', 'Acervo')
 		);
 		if($skip_authentication || getLoggedAdmin()) return $arrTables;
 
@@ -162,7 +163,8 @@
 			'numero_caixa' => "`numero_caixa`.`id` as 'id', `numero_caixa`.`numero_caixa` as 'numero_caixa'",
 			'nome_caixa' => "`nome_caixa`.`id` as 'id', IF(    CHAR_LENGTH(`numero_caixa1`.`numero_caixa`), CONCAT_WS('',   `numero_caixa1`.`numero_caixa`), '') as 'numero_caixa', `nome_caixa`.`nome_caixa` as 'nome_caixa'",
 			'numero_pasta' => "`numero_pasta`.`id` as 'id', `numero_pasta`.`numero_pasta` as 'numero_pasta'",
-			'nome_pasta' => "`nome_pasta`.`id` as 'id', IF(    CHAR_LENGTH(`numero_pasta1`.`numero_pasta`), CONCAT_WS('',   `numero_pasta1`.`numero_pasta`), '') as 'numero_pasta', `nome_pasta`.`nome_pasta` as 'nome_pasta'"
+			'nome_pasta' => "`nome_pasta`.`id` as 'id', IF(    CHAR_LENGTH(`numero_pasta1`.`numero_pasta`), CONCAT_WS('',   `numero_pasta1`.`numero_pasta`), '') as 'numero_pasta', `nome_pasta`.`nome_pasta` as 'nome_pasta'",
+			'items_salvos' => "`items_salvos`.`id` as 'id', `items_salvos`.`memberID` as 'memberID', `items_salvos`.`tableName` as 'tableName', `items_salvos`.`pkValue` as 'pkValue', `items_salvos`.`groupID` as 'groupID', `items_salvos`.`dateAdded` as 'dateAdded', `items_salvos`.`text` as 'text'"
 		);
 
 		if(isset($sql_fields[$table_name])){
@@ -191,7 +193,8 @@
 			'numero_caixa' => "`numero_caixa` ",
 			'nome_caixa' => "`nome_caixa` LEFT JOIN `numero_caixa` as numero_caixa1 ON `numero_caixa1`.`id`=`nome_caixa`.`numero_caixa` ",
 			'numero_pasta' => "`numero_pasta` ",
-			'nome_pasta' => "`nome_pasta` LEFT JOIN `numero_pasta` as numero_pasta1 ON `numero_pasta1`.`id`=`nome_pasta`.`numero_pasta` "
+			'nome_pasta' => "`nome_pasta` LEFT JOIN `numero_pasta` as numero_pasta1 ON `numero_pasta1`.`id`=`nome_pasta`.`numero_pasta` ",
+			'items_salvos' => "`items_salvos` "
 		);
 
 		$pkey = array(   
@@ -210,7 +213,8 @@
 			'numero_caixa' => 'id',
 			'nome_caixa' => 'id',
 			'numero_pasta' => 'id',
-			'nome_pasta' => 'id'
+			'nome_pasta' => 'id',
+			'items_salvos' => 'id'
 		);
 
 		if(!isset($sql_from[$table_name])) return false;
@@ -370,6 +374,15 @@
 				'id' => '',
 				'numero_pasta' => '',
 				'nome_pasta' => ''
+			),
+			'items_salvos' => array(
+				'id' => '',
+				'memberID' => '',
+				'tableName' => '',
+				'pkValue' => '',
+				'groupID' => '',
+				'dateAdded' => '',
+				'text' => ''
 			)
 		);
 
