@@ -200,13 +200,15 @@
 				)) {
 					throw new RuntimeException('Failed to move uploaded file.');
 				}else{
-                                        $exit = false;
-                                        if($this->type === 'img' || strtolower($ext) === 'pdf' || $this->type === 'mov'){
-                                            //add thumbsnail
-                                            include_once '../_resampledIMG.php';
-                                            $exit = make_thumb($renameFlag?$newName:$file['basename'],$filename, $ext, $this, $ret);
-                                            //agregar a la tabla de files
-                                        }
+						$exit = false;
+						if($this->type === 'img' || strtolower($ext) === 'pdf' || $this->type === 'mov'){
+							//add thumbsnail
+							if (!function_exists('make_thumb')){
+								include '../_resampledIMG.php';
+							}
+							$exit = make_thumb($renameFlag?$newName:$file['basename'],$filename, $ext, $this, $ret);
+							//agregar a la tabla de files
+						}
 					//file uploaded successfully							
 					echo json_encode(array(
 						"response-type" => "success",

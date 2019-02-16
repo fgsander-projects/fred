@@ -30,12 +30,13 @@ $name   = isset($_POST['name'])   ? $_POST['name']   : '';
 $largo  = isset($_POST['largo'])  ? $_POST['largo']  : '';
 $tableName  = isset($_POST['tableName'])  ? $_POST['tableName']  : '';
 
+$currDir = dirname(__FILE__);
+
 if ($cmd !== ''){
         $folder ='hooks/projects/';
         $html = '<div>';
         $html2='';
         $index = 1;
-        $currDir = dirname(__FILE__);
         $base_dir = realpath("{$currDir}/..");
         $modif = time();
         if ($json !== []){
@@ -86,7 +87,6 @@ if ($cmd !== ''){
                             $href ='<a class="launch-modal" href="#" data-modal-id="modal-video-' .$indice .'">'
                                 . '<img class="hover-shadow" src="' . $url_th . '?m='. $modif .'" alt="' . $a['fileName'] . '" style="display:block; width:65%; margin-left: auto; margin-right:auto; border-radius: 5px; margin-bottom:6px; "/>';
                             $video = ModalVideo($indice,$url,$title).videoScripts($indice);
-                            
                         }
                         
                         //audio type
@@ -321,8 +321,6 @@ function imageForm($a,$folder,$index,$json,$mi,$tableName,$indice){
                             </audio>
                         </div><!-- /.col-lg-9 -->
                     <?php }?>
-                        
-                        
                         
                     <div class="well well-sm" style="margin-bottom: 10px;margin-left: 10px;">
                         - Nome do arquivo: <?php 
@@ -743,7 +741,7 @@ function audioScripts($indice){
     ob_start();
     ?>
     <script>
-//        $j('#audio-<?php echo $indice;?>').mediaPlayer();
+//        $j('#audio-<?php //echo $indice;?>').mediaPlayer();
     </script>
     <?php
     $ret .= ob_get_contents();
