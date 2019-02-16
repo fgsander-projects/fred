@@ -29,6 +29,34 @@ $j(function(){
     var a = getUploadedFile();
     loadImages($j('#titulo').val());
     
+    var $dim = $j('#dimensao');
+
+    $dim.focusout(function(){
+        // console.log('Dimensão');
+        text = $dim.val();
+        const coma = /\,/g;
+        const punto = /\./g;
+        const regex = /[+-]?\d+(?:(\.|\,)\d+)?/g;
+
+        var res = text.replace(coma,'.');
+        
+        var result = []
+        result = res.match(regex);
+
+        if (result && result.length == 2){
+            //cantidad de numero ok
+            var a = Number(result[0]).toFixed(2);
+            var b = Number(result[1]).toFixed(2);
+            var out = `${a.replace(punto,',')} cm x ${b.replace(punto,',')} cm`;
+            // console.log(out)
+            $dim.val(out);
+        }else{
+            console.log ('no se puede verificar las dimesiones')
+            $dim.parent().parent().toggleClass('has-error')
+        }
+        
+    })
+
 });
 
 function setValue(){
