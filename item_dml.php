@@ -49,8 +49,14 @@ function item_insert(){
 		if($data['autoria'] == empty_lookup_value){ $data['autoria'] = ''; }
 	$data['quantidade'] = makeSafe($_REQUEST['quantidade']);
 		if($data['quantidade'] == empty_lookup_value){ $data['quantidade'] = ''; }
-	$data['idioma'] = makeSafe($_REQUEST['idioma']);
-		if($data['idioma'] == empty_lookup_value){ $data['idioma'] = ''; }
+	if(is_array($_REQUEST['idioma'])){
+		$MultipleSeparator=', ';
+		foreach($_REQUEST['idioma'] as $k => $v)
+			$data['idioma'] .= makeSafe($v) . $MultipleSeparator;
+		$data['idioma'] = substr($data['idioma'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['idioma']='';
+	}
 	$data['local_producao'] = makeSafe($_REQUEST['local_producao']);
 		if($data['local_producao'] == empty_lookup_value){ $data['local_producao'] = ''; }
 	$data['local_publicacao_veiculo'] = makeSafe($_REQUEST['local_publicacao_veiculo']);
@@ -318,8 +324,14 @@ function item_update($selected_id){
 		if($data['autoria'] == empty_lookup_value){ $data['autoria'] = ''; }
 	$data['quantidade'] = makeSafe($_REQUEST['quantidade']);
 		if($data['quantidade'] == empty_lookup_value){ $data['quantidade'] = ''; }
-	$data['idioma'] = makeSafe($_REQUEST['idioma']);
-		if($data['idioma'] == empty_lookup_value){ $data['idioma'] = ''; }
+	if(is_array($_REQUEST['idioma'])){
+		$MultipleSeparator = ', ';
+		foreach($_REQUEST['idioma'] as $k => $v)
+			$data['idioma'] .= makeSafe($v) . $MultipleSeparator;
+		$data['idioma']=substr($data['idioma'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['idioma']='';
+	}
 	$data['local_producao'] = makeSafe($_REQUEST['local_producao']);
 		if($data['local_producao'] == empty_lookup_value){ $data['local_producao'] = ''; }
 	$data['local_publicacao_veiculo'] = makeSafe($_REQUEST['local_publicacao_veiculo']);
@@ -452,7 +464,6 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$filterer_serie = thisOr(undo_magic_quotes($_REQUEST['filterer_serie']), '');
 	$filterer_subserie = thisOr(undo_magic_quotes($_REQUEST['filterer_subserie']), '');
 	$filterer_tipologia = thisOr(undo_magic_quotes($_REQUEST['filterer_tipologia']), '');
-	$filterer_idioma = thisOr(undo_magic_quotes($_REQUEST['filterer_idioma']), '');
 	$filterer_local_publicacao_veiculo = thisOr(undo_magic_quotes($_REQUEST['filterer_local_publicacao_veiculo']), '');
 	$filterer_tipo_publicacao = thisOr(undo_magic_quotes($_REQUEST['filterer_tipo_publicacao']), '');
 	$filterer_genero = thisOr(undo_magic_quotes($_REQUEST['filterer_genero']), '');
@@ -493,7 +504,25 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$combo_date->MonthNames = $Translation['month names'];
 	$combo_date->NamePrefix = 'date';
 	// combobox: idioma
-	$combo_idioma = new DataCombo;
+	$combo_idioma = new Combo;
+	$combo_idioma->ListType = 3;
+	$combo_idioma->MultipleSeparator = ', ';
+	$combo_idioma->ListBoxHeight = 10;
+	$combo_idioma->RadiosPerLine = 1;
+	if(is_file(dirname(__FILE__).'/hooks/item.idioma.csv')){
+		$idioma_data = addslashes(implode('', @file(dirname(__FILE__).'/hooks/item.idioma.csv')));
+		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions($idioma_data)));
+		$combo_idioma->ListData = $combo_idioma->ListItem;
+	}else{
+                $res = sql('select idioma from idioma',$e);
+		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("Portugues;;Espa&#241;olisimo")));
+                while( $row = db_fetch_assoc( $res)){
+                    $new_array[] = $row['idioma']; // Inside while loop
+                }
+		$combo_idioma->ListItem = $new_array;
+		$combo_idioma->ListData = $combo_idioma->ListItem;
+	}
+	$combo_idioma->SelectName = 'idioma';
 	// combobox: local_publicacao_veiculo
 	$combo_local_publicacao_veiculo = new DataCombo;
 	// combobox: tipo_publicacao
@@ -615,7 +644,6 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_serie->SelectedData = $filterer_serie;
 		$combo_subserie->SelectedData = $filterer_subserie;
 		$combo_tipologia->SelectedData = $filterer_tipologia;
-		$combo_idioma->SelectedData = $filterer_idioma;
 		$combo_local_publicacao_veiculo->SelectedData = $filterer_local_publicacao_veiculo;
 		$combo_tipo_publicacao->SelectedData = $filterer_tipo_publicacao;
 		$combo_genero->SelectedData = $filterer_genero;
@@ -637,8 +665,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$combo_subserie->MatchText = '<span id="subserie-container-readonly' . $rnd1 . '"></span><input type="hidden" name="subserie" id="subserie' . $rnd1 . '" value="' . html_attr($combo_subserie->SelectedData) . '">';
 	$combo_tipologia->HTML = '<span id="tipologia-container' . $rnd1 . '"></span><input type="hidden" name="tipologia" id="tipologia' . $rnd1 . '" value="' . html_attr($combo_tipologia->SelectedData) . '">';
 	$combo_tipologia->MatchText = '<span id="tipologia-container-readonly' . $rnd1 . '"></span><input type="hidden" name="tipologia" id="tipologia' . $rnd1 . '" value="' . html_attr($combo_tipologia->SelectedData) . '">';
-	$combo_idioma->HTML = '<span id="idioma-container' . $rnd1 . '"></span><input type="hidden" name="idioma" id="idioma' . $rnd1 . '" value="' . html_attr($combo_idioma->SelectedData) . '">';
-	$combo_idioma->MatchText = '<span id="idioma-container-readonly' . $rnd1 . '"></span><input type="hidden" name="idioma" id="idioma' . $rnd1 . '" value="' . html_attr($combo_idioma->SelectedData) . '">';
+	$combo_idioma->Render();
 	$combo_local_publicacao_veiculo->HTML = '<span id="local_publicacao_veiculo-container' . $rnd1 . '"></span><input type="hidden" name="local_publicacao_veiculo" id="local_publicacao_veiculo' . $rnd1 . '" value="' . html_attr($combo_local_publicacao_veiculo->SelectedData) . '">';
 	$combo_local_publicacao_veiculo->MatchText = '<span id="local_publicacao_veiculo-container-readonly' . $rnd1 . '"></span><input type="hidden" name="local_publicacao_veiculo" id="local_publicacao_veiculo' . $rnd1 . '" value="' . html_attr($combo_local_publicacao_veiculo->SelectedData) . '">';
 	$combo_tipo_publicacao->HTML = '<span id="tipo_publicacao-container' . $rnd1 . '"></span><input type="hidden" name="tipo_publicacao" id="tipo_publicacao' . $rnd1 . '" value="' . html_attr($combo_tipo_publicacao->SelectedData) . '">';
@@ -673,7 +700,6 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		AppGini.current_serie__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['serie'] : $filterer_serie); ?>"};
 		AppGini.current_subserie__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['subserie'] : $filterer_subserie); ?>"};
 		AppGini.current_tipologia__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['tipologia'] : $filterer_tipologia); ?>"};
-		AppGini.current_idioma__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['idioma'] : $filterer_idioma); ?>"};
 		AppGini.current_local_publicacao_veiculo__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['local_publicacao_veiculo'] : $filterer_local_publicacao_veiculo); ?>"};
 		AppGini.current_tipo_publicacao__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['tipo_publicacao'] : $filterer_tipo_publicacao); ?>"};
 		AppGini.current_genero__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['genero'] : $filterer_genero); ?>"};
@@ -692,7 +718,6 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 				<?php echo (!$AllowUpdate || $dvprint ? 'if(typeof(serie_reload__RAND__) == \'function\') serie_reload__RAND__(AppGini.current_grupo__RAND__.value);' : ''); ?>
 				<?php echo (!$AllowUpdate || $dvprint ? 'if(typeof(subserie_reload__RAND__) == \'function\') subserie_reload__RAND__(AppGini.current_serie__RAND__.value);' : ''); ?>
 				if(typeof(tipologia_reload__RAND__) == 'function') tipologia_reload__RAND__();
-				if(typeof(idioma_reload__RAND__) == 'function') idioma_reload__RAND__();
 				if(typeof(local_publicacao_veiculo_reload__RAND__) == 'function') local_publicacao_veiculo_reload__RAND__();
 				if(typeof(tipo_publicacao_reload__RAND__) == 'function') tipo_publicacao_reload__RAND__();
 				if(typeof(genero_reload__RAND__) == 'function') genero_reload__RAND__();
@@ -1093,83 +1118,6 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 					if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=tipologia_view_parent]').hide(); }else{ $j('.btn[id=tipologia_view_parent]').show(); }
 
 					if(typeof(tipologia_update_autofills__RAND__) == 'function') tipologia_update_autofills__RAND__();
-				}
-			});
-		<?php } ?>
-
-		}
-		function idioma_reload__RAND__(){
-		<?php if(($AllowUpdate || $AllowInsert) && !$dvprint){ ?>
-
-			$j("#idioma-container__RAND__").select2({
-				/* initial default value */
-				initSelection: function(e, c){
-					$j.ajax({
-						url: 'ajax_combo.php',
-						dataType: 'json',
-						data: { id: AppGini.current_idioma__RAND__.value, t: 'item', f: 'idioma' },
-						success: function(resp){
-							c({
-								id: resp.results[0].id,
-								text: resp.results[0].text
-							});
-							$j('[name="idioma"]').val(resp.results[0].id);
-							$j('[id=idioma-container-readonly__RAND__]').html('<span id="idioma-match-text">' + resp.results[0].text + '</span>');
-							if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=idioma_view_parent]').hide(); }else{ $j('.btn[id=idioma_view_parent]').show(); }
-
-
-							if(typeof(idioma_update_autofills__RAND__) == 'function') idioma_update_autofills__RAND__();
-						}
-					});
-				},
-				width: '100%',
-				formatNoMatches: function(term){ /* */ return '<?php echo addslashes($Translation['No matches found!']); ?>'; },
-				minimumResultsForSearch: 5,
-				loadMorePadding: 200,
-				ajax: {
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					cache: true,
-					data: function(term, page){ /* */ return { s: term, p: page, t: 'item', f: 'idioma' }; },
-					results: function(resp, page){ /* */ return resp; }
-				},
-				escapeMarkup: function(str){ /* */ return str; }
-			}).on('change', function(e){
-				AppGini.current_idioma__RAND__.value = e.added.id;
-				AppGini.current_idioma__RAND__.text = e.added.text;
-				$j('[name="idioma"]').val(e.added.id);
-				if(e.added.id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=idioma_view_parent]').hide(); }else{ $j('.btn[id=idioma_view_parent]').show(); }
-
-
-				if(typeof(idioma_update_autofills__RAND__) == 'function') idioma_update_autofills__RAND__();
-			});
-
-			if(!$j("#idioma-container__RAND__").length){
-				$j.ajax({
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					data: { id: AppGini.current_idioma__RAND__.value, t: 'item', f: 'idioma' },
-					success: function(resp){
-						$j('[name="idioma"]').val(resp.results[0].id);
-						$j('[id=idioma-container-readonly__RAND__]').html('<span id="idioma-match-text">' + resp.results[0].text + '</span>');
-						if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=idioma_view_parent]').hide(); }else{ $j('.btn[id=idioma_view_parent]').show(); }
-
-						if(typeof(idioma_update_autofills__RAND__) == 'function') idioma_update_autofills__RAND__();
-					}
-				});
-			}
-
-		<?php }else{ ?>
-
-			$j.ajax({
-				url: 'ajax_combo.php',
-				dataType: 'json',
-				data: { id: AppGini.current_idioma__RAND__.value, t: 'item', f: 'idioma' },
-				success: function(resp){
-					$j('[id=idioma-container__RAND__], [id=idioma-container-readonly__RAND__]').html('<span id="idioma-match-text">' + resp.results[0].text + '</span>');
-					if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=idioma_view_parent]').hide(); }else{ $j('.btn[id=idioma_view_parent]').show(); }
-
-					if(typeof(idioma_update_autofills__RAND__) == 'function') idioma_update_autofills__RAND__();
 				}
 			});
 		<?php } ?>
@@ -2030,8 +1978,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$jsReadOnly .= "\tjQuery('#data_atribuida').prop('disabled', true);\n";
 		$jsReadOnly .= "\tjQuery('#autoria').replaceWith('<div class=\"form-control-static\" id=\"autoria\">' + (jQuery('#autoria').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#quantidade').replaceWith('<div class=\"form-control-static\" id=\"quantidade\">' + (jQuery('#quantidade').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#idioma').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
-		$jsReadOnly .= "\tjQuery('#idioma_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
+		$jsReadOnly .= "\tjQuery('#idioma').replaceWith('<div class=\"form-control-static\" id=\"idioma\">' + (jQuery('#idioma').val() || '') + '</div>'); jQuery('#idioma-multi-selection-help').hide();\n";
+		$jsReadOnly .= "\tjQuery('#s2id_idioma').remove();\n";
 		$jsReadOnly .= "\tjQuery('#local_producao').replaceWith('<div class=\"form-control-static\" id=\"local_producao\">' + (jQuery('#local_producao').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#local_publicacao_veiculo').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#local_publicacao_veiculo_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
@@ -2093,8 +2041,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$templateCode = str_replace('<%%COMBO(date)%%>', ($selected_id && !$arrPerm[3] ? '<div class="form-control-static">' . $combo_date->GetHTML(true) . '</div>' : $combo_date->GetHTML()), $templateCode);
 	$templateCode = str_replace('<%%COMBOTEXT(date)%%>', $combo_date->GetHTML(true), $templateCode);
 	$templateCode = str_replace('<%%COMBO(idioma)%%>', $combo_idioma->HTML, $templateCode);
-	$templateCode = str_replace('<%%COMBOTEXT(idioma)%%>', $combo_idioma->MatchText, $templateCode);
-	$templateCode = str_replace('<%%URLCOMBOTEXT(idioma)%%>', urlencode($combo_idioma->MatchText), $templateCode);
+	$templateCode = str_replace('<%%COMBOTEXT(idioma)%%>', $combo_idioma->SelectedData, $templateCode);
 	$templateCode = str_replace('<%%COMBO(local_publicacao_veiculo)%%>', $combo_local_publicacao_veiculo->HTML, $templateCode);
 	$templateCode = str_replace('<%%COMBOTEXT(local_publicacao_veiculo)%%>', $combo_local_publicacao_veiculo->MatchText, $templateCode);
 	$templateCode = str_replace('<%%URLCOMBOTEXT(local_publicacao_veiculo)%%>', urlencode($combo_local_publicacao_veiculo->MatchText), $templateCode);
@@ -2133,7 +2080,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$templateCode = str_replace('<%%URLCOMBOTEXT(nome_pasta)%%>', urlencode($combo_nome_pasta->MatchText), $templateCode);
 
 	/* lookup fields array: 'lookup field name' => array('parent table name', 'lookup field caption') */
-	$lookup_fields = array(  'colecao' => array('colecao', 'Cole&#231;&#227;o:'), 'grupo' => array('grupo', 'Grupo:'), 'serie' => array('serie', 'S&#233;rie:'), 'subserie' => array('subserie', 'Subs&#233;rie:'), 'tipologia' => array('tipologia', 'Tipologia / Esp&#233;cie:'), 'idioma' => array('idioma', 'Idioma:'), 'local_publicacao_veiculo' => array('local_comunicacao', 'Ve&#237;culo de Publica&#231;&#227;o:'), 'tipo_publicacao' => array('tipo_publicacao', 'Tipo de Publica&#231;&#227;o:'), 'genero' => array('genero', 'G&#234;nero:'), 'formato' => array('formato', 'Formato:'), 'suporte' => array('suporte', 'Suporte:'), 'documentos_relacionados' => array('item', 'Documentos Relacionados:'), 'numero_caixa' => array('numero_caixa', 'N&#250;mero da Caixa:'), 'nome_caixa' => array('nome_caixa', 'Nome da Caixa:'), 'numero_pasta' => array('numero_pasta', 'N&#250;mero da Pasta:'), 'nome_pasta' => array('nome_pasta', 'Nome da pasta:'));
+	$lookup_fields = array(  'colecao' => array('colecao', 'Cole&#231;&#227;o:'), 'grupo' => array('grupo', 'Grupo:'), 'serie' => array('serie', 'S&#233;rie:'), 'subserie' => array('subserie', 'Subs&#233;rie:'), 'tipologia' => array('tipologia', 'Tipologia / Esp&#233;cie:'), 'local_publicacao_veiculo' => array('local_comunicacao', 'Ve&#237;culo de Publica&#231;&#227;o:'), 'tipo_publicacao' => array('tipo_publicacao', 'Tipo de Publica&#231;&#227;o:'), 'genero' => array('genero', 'G&#234;nero:'), 'formato' => array('formato', 'Formato:'), 'suporte' => array('suporte', 'Suporte:'), 'documentos_relacionados' => array('item', 'Documentos Relacionados:'), 'numero_caixa' => array('numero_caixa', 'N&#250;mero da Caixa:'), 'nome_caixa' => array('nome_caixa', 'Nome da Caixa:'), 'numero_pasta' => array('numero_pasta', 'N&#250;mero da Pasta:'), 'nome_pasta' => array('nome_pasta', 'Nome da pasta:'));
 	foreach($lookup_fields as $luf => $ptfc){
 		$pt_perm = getTablePermissions($ptfc[0]);
 

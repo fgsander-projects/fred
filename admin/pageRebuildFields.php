@@ -30,7 +30,7 @@
 			'data_atribuida' => array('appgini' => 'VARCHAR(40) null '),
 			'autoria' => array('appgini' => 'TEXT null '),
 			'quantidade' => array('appgini' => 'VARCHAR(40) null '),
-			'idioma' => array('appgini' => 'INT unsigned null '),
+			'idioma' => array('appgini' => 'BLOB null '),
 			'local_producao' => array('appgini' => 'TEXT null '),
 			'local_publicacao_veiculo' => array('appgini' => 'INT unsigned null '),
 			'local_publicacao' => array('appgini' => 'TEXT null '),
