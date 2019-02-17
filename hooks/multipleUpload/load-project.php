@@ -70,7 +70,7 @@
                                 if (is_add_new()){
                                    $j('#insert').trigger( "click" ); 
                                 }else{
-//                                   $j('#update').trigger( "click" ); 
+                                   $j('#update').trigger( "click" ); 
                                 }
                             },2000);
                                 
@@ -85,7 +85,7 @@
 				$j("#response").html("<div class='alert alert-danger'>"+response+"</div>");
 				$j(".dropzone").css( "border" ,"3px dotted red");
 				
-//				setTimeout( deleteFile, 4000 , file , this);
+				setTimeout( deleteFile, 4000 , file , this);
 			});
       }
 	})
