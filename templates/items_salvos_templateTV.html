@@ -1,23 +1,24 @@
 		<td colspan="6" class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-9">				<dl class="dl-horizontal">
-					<dt class="items_salvos-memberID-caption field-caption-tv">MemberID</dt>
-					<dd id="items_salvos-memberID-<%%VALUE(id)%%>" class="items_salvos-memberID"><%%SELECT%%><%%VALUE(memberID)%%><%%ENDSELECT%%></dd>
+			<div class="col-container">
+				<div class="col col-md-2" style="padding-right: 4px;padding-left: 10px;margin-bottom: 20px;">
+                                    <div id="imagesThumbs-<%%VALUE(pkValue)%%>" class="thumbs" title="<%%VALUE(pkValue)%%>" hidden>
+                                        <%%VALUE(pkValue)%%>
+                                    </div>
+                            </div>
+			</div>
+			<div class="col-md-10">		
+                            <dl class="dl-horizontal">
 
-					<dt class="items_salvos-tableName-caption field-caption-tv">TableName</dt>
-					<dd id="items_salvos-tableName-<%%VALUE(id)%%>" class="items_salvos-tableName"><%%SELECT%%><%%VALUE(tableName)%%><%%ENDSELECT%%></dd>
+					<dd id="items_salvos-pkValue-<%%VALUE(id)%%>" class="items_salvos-pkValue" myId ="<%%VALUE(id)%%>" hidden=''><%%VALUE(pkValue)%%></dd>
 
-					<dt class="items_salvos-pkValue-caption field-caption-tv">PkValue</dt>
-					<dd id="items_salvos-pkValue-<%%VALUE(id)%%>" class="items_salvos-pkValue"><%%SELECT%%><%%VALUE(pkValue)%%><%%ENDSELECT%%></dd>
-
-					<dt class="items_salvos-groupID-caption field-caption-tv">GroupID</dt>
-					<dd id="items_salvos-groupID-<%%VALUE(id)%%>" class="items_salvos-groupID"><%%SELECT%%><%%VALUE(groupID)%%><%%ENDSELECT%%></dd>
-
-					<dt class="items_salvos-dateAdded-caption field-caption-tv">DateAdded</dt>
-					<dd id="items_salvos-dateAdded-<%%VALUE(id)%%>" class="items_salvos-dateAdded"><%%SELECT%%><%%VALUE(dateAdded)%%><%%ENDSELECT%%></dd>
-
-					<dt class="items_salvos-text-caption field-caption-tv">Text</dt>
-					<dd id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text"><%%SELECT%%><%%VALUE(text)%%><%%ENDSELECT%%></dd>
+                                        <dd id="items_salvos-dateAdded-<%%VALUE(id)%%>" class="items_salvos-dateAdded" myId ="<%%VALUE(id)%%>" date='<%%VALUE(dateAdded)%%>'>
+                                            <div id="btn-dateAdded-<%%VALUE(id)%%>" class='btn btn-default' style="background-color: transparent;">Added: <%%VALUE(dateAdded)%%></div>    
+                                            <button id="removeFromList-<%%VALUE(id)%%>" type="button" class="btn btn-default" title="Remove from Salvos" hidden="" onclick="removeFromList('<%%VALUE(pkValue)%%>','<%%VALUE(tableName)%%>');location.reload();;">
+                                                <span class="glyphicon glyphicon-remove" ></span>
+                                            </button>
+                                        </dd>
+                                        
+                                        <div id="items_Salvos_item-<%%VALUE(id)%%>" class=""></div>
 
 				</dl>
 			</div>
