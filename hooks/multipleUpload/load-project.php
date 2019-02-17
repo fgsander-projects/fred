@@ -85,7 +85,7 @@
 				$j("#response").html("<div class='alert alert-danger'>"+response+"</div>");
 				$j(".dropzone").css( "border" ,"3px dotted red");
 				
-				setTimeout( deleteFile, 4000 , file , this);
+//				setTimeout( deleteFile, 4000 , file , this);
 			});
       }
 	})
