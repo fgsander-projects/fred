@@ -70,7 +70,7 @@
                                 if (is_add_new()){
                                    $j('#insert').trigger( "click" ); 
                                 }else{
-                                   $j('#update').trigger( "click" ); 
+//                                   $j('#update').trigger( "click" ); 
                                 }
                             },2000);
                                 
