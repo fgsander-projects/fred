@@ -129,7 +129,7 @@ function showTumbs(){
     $j('.thumbs').each(function(index){
         var b = 'full';
         var x = this.title;
-        var a = $j('#' + thisTable() + '-uploadedFiles-' + x).text();
+        var a = $j('#' + thisTable() + '-uploads-' + x).text();
         var title = $j('#' + thisTable() + '-titulo-' + x).text();
 
         if (a ==='' || a.length < 14){

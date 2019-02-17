@@ -22,8 +22,7 @@ function items_salvos_insert(){
 		if($data['pkValue'] == empty_lookup_value){ $data['pkValue'] = ''; }
 	$data['groupID'] = makeSafe($_REQUEST['groupID']);
 		if($data['groupID'] == empty_lookup_value){ $data['groupID'] = ''; }
-	$data['dateAdded'] = makeSafe($_REQUEST['dateAdded']);
-		if($data['dateAdded'] == empty_lookup_value){ $data['dateAdded'] = ''; }
+	$data['dateAdded'] = parseCode('<%%creationDate%%>', true, true);
 	$data['text'] = br2nl(makeSafe($_REQUEST['text']));
 
 	// hook: items_salvos_before_insert
@@ -33,7 +32,7 @@ function items_salvos_insert(){
 	}
 
 	$o = array('silentErrors' => true);
-	sql('insert into `items_salvos` set       `memberID`=' . (($data['memberID'] !== '' && $data['memberID'] !== NULL) ? "'{$data['memberID']}'" : 'NULL') . ', `tableName`=' . (($data['tableName'] !== '' && $data['tableName'] !== NULL) ? "'{$data['tableName']}'" : 'NULL') . ', `pkValue`=' . (($data['pkValue'] !== '' && $data['pkValue'] !== NULL) ? "'{$data['pkValue']}'" : 'NULL') . ', `groupID`=' . (($data['groupID'] !== '' && $data['groupID'] !== NULL) ? "'{$data['groupID']}'" : 'NULL') . ', `dateAdded`=' . (($data['dateAdded'] !== '' && $data['dateAdded'] !== NULL) ? "'{$data['dateAdded']}'" : 'NULL') . ', `text`=' . (($data['text'] !== '' && $data['text'] !== NULL) ? "'{$data['text']}'" : 'NULL'), $o);
+	sql('insert into `items_salvos` set       `memberID`=' . (($data['memberID'] !== '' && $data['memberID'] !== NULL) ? "'{$data['memberID']}'" : 'NULL') . ', `tableName`=' . (($data['tableName'] !== '' && $data['tableName'] !== NULL) ? "'{$data['tableName']}'" : 'NULL') . ', `pkValue`=' . (($data['pkValue'] !== '' && $data['pkValue'] !== NULL) ? "'{$data['pkValue']}'" : 'NULL') . ', `groupID`=' . (($data['groupID'] !== '' && $data['groupID'] !== NULL) ? "'{$data['groupID']}'" : 'NULL') . ', `dateAdded`=' . "'{$data['dateAdded']}'" . ', `text`=' . (($data['text'] !== '' && $data['text'] !== NULL) ? "'{$data['text']}'" : 'NULL'), $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo "<a href=\"items_salvos_view.php?addNew_x=1\">{$Translation['< back']}</a>";
@@ -114,8 +113,7 @@ function items_salvos_update($selected_id){
 		if($data['pkValue'] == empty_lookup_value){ $data['pkValue'] = ''; }
 	$data['groupID'] = makeSafe($_REQUEST['groupID']);
 		if($data['groupID'] == empty_lookup_value){ $data['groupID'] = ''; }
-	$data['dateAdded'] = makeSafe($_REQUEST['dateAdded']);
-		if($data['dateAdded'] == empty_lookup_value){ $data['dateAdded'] = ''; }
+	$data['dateAdded'] = parseMySQLDate('', '<%%creationDate%%>');
 	$data['text'] = br2nl(makeSafe($_REQUEST['text']));
 	$data['selectedID']=makeSafe($selected_id);
 
@@ -126,7 +124,7 @@ function items_salvos_update($selected_id){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('update `items_salvos` set       `memberID`=' . (($data['memberID'] !== '' && $data['memberID'] !== NULL) ? "'{$data['memberID']}'" : 'NULL') . ', `tableName`=' . (($data['tableName'] !== '' && $data['tableName'] !== NULL) ? "'{$data['tableName']}'" : 'NULL') . ', `pkValue`=' . (($data['pkValue'] !== '' && $data['pkValue'] !== NULL) ? "'{$data['pkValue']}'" : 'NULL') . ', `groupID`=' . (($data['groupID'] !== '' && $data['groupID'] !== NULL) ? "'{$data['groupID']}'" : 'NULL') . ', `dateAdded`=' . (($data['dateAdded'] !== '' && $data['dateAdded'] !== NULL) ? "'{$data['dateAdded']}'" : 'NULL') . ', `text`=' . (($data['text'] !== '' && $data['text'] !== NULL) ? "'{$data['text']}'" : 'NULL') . " where `id`='".makeSafe($selected_id)."'", $o);
+	sql('update `items_salvos` set       `memberID`=' . (($data['memberID'] !== '' && $data['memberID'] !== NULL) ? "'{$data['memberID']}'" : 'NULL') . ', `tableName`=' . (($data['tableName'] !== '' && $data['tableName'] !== NULL) ? "'{$data['tableName']}'" : 'NULL') . ', `pkValue`=' . (($data['pkValue'] !== '' && $data['pkValue'] !== NULL) ? "'{$data['pkValue']}'" : 'NULL') . ', `groupID`=' . (($data['groupID'] !== '' && $data['groupID'] !== NULL) ? "'{$data['groupID']}'" : 'NULL') . ', `dateAdded`=`dateAdded`' . ', `text`=' . (($data['text'] !== '' && $data['text'] !== NULL) ? "'{$data['text']}'" : 'NULL') . " where `id`='".makeSafe($selected_id)."'", $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo '<a href="items_salvos_view.php?SelectedID='.urlencode($selected_id)."\">{$Translation['< back']}</a>";
@@ -173,6 +171,14 @@ function items_salvos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1
 
 	// unique random identifier
 	$rnd1 = ($dvprint ? rand(1000000, 9999999) : '');
+	// combobox: dateAdded
+	$combo_dateAdded = new DateCombo;
+	$combo_dateAdded->DateFormat = "dmy";
+	$combo_dateAdded->MinYear = 1900;
+	$combo_dateAdded->MaxYear = 2100;
+	$combo_dateAdded->DefaultDate = parseMySQLDate('<%%creationDate%%>', '<%%creationDate%%>');
+	$combo_dateAdded->MonthNames = $Translation['month names'];
+	$combo_dateAdded->NamePrefix = 'dateAdded';
 
 	if($selected_id){
 		// mm: check member permissions
@@ -203,6 +209,7 @@ function items_salvos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1
 		$urow = $row; /* unsanitized data */
 		$hc = new CI_Input();
 		$row = $hc->xss_clean($row); /* sanitize data */
+		$combo_dateAdded->DefaultDate = $row['dateAdded'];
 	}else{
 	}
 
@@ -278,7 +285,6 @@ function items_salvos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1
 		$jsReadOnly .= "\tjQuery('#tableName').replaceWith('<div class=\"form-control-static\" id=\"tableName\">' + (jQuery('#tableName').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#pkValue').replaceWith('<div class=\"form-control-static\" id=\"pkValue\">' + (jQuery('#pkValue').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#groupID').replaceWith('<div class=\"form-control-static\" id=\"groupID\">' + (jQuery('#groupID').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#dateAdded').replaceWith('<div class=\"form-control-static\" id=\"dateAdded\">' + (jQuery('#dateAdded').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#text').replaceWith('<div class=\"form-control-static\" id=\"text\">' + (jQuery('#text').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('.select2-container').hide();\n";
 
@@ -289,6 +295,8 @@ function items_salvos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1
 	}
 
 	// process combos
+	$templateCode = str_replace('<%%COMBO(dateAdded)%%>', ($selected_id && !$arrPerm[3] ? '<div class="form-control-static">' . $combo_dateAdded->GetHTML(true) . '</div>' : $combo_dateAdded->GetHTML()), $templateCode);
+	$templateCode = str_replace('<%%COMBOTEXT(dateAdded)%%>', $combo_dateAdded->GetHTML(true), $templateCode);
 
 	/* lookup fields array: 'lookup field name' => array('parent table name', 'lookup field caption') */
 	$lookup_fields = array();
@@ -332,9 +340,8 @@ function items_salvos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(groupID)%%>', safe_html($urow['groupID']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(groupID)%%>', html_attr($row['groupID']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(groupID)%%>', urlencode($urow['groupID']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(dateAdded)%%>', safe_html($urow['dateAdded']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(dateAdded)%%>', html_attr($row['dateAdded']), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(dateAdded)%%>', urlencode($urow['dateAdded']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(dateAdded)%%>', @date('d/m/Y', @strtotime(html_attr($row['dateAdded']))), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(dateAdded)%%>', urlencode(@date('d/m/Y', @strtotime(html_attr($urow['dateAdded'])))), $templateCode);
 		if($dvprint || (!$AllowUpdate && !$AllowInsert)){
 			$templateCode = str_replace('<%%VALUE(text)%%>', safe_html($urow['text']), $templateCode);
 		}else{
@@ -352,8 +359,8 @@ function items_salvos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1
 		$templateCode = str_replace('<%%URLVALUE(pkValue)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(groupID)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(groupID)%%>', urlencode(''), $templateCode);
-		$templateCode = str_replace('<%%VALUE(dateAdded)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(dateAdded)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(dateAdded)%%>', '<%%creationDate%%>', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(dateAdded)%%>', urlencode('<%%creationDate%%>'), $templateCode);
 		$templateCode = str_replace('<%%VALUE(text)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(text)%%>', urlencode(''), $templateCode);
 	}

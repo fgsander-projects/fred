@@ -15,27 +15,15 @@
 <div class="panel-body">
 	<fieldset class="form-horizontal">
 		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">T&#237;tulo:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(titulo)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">T&#237;tulo Atribu&#237;do</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%> readonly></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(descricao)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
 			<label class="col-xs-3 control-label">Identifica&#231;&#227;o:</label>
 			<div class="col-xs-9">
 				<div class="form-control-static"><%%VALUE(identificacao)%%></div>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">N&#250;mero S&#233;rie</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(numero_serie)%%></div>
 			</div>
 		</div>
 		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
@@ -81,9 +69,21 @@
 			</div>
 		</div>
 		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">N&#250;mero S&#233;rie</label>
+			<label class="col-xs-3 control-label">T&#237;tulo:</label>
 			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(numero_serie)%%></div>
+				<div class="form-control-static"><%%VALUE(titulo)%%></div>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">T&#237;tulo Atribu&#237;do</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%> readonly></div>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(descricao)%%></div>
 			</div>
 		</div>
 		<div class="form-group" style="border-bottom: dotted 1px #DDD;">

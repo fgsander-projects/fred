@@ -5,9 +5,4 @@ function removeFromList(id, tableName){
             url:'hooks/savedList.php',
             data: { cmd: 'deleteItem', id: id, tableName: tableName}
         })
-        .done(function(msg){
-//            alert ('deleted item' + id);
-//            $j('#index-'+index).remove();
-//            recountsItems();
-        })
 }

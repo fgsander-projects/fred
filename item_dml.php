@@ -14,13 +14,10 @@ function item_insert(){
 		return false;
 	}
 
-	$data['titulo'] = makeSafe($_REQUEST['titulo']);
-		if($data['titulo'] == empty_lookup_value){ $data['titulo'] = ''; }
-	$data['titulo_atribuido'] = makeSafe($_REQUEST['titulo_atribuido']);
-		if($data['titulo_atribuido'] == empty_lookup_value){ $data['titulo_atribuido'] = ''; }
-	$data['descricao'] = br2nl(makeSafe($_REQUEST['descricao']));
 	$data['identificacao'] = makeSafe($_REQUEST['identificacao']);
 		if($data['identificacao'] == empty_lookup_value){ $data['identificacao'] = ''; }
+	$data['numero_serie'] = makeSafe($_REQUEST['numero_serie']);
+		if($data['numero_serie'] == empty_lookup_value){ $data['numero_serie'] = ''; }
 	$data['colecao'] = makeSafe($_REQUEST['colecao']);
 		if($data['colecao'] == empty_lookup_value){ $data['colecao'] = ''; }
 	$data['colecao_codigo'] = makeSafe($_REQUEST['colecao']);
@@ -35,8 +32,11 @@ function item_insert(){
 		if($data['serie_codigo'] == empty_lookup_value){ $data['serie_codigo'] = ''; }
 	$data['subserie'] = makeSafe($_REQUEST['subserie']);
 		if($data['subserie'] == empty_lookup_value){ $data['subserie'] = ''; }
-	$data['numero_serie'] = makeSafe($_REQUEST['numero_serie']);
-		if($data['numero_serie'] == empty_lookup_value){ $data['numero_serie'] = ''; }
+	$data['titulo'] = makeSafe($_REQUEST['titulo']);
+		if($data['titulo'] == empty_lookup_value){ $data['titulo'] = ''; }
+	$data['titulo_atribuido'] = makeSafe($_REQUEST['titulo_atribuido']);
+		if($data['titulo_atribuido'] == empty_lookup_value){ $data['titulo_atribuido'] = ''; }
+	$data['descricao'] = br2nl(makeSafe($_REQUEST['descricao']));
 	$data['tipologia'] = makeSafe($_REQUEST['tipologia']);
 		if($data['tipologia'] == empty_lookup_value){ $data['tipologia'] = ''; }
 	$data['date'] = intval($_REQUEST['dateYear']) . '-' . intval($_REQUEST['dateMonth']) . '-' . intval($_REQUEST['dateDay']);
@@ -118,6 +118,11 @@ function item_insert(){
 		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
 		exit;
 	}
+	if($data['numero_serie']== ''){
+		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">" . $Translation['error:'] . " 'N&#250;mero S&#233;rie': " . $Translation['field not null'] . '<br><br>';
+		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
+		exit;
+	}
 	if($data['colecao']== ''){
 		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">" . $Translation['error:'] . " 'Cole&#231;&#227;o:': " . $Translation['field not null'] . '<br><br>';
 		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
@@ -130,11 +135,6 @@ function item_insert(){
 	}
 	if($data['serie']== ''){
 		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">" . $Translation['error:'] . " 'S&#233;rie:': " . $Translation['field not null'] . '<br><br>';
-		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
-		exit;
-	}
-	if($data['numero_serie']== ''){
-		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">" . $Translation['error:'] . " 'N&#250;mero S&#233;rie': " . $Translation['field not null'] . '<br><br>';
 		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
 		exit;
 	}
@@ -159,7 +159,7 @@ function item_insert(){
 	}
 
 	$o = array('silentErrors' => true);
-	sql('insert into `item` set       `titulo`=' . (($data['titulo'] !== '' && $data['titulo'] !== NULL) ? "'{$data['titulo']}'" : 'NULL') . ', `titulo_atribuido`=' . (($data['titulo_atribuido'] !== '' && $data['titulo_atribuido'] !== NULL) ? "'{$data['titulo_atribuido']}'" : 'NULL') . ', `descricao`=' . (($data['descricao'] !== '' && $data['descricao'] !== NULL) ? "'{$data['descricao']}'" : 'NULL') . ', `identificacao`=' . (($data['identificacao'] !== '' && $data['identificacao'] !== NULL) ? "'{$data['identificacao']}'" : 'NULL') . ', `colecao`=' . (($data['colecao'] !== '' && $data['colecao'] !== NULL) ? "'{$data['colecao']}'" : 'NULL') . ', `colecao_codigo`=' . (($data['colecao_codigo'] !== '' && $data['colecao_codigo'] !== NULL) ? "'{$data['colecao_codigo']}'" : 'NULL') . ', `grupo`=' . (($data['grupo'] !== '' && $data['grupo'] !== NULL) ? "'{$data['grupo']}'" : 'NULL') . ', `grupo_codigo`=' . (($data['grupo_codigo'] !== '' && $data['grupo_codigo'] !== NULL) ? "'{$data['grupo_codigo']}'" : 'NULL') . ', `serie`=' . (($data['serie'] !== '' && $data['serie'] !== NULL) ? "'{$data['serie']}'" : 'NULL') . ', `serie_codigo`=' . (($data['serie_codigo'] !== '' && $data['serie_codigo'] !== NULL) ? "'{$data['serie_codigo']}'" : 'NULL') . ', `subserie`=' . (($data['subserie'] !== '' && $data['subserie'] !== NULL) ? "'{$data['subserie']}'" : 'NULL') . ', `numero_serie`=' . (($data['numero_serie'] !== '' && $data['numero_serie'] !== NULL) ? "'{$data['numero_serie']}'" : 'NULL') . ', `tipologia`=' . (($data['tipologia'] !== '' && $data['tipologia'] !== NULL) ? "'{$data['tipologia']}'" : 'NULL') . ', `date`=' . (($data['date'] !== '' && $data['date'] !== NULL) ? "'{$data['date']}'" : 'NULL') . ', `data_livre`=' . (($data['data_livre'] !== '' && $data['data_livre'] !== NULL) ? "'{$data['data_livre']}'" : 'NULL') . ', `data_atribuida`=' . (($data['data_atribuida'] !== '' && $data['data_atribuida'] !== NULL) ? "'{$data['data_atribuida']}'" : 'NULL') . ', `autoria`=' . (($data['autoria'] !== '' && $data['autoria'] !== NULL) ? "'{$data['autoria']}'" : 'NULL') . ', `quantidade`=' . (($data['quantidade'] !== '' && $data['quantidade'] !== NULL) ? "'{$data['quantidade']}'" : 'NULL') . ', `idioma`=' . (($data['idioma'] !== '' && $data['idioma'] !== NULL) ? "'{$data['idioma']}'" : 'NULL') . ', `local_producao`=' . (($data['local_producao'] !== '' && $data['local_producao'] !== NULL) ? "'{$data['local_producao']}'" : 'NULL') . ', `local_publicacao_veiculo`=' . (($data['local_publicacao_veiculo'] !== '' && $data['local_publicacao_veiculo'] !== NULL) ? "'{$data['local_publicacao_veiculo']}'" : 'NULL') . ', `local_publicacao`=' . (($data['local_publicacao'] !== '' && $data['local_publicacao'] !== NULL) ? "'{$data['local_publicacao']}'" : 'NULL') . ', `tipo_publicacao`=' . (($data['tipo_publicacao'] !== '' && $data['tipo_publicacao'] !== NULL) ? "'{$data['tipo_publicacao']}'" : 'NULL') . ', `genero`=' . (($data['genero'] !== '' && $data['genero'] !== NULL) ? "'{$data['genero']}'" : 'NULL') . ', `forma`=' . (($data['forma'] !== '' && $data['forma'] !== NULL) ? "'{$data['forma']}'" : 'NULL') . ', `formato`=' . (($data['formato'] !== '' && $data['formato'] !== NULL) ? "'{$data['formato']}'" : 'NULL') . ', `escritura`=' . (($data['escritura'] !== '' && $data['escritura'] !== NULL) ? "'{$data['escritura']}'" : 'NULL') . ', `suporte`=' . (($data['suporte'] !== '' && $data['suporte'] !== NULL) ? "'{$data['suporte']}'" : 'NULL') . ', `dimensao`=' . (($data['dimensao'] !== '' && $data['dimensao'] !== NULL) ? "'{$data['dimensao']}'" : 'NULL') . ', `estado_conservacao`=' . (($data['estado_conservacao'] !== '' && $data['estado_conservacao'] !== NULL) ? "'{$data['estado_conservacao']}'" : 'NULL') . ', `observacoes`=' . (($data['observacoes'] !== '' && $data['observacoes'] !== NULL) ? "'{$data['observacoes']}'" : 'NULL') . ', `documentos_relacionados`=' . (($data['documentos_relacionados'] !== '' && $data['documentos_relacionados'] !== NULL) ? "'{$data['documentos_relacionados']}'" : 'NULL') . ', `numero_caixa`=' . (($data['numero_caixa'] !== '' && $data['numero_caixa'] !== NULL) ? "'{$data['numero_caixa']}'" : 'NULL') . ', `nome_caixa`=' . (($data['nome_caixa'] !== '' && $data['nome_caixa'] !== NULL) ? "'{$data['nome_caixa']}'" : 'NULL') . ', `numero_pasta`=' . (($data['numero_pasta'] !== '' && $data['numero_pasta'] !== NULL) ? "'{$data['numero_pasta']}'" : 'NULL') . ', `nome_pasta`=' . (($data['nome_pasta'] !== '' && $data['nome_pasta'] !== NULL) ? "'{$data['nome_pasta']}'" : 'NULL') . ', ' . ($data['upload'] != '' ? "`upload`='{$data['upload']}'" : '`upload`=NULL') . ', `usuario_cadastro`=' . "'{$data['usuario_cadastro']}'" . ', `publicar`=' . (($data['publicar'] !== '' && $data['publicar'] !== NULL) ? "'{$data['publicar']}'" : 'NULL') . ', `uploads`=' . (($data['uploads'] !== '' && $data['uploads'] !== NULL) ? "'{$data['uploads']}'" : 'NULL'), $o);
+	sql('insert into `item` set       `identificacao`=' . (($data['identificacao'] !== '' && $data['identificacao'] !== NULL) ? "'{$data['identificacao']}'" : 'NULL') . ', `numero_serie`=' . (($data['numero_serie'] !== '' && $data['numero_serie'] !== NULL) ? "'{$data['numero_serie']}'" : 'NULL') . ', `colecao`=' . (($data['colecao'] !== '' && $data['colecao'] !== NULL) ? "'{$data['colecao']}'" : 'NULL') . ', `colecao_codigo`=' . (($data['colecao_codigo'] !== '' && $data['colecao_codigo'] !== NULL) ? "'{$data['colecao_codigo']}'" : 'NULL') . ', `grupo`=' . (($data['grupo'] !== '' && $data['grupo'] !== NULL) ? "'{$data['grupo']}'" : 'NULL') . ', `grupo_codigo`=' . (($data['grupo_codigo'] !== '' && $data['grupo_codigo'] !== NULL) ? "'{$data['grupo_codigo']}'" : 'NULL') . ', `serie`=' . (($data['serie'] !== '' && $data['serie'] !== NULL) ? "'{$data['serie']}'" : 'NULL') . ', `serie_codigo`=' . (($data['serie_codigo'] !== '' && $data['serie_codigo'] !== NULL) ? "'{$data['serie_codigo']}'" : 'NULL') . ', `subserie`=' . (($data['subserie'] !== '' && $data['subserie'] !== NULL) ? "'{$data['subserie']}'" : 'NULL') . ', `titulo`=' . (($data['titulo'] !== '' && $data['titulo'] !== NULL) ? "'{$data['titulo']}'" : 'NULL') . ', `titulo_atribuido`=' . (($data['titulo_atribuido'] !== '' && $data['titulo_atribuido'] !== NULL) ? "'{$data['titulo_atribuido']}'" : 'NULL') . ', `descricao`=' . (($data['descricao'] !== '' && $data['descricao'] !== NULL) ? "'{$data['descricao']}'" : 'NULL') . ', `tipologia`=' . (($data['tipologia'] !== '' && $data['tipologia'] !== NULL) ? "'{$data['tipologia']}'" : 'NULL') . ', `date`=' . (($data['date'] !== '' && $data['date'] !== NULL) ? "'{$data['date']}'" : 'NULL') . ', `data_livre`=' . (($data['data_livre'] !== '' && $data['data_livre'] !== NULL) ? "'{$data['data_livre']}'" : 'NULL') . ', `data_atribuida`=' . (($data['data_atribuida'] !== '' && $data['data_atribuida'] !== NULL) ? "'{$data['data_atribuida']}'" : 'NULL') . ', `autoria`=' . (($data['autoria'] !== '' && $data['autoria'] !== NULL) ? "'{$data['autoria']}'" : 'NULL') . ', `quantidade`=' . (($data['quantidade'] !== '' && $data['quantidade'] !== NULL) ? "'{$data['quantidade']}'" : 'NULL') . ', `idioma`=' . (($data['idioma'] !== '' && $data['idioma'] !== NULL) ? "'{$data['idioma']}'" : 'NULL') . ', `local_producao`=' . (($data['local_producao'] !== '' && $data['local_producao'] !== NULL) ? "'{$data['local_producao']}'" : 'NULL') . ', `local_publicacao_veiculo`=' . (($data['local_publicacao_veiculo'] !== '' && $data['local_publicacao_veiculo'] !== NULL) ? "'{$data['local_publicacao_veiculo']}'" : 'NULL') . ', `local_publicacao`=' . (($data['local_publicacao'] !== '' && $data['local_publicacao'] !== NULL) ? "'{$data['local_publicacao']}'" : 'NULL') . ', `tipo_publicacao`=' . (($data['tipo_publicacao'] !== '' && $data['tipo_publicacao'] !== NULL) ? "'{$data['tipo_publicacao']}'" : 'NULL') . ', `genero`=' . (($data['genero'] !== '' && $data['genero'] !== NULL) ? "'{$data['genero']}'" : 'NULL') . ', `forma`=' . (($data['forma'] !== '' && $data['forma'] !== NULL) ? "'{$data['forma']}'" : 'NULL') . ', `formato`=' . (($data['formato'] !== '' && $data['formato'] !== NULL) ? "'{$data['formato']}'" : 'NULL') . ', `escritura`=' . (($data['escritura'] !== '' && $data['escritura'] !== NULL) ? "'{$data['escritura']}'" : 'NULL') . ', `suporte`=' . (($data['suporte'] !== '' && $data['suporte'] !== NULL) ? "'{$data['suporte']}'" : 'NULL') . ', `dimensao`=' . (($data['dimensao'] !== '' && $data['dimensao'] !== NULL) ? "'{$data['dimensao']}'" : 'NULL') . ', `estado_conservacao`=' . (($data['estado_conservacao'] !== '' && $data['estado_conservacao'] !== NULL) ? "'{$data['estado_conservacao']}'" : 'NULL') . ', `observacoes`=' . (($data['observacoes'] !== '' && $data['observacoes'] !== NULL) ? "'{$data['observacoes']}'" : 'NULL') . ', `documentos_relacionados`=' . (($data['documentos_relacionados'] !== '' && $data['documentos_relacionados'] !== NULL) ? "'{$data['documentos_relacionados']}'" : 'NULL') . ', `numero_caixa`=' . (($data['numero_caixa'] !== '' && $data['numero_caixa'] !== NULL) ? "'{$data['numero_caixa']}'" : 'NULL') . ', `nome_caixa`=' . (($data['nome_caixa'] !== '' && $data['nome_caixa'] !== NULL) ? "'{$data['nome_caixa']}'" : 'NULL') . ', `numero_pasta`=' . (($data['numero_pasta'] !== '' && $data['numero_pasta'] !== NULL) ? "'{$data['numero_pasta']}'" : 'NULL') . ', `nome_pasta`=' . (($data['nome_pasta'] !== '' && $data['nome_pasta'] !== NULL) ? "'{$data['nome_pasta']}'" : 'NULL') . ', ' . ($data['upload'] != '' ? "`upload`='{$data['upload']}'" : '`upload`=NULL') . ', `usuario_cadastro`=' . "'{$data['usuario_cadastro']}'" . ', `publicar`=' . (($data['publicar'] !== '' && $data['publicar'] !== NULL) ? "'{$data['publicar']}'" : 'NULL') . ', `uploads`=' . (($data['uploads'] !== '' && $data['uploads'] !== NULL) ? "'{$data['uploads']}'" : 'NULL'), $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo "<a href=\"item_view.php?addNew_x=1\">{$Translation['< back']}</a>";
@@ -259,15 +259,17 @@ function item_update($selected_id){
 		return false;
 	}
 
-	$data['titulo'] = makeSafe($_REQUEST['titulo']);
-		if($data['titulo'] == empty_lookup_value){ $data['titulo'] = ''; }
-	$data['titulo_atribuido'] = makeSafe($_REQUEST['titulo_atribuido']);
-		if($data['titulo_atribuido'] == empty_lookup_value){ $data['titulo_atribuido'] = ''; }
-	$data['descricao'] = br2nl(makeSafe($_REQUEST['descricao']));
 	$data['identificacao'] = makeSafe($_REQUEST['identificacao']);
 		if($data['identificacao'] == empty_lookup_value){ $data['identificacao'] = ''; }
 	if($data['identificacao']==''){
 		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">{$Translation['error:']} 'Identifica&#231;&#227;o:': {$Translation['field not null']}<br><br>";
+		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
+		exit;
+	}
+	$data['numero_serie'] = makeSafe($_REQUEST['numero_serie']);
+		if($data['numero_serie'] == empty_lookup_value){ $data['numero_serie'] = ''; }
+	if($data['numero_serie']==''){
+		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">{$Translation['error:']} 'N&#250;mero S&#233;rie': {$Translation['field not null']}<br><br>";
 		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
 		exit;
 	}
@@ -300,13 +302,11 @@ function item_update($selected_id){
 		if($data['serie_codigo'] == empty_lookup_value){ $data['serie_codigo'] = ''; }
 	$data['subserie'] = makeSafe($_REQUEST['subserie']);
 		if($data['subserie'] == empty_lookup_value){ $data['subserie'] = ''; }
-	$data['numero_serie'] = makeSafe($_REQUEST['numero_serie']);
-		if($data['numero_serie'] == empty_lookup_value){ $data['numero_serie'] = ''; }
-	if($data['numero_serie']==''){
-		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">{$Translation['error:']} 'N&#250;mero S&#233;rie': {$Translation['field not null']}<br><br>";
-		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
-		exit;
-	}
+	$data['titulo'] = makeSafe($_REQUEST['titulo']);
+		if($data['titulo'] == empty_lookup_value){ $data['titulo'] = ''; }
+	$data['titulo_atribuido'] = makeSafe($_REQUEST['titulo_atribuido']);
+		if($data['titulo_atribuido'] == empty_lookup_value){ $data['titulo_atribuido'] = ''; }
+	$data['descricao'] = br2nl(makeSafe($_REQUEST['descricao']));
 	$data['tipologia'] = makeSafe($_REQUEST['tipologia']);
 		if($data['tipologia'] == empty_lookup_value){ $data['tipologia'] = ''; }
 	if($data['tipologia']==''){
@@ -417,7 +417,7 @@ function item_update($selected_id){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('update `item` set       `titulo`=' . (($data['titulo'] !== '' && $data['titulo'] !== NULL) ? "'{$data['titulo']}'" : 'NULL') . ', `titulo_atribuido`=' . (($data['titulo_atribuido'] !== '' && $data['titulo_atribuido'] !== NULL) ? "'{$data['titulo_atribuido']}'" : 'NULL') . ', `descricao`=' . (($data['descricao'] !== '' && $data['descricao'] !== NULL) ? "'{$data['descricao']}'" : 'NULL') . ', `identificacao`=' . (($data['identificacao'] !== '' && $data['identificacao'] !== NULL) ? "'{$data['identificacao']}'" : 'NULL') . ', `colecao`=' . (($data['colecao'] !== '' && $data['colecao'] !== NULL) ? "'{$data['colecao']}'" : 'NULL') . ', `colecao_codigo`=' . (($data['colecao_codigo'] !== '' && $data['colecao_codigo'] !== NULL) ? "'{$data['colecao_codigo']}'" : 'NULL') . ', `grupo`=' . (($data['grupo'] !== '' && $data['grupo'] !== NULL) ? "'{$data['grupo']}'" : 'NULL') . ', `grupo_codigo`=' . (($data['grupo_codigo'] !== '' && $data['grupo_codigo'] !== NULL) ? "'{$data['grupo_codigo']}'" : 'NULL') . ', `serie`=' . (($data['serie'] !== '' && $data['serie'] !== NULL) ? "'{$data['serie']}'" : 'NULL') . ', `serie_codigo`=' . (($data['serie_codigo'] !== '' && $data['serie_codigo'] !== NULL) ? "'{$data['serie_codigo']}'" : 'NULL') . ', `subserie`=' . (($data['subserie'] !== '' && $data['subserie'] !== NULL) ? "'{$data['subserie']}'" : 'NULL') . ', `numero_serie`=' . (($data['numero_serie'] !== '' && $data['numero_serie'] !== NULL) ? "'{$data['numero_serie']}'" : 'NULL') . ', `tipologia`=' . (($data['tipologia'] !== '' && $data['tipologia'] !== NULL) ? "'{$data['tipologia']}'" : 'NULL') . ', `date`=' . (($data['date'] !== '' && $data['date'] !== NULL) ? "'{$data['date']}'" : 'NULL') . ', `data_livre`=' . (($data['data_livre'] !== '' && $data['data_livre'] !== NULL) ? "'{$data['data_livre']}'" : 'NULL') . ', `data_atribuida`=' . (($data['data_atribuida'] !== '' && $data['data_atribuida'] !== NULL) ? "'{$data['data_atribuida']}'" : 'NULL') . ', `autoria`=' . (($data['autoria'] !== '' && $data['autoria'] !== NULL) ? "'{$data['autoria']}'" : 'NULL') . ', `quantidade`=' . (($data['quantidade'] !== '' && $data['quantidade'] !== NULL) ? "'{$data['quantidade']}'" : 'NULL') . ', `idioma`=' . (($data['idioma'] !== '' && $data['idioma'] !== NULL) ? "'{$data['idioma']}'" : 'NULL') . ', `local_producao`=' . (($data['local_producao'] !== '' && $data['local_producao'] !== NULL) ? "'{$data['local_producao']}'" : 'NULL') . ', `local_publicacao_veiculo`=' . (($data['local_publicacao_veiculo'] !== '' && $data['local_publicacao_veiculo'] !== NULL) ? "'{$data['local_publicacao_veiculo']}'" : 'NULL') . ', `local_publicacao`=' . (($data['local_publicacao'] !== '' && $data['local_publicacao'] !== NULL) ? "'{$data['local_publicacao']}'" : 'NULL') . ', `tipo_publicacao`=' . (($data['tipo_publicacao'] !== '' && $data['tipo_publicacao'] !== NULL) ? "'{$data['tipo_publicacao']}'" : 'NULL') . ', `genero`=' . (($data['genero'] !== '' && $data['genero'] !== NULL) ? "'{$data['genero']}'" : 'NULL') . ', `forma`=' . (($data['forma'] !== '' && $data['forma'] !== NULL) ? "'{$data['forma']}'" : 'NULL') . ', `formato`=' . (($data['formato'] !== '' && $data['formato'] !== NULL) ? "'{$data['formato']}'" : 'NULL') . ', `escritura`=' . (($data['escritura'] !== '' && $data['escritura'] !== NULL) ? "'{$data['escritura']}'" : 'NULL') . ', `suporte`=' . (($data['suporte'] !== '' && $data['suporte'] !== NULL) ? "'{$data['suporte']}'" : 'NULL') . ', `dimensao`=' . (($data['dimensao'] !== '' && $data['dimensao'] !== NULL) ? "'{$data['dimensao']}'" : 'NULL') . ', `estado_conservacao`=' . (($data['estado_conservacao'] !== '' && $data['estado_conservacao'] !== NULL) ? "'{$data['estado_conservacao']}'" : 'NULL') . ', `observacoes`=' . (($data['observacoes'] !== '' && $data['observacoes'] !== NULL) ? "'{$data['observacoes']}'" : 'NULL') . ', `documentos_relacionados`=' . (($data['documentos_relacionados'] !== '' && $data['documentos_relacionados'] !== NULL) ? "'{$data['documentos_relacionados']}'" : 'NULL') . ', `numero_caixa`=' . (($data['numero_caixa'] !== '' && $data['numero_caixa'] !== NULL) ? "'{$data['numero_caixa']}'" : 'NULL') . ', `nome_caixa`=' . (($data['nome_caixa'] !== '' && $data['nome_caixa'] !== NULL) ? "'{$data['nome_caixa']}'" : 'NULL') . ', `numero_pasta`=' . (($data['numero_pasta'] !== '' && $data['numero_pasta'] !== NULL) ? "'{$data['numero_pasta']}'" : 'NULL') . ', `nome_pasta`=' . (($data['nome_pasta'] !== '' && $data['nome_pasta'] !== NULL) ? "'{$data['nome_pasta']}'" : 'NULL') . ', ' . ($data['upload']!='' ? "`upload`='{$data['upload']}'" : ($_REQUEST['upload_remove'] != 1 ? '`upload`=`upload`' : '`upload`=NULL')) . ', `usuario_cadastro`=`usuario_cadastro`' . ', `usuario_alteracao`=' . "'{$data['usuario_alteracao']}'" . ', `publicar`=' . (($data['publicar'] !== '' && $data['publicar'] !== NULL) ? "'{$data['publicar']}'" : 'NULL') . ', `uploads`=' . (($data['uploads'] !== '' && $data['uploads'] !== NULL) ? "'{$data['uploads']}'" : 'NULL') . " where `id`='".makeSafe($selected_id)."'", $o);
+	sql('update `item` set       `identificacao`=' . (($data['identificacao'] !== '' && $data['identificacao'] !== NULL) ? "'{$data['identificacao']}'" : 'NULL') . ', `numero_serie`=' . (($data['numero_serie'] !== '' && $data['numero_serie'] !== NULL) ? "'{$data['numero_serie']}'" : 'NULL') . ', `colecao`=' . (($data['colecao'] !== '' && $data['colecao'] !== NULL) ? "'{$data['colecao']}'" : 'NULL') . ', `colecao_codigo`=' . (($data['colecao_codigo'] !== '' && $data['colecao_codigo'] !== NULL) ? "'{$data['colecao_codigo']}'" : 'NULL') . ', `grupo`=' . (($data['grupo'] !== '' && $data['grupo'] !== NULL) ? "'{$data['grupo']}'" : 'NULL') . ', `grupo_codigo`=' . (($data['grupo_codigo'] !== '' && $data['grupo_codigo'] !== NULL) ? "'{$data['grupo_codigo']}'" : 'NULL') . ', `serie`=' . (($data['serie'] !== '' && $data['serie'] !== NULL) ? "'{$data['serie']}'" : 'NULL') . ', `serie_codigo`=' . (($data['serie_codigo'] !== '' && $data['serie_codigo'] !== NULL) ? "'{$data['serie_codigo']}'" : 'NULL') . ', `subserie`=' . (($data['subserie'] !== '' && $data['subserie'] !== NULL) ? "'{$data['subserie']}'" : 'NULL') . ', `titulo`=' . (($data['titulo'] !== '' && $data['titulo'] !== NULL) ? "'{$data['titulo']}'" : 'NULL') . ', `titulo_atribuido`=' . (($data['titulo_atribuido'] !== '' && $data['titulo_atribuido'] !== NULL) ? "'{$data['titulo_atribuido']}'" : 'NULL') . ', `descricao`=' . (($data['descricao'] !== '' && $data['descricao'] !== NULL) ? "'{$data['descricao']}'" : 'NULL') . ', `tipologia`=' . (($data['tipologia'] !== '' && $data['tipologia'] !== NULL) ? "'{$data['tipologia']}'" : 'NULL') . ', `date`=' . (($data['date'] !== '' && $data['date'] !== NULL) ? "'{$data['date']}'" : 'NULL') . ', `data_livre`=' . (($data['data_livre'] !== '' && $data['data_livre'] !== NULL) ? "'{$data['data_livre']}'" : 'NULL') . ', `data_atribuida`=' . (($data['data_atribuida'] !== '' && $data['data_atribuida'] !== NULL) ? "'{$data['data_atribuida']}'" : 'NULL') . ', `autoria`=' . (($data['autoria'] !== '' && $data['autoria'] !== NULL) ? "'{$data['autoria']}'" : 'NULL') . ', `quantidade`=' . (($data['quantidade'] !== '' && $data['quantidade'] !== NULL) ? "'{$data['quantidade']}'" : 'NULL') . ', `idioma`=' . (($data['idioma'] !== '' && $data['idioma'] !== NULL) ? "'{$data['idioma']}'" : 'NULL') . ', `local_producao`=' . (($data['local_producao'] !== '' && $data['local_producao'] !== NULL) ? "'{$data['local_producao']}'" : 'NULL') . ', `local_publicacao_veiculo`=' . (($data['local_publicacao_veiculo'] !== '' && $data['local_publicacao_veiculo'] !== NULL) ? "'{$data['local_publicacao_veiculo']}'" : 'NULL') . ', `local_publicacao`=' . (($data['local_publicacao'] !== '' && $data['local_publicacao'] !== NULL) ? "'{$data['local_publicacao']}'" : 'NULL') . ', `tipo_publicacao`=' . (($data['tipo_publicacao'] !== '' && $data['tipo_publicacao'] !== NULL) ? "'{$data['tipo_publicacao']}'" : 'NULL') . ', `genero`=' . (($data['genero'] !== '' && $data['genero'] !== NULL) ? "'{$data['genero']}'" : 'NULL') . ', `forma`=' . (($data['forma'] !== '' && $data['forma'] !== NULL) ? "'{$data['forma']}'" : 'NULL') . ', `formato`=' . (($data['formato'] !== '' && $data['formato'] !== NULL) ? "'{$data['formato']}'" : 'NULL') . ', `escritura`=' . (($data['escritura'] !== '' && $data['escritura'] !== NULL) ? "'{$data['escritura']}'" : 'NULL') . ', `suporte`=' . (($data['suporte'] !== '' && $data['suporte'] !== NULL) ? "'{$data['suporte']}'" : 'NULL') . ', `dimensao`=' . (($data['dimensao'] !== '' && $data['dimensao'] !== NULL) ? "'{$data['dimensao']}'" : 'NULL') . ', `estado_conservacao`=' . (($data['estado_conservacao'] !== '' && $data['estado_conservacao'] !== NULL) ? "'{$data['estado_conservacao']}'" : 'NULL') . ', `observacoes`=' . (($data['observacoes'] !== '' && $data['observacoes'] !== NULL) ? "'{$data['observacoes']}'" : 'NULL') . ', `documentos_relacionados`=' . (($data['documentos_relacionados'] !== '' && $data['documentos_relacionados'] !== NULL) ? "'{$data['documentos_relacionados']}'" : 'NULL') . ', `numero_caixa`=' . (($data['numero_caixa'] !== '' && $data['numero_caixa'] !== NULL) ? "'{$data['numero_caixa']}'" : 'NULL') . ', `nome_caixa`=' . (($data['nome_caixa'] !== '' && $data['nome_caixa'] !== NULL) ? "'{$data['nome_caixa']}'" : 'NULL') . ', `numero_pasta`=' . (($data['numero_pasta'] !== '' && $data['numero_pasta'] !== NULL) ? "'{$data['numero_pasta']}'" : 'NULL') . ', `nome_pasta`=' . (($data['nome_pasta'] !== '' && $data['nome_pasta'] !== NULL) ? "'{$data['nome_pasta']}'" : 'NULL') . ', ' . ($data['upload']!='' ? "`upload`='{$data['upload']}'" : ($_REQUEST['upload_remove'] != 1 ? '`upload`=`upload`' : '`upload`=NULL')) . ', `usuario_cadastro`=`usuario_cadastro`' . ', `usuario_alteracao`=' . "'{$data['usuario_alteracao']}'" . ', `publicar`=' . (($data['publicar'] !== '' && $data['publicar'] !== NULL) ? "'{$data['publicar']}'" : 'NULL') . ', `uploads`=' . (($data['uploads'] !== '' && $data['uploads'] !== NULL) ? "'{$data['uploads']}'" : 'NULL') . " where `id`='".makeSafe($selected_id)."'", $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo '<a href="item_view.php?SelectedID='.urlencode($selected_id)."\">{$Translation['< back']}</a>";
@@ -1957,10 +1957,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 
 	// set records to read only if user can't insert new records and can't edit current record
 	if(($selected_id && !$AllowUpdate && !$AllowInsert) || (!$selected_id && !$AllowInsert)){
-		$jsReadOnly .= "\tjQuery('#titulo').replaceWith('<div class=\"form-control-static\" id=\"titulo\">' + (jQuery('#titulo').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#titulo_atribuido').prop('disabled', true);\n";
-		$jsReadOnly .= "\tjQuery('#descricao').replaceWith('<div class=\"form-control-static\" id=\"descricao\">' + (jQuery('#descricao').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#identificacao').replaceWith('<div class=\"form-control-static\" id=\"identificacao\">' + (jQuery('#identificacao').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#numero_serie').replaceWith('<div class=\"form-control-static\" id=\"numero_serie\">' + (jQuery('#numero_serie').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#colecao').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#colecao_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#grupo').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
@@ -1969,7 +1967,9 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$jsReadOnly .= "\tjQuery('#serie_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#subserie').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#subserie_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
-		$jsReadOnly .= "\tjQuery('#numero_serie').replaceWith('<div class=\"form-control-static\" id=\"numero_serie\">' + (jQuery('#numero_serie').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#titulo').replaceWith('<div class=\"form-control-static\" id=\"titulo\">' + (jQuery('#titulo').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#titulo_atribuido').prop('disabled', true);\n";
+		$jsReadOnly .= "\tjQuery('#descricao').replaceWith('<div class=\"form-control-static\" id=\"descricao\">' + (jQuery('#descricao').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#tipologia').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#tipologia_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#date').prop('readonly', true);\n";
@@ -2097,15 +2097,15 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 
 	// process images
 	$templateCode = str_replace('<%%UPLOADFILE(id)%%>', '', $templateCode);
-	$templateCode = str_replace('<%%UPLOADFILE(titulo)%%>', '', $templateCode);
-	$templateCode = str_replace('<%%UPLOADFILE(titulo_atribuido)%%>', '', $templateCode);
-	$templateCode = str_replace('<%%UPLOADFILE(descricao)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(identificacao)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(numero_serie)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(colecao)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(grupo)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(serie)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(subserie)%%>', '', $templateCode);
-	$templateCode = str_replace('<%%UPLOADFILE(numero_serie)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(titulo)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(titulo_atribuido)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(descricao)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(tipologia)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(date)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(data_livre)%%>', '', $templateCode);
@@ -2146,19 +2146,12 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(id)%%>', safe_html($urow['id']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(id)%%>', html_attr($row['id']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(id)%%>', urlencode($urow['id']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(titulo)%%>', safe_html($urow['titulo']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(titulo)%%>', html_attr($row['titulo']), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(titulo)%%>', urlencode($urow['titulo']), $templateCode);
-		$templateCode = str_replace('<%%CHECKED(titulo_atribuido)%%>', ($row['titulo_atribuido'] ? "checked" : ""), $templateCode);
-		if($dvprint || (!$AllowUpdate && !$AllowInsert)){
-			$templateCode = str_replace('<%%VALUE(descricao)%%>', safe_html($urow['descricao']), $templateCode);
-		}else{
-			$templateCode = str_replace('<%%VALUE(descricao)%%>', html_attr($row['descricao']), $templateCode);
-		}
-		$templateCode = str_replace('<%%URLVALUE(descricao)%%>', urlencode($urow['descricao']), $templateCode);
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(identificacao)%%>', safe_html($urow['identificacao']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(identificacao)%%>', html_attr($row['identificacao']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(identificacao)%%>', urlencode($urow['identificacao']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(numero_serie)%%>', safe_html($urow['numero_serie']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(numero_serie)%%>', html_attr($row['numero_serie']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(numero_serie)%%>', urlencode($urow['numero_serie']), $templateCode);
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(colecao)%%>', safe_html($urow['colecao']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(colecao)%%>', html_attr($row['colecao']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(colecao)%%>', urlencode($urow['colecao']), $templateCode);
@@ -2171,9 +2164,16 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(subserie)%%>', safe_html($urow['subserie']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(subserie)%%>', html_attr($row['subserie']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(subserie)%%>', urlencode($urow['subserie']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(numero_serie)%%>', safe_html($urow['numero_serie']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(numero_serie)%%>', html_attr($row['numero_serie']), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(numero_serie)%%>', urlencode($urow['numero_serie']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(titulo)%%>', safe_html($urow['titulo']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(titulo)%%>', html_attr($row['titulo']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(titulo)%%>', urlencode($urow['titulo']), $templateCode);
+		$templateCode = str_replace('<%%CHECKED(titulo_atribuido)%%>', ($row['titulo_atribuido'] ? "checked" : ""), $templateCode);
+		if($dvprint || (!$AllowUpdate && !$AllowInsert)){
+			$templateCode = str_replace('<%%VALUE(descricao)%%>', safe_html($urow['descricao']), $templateCode);
+		}else{
+			$templateCode = str_replace('<%%VALUE(descricao)%%>', html_attr($row['descricao']), $templateCode);
+		}
+		$templateCode = str_replace('<%%URLVALUE(descricao)%%>', urlencode($urow['descricao']), $templateCode);
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(tipologia)%%>', safe_html($urow['tipologia']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(tipologia)%%>', html_attr($row['tipologia']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(tipologia)%%>', urlencode($urow['tipologia']), $templateCode);
@@ -2263,13 +2263,10 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	}else{
 		$templateCode = str_replace('<%%VALUE(id)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(id)%%>', urlencode(''), $templateCode);
-		$templateCode = str_replace('<%%VALUE(titulo)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(titulo)%%>', urlencode(''), $templateCode);
-		$templateCode = str_replace('<%%CHECKED(titulo_atribuido)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%VALUE(descricao)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(descricao)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(identificacao)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(identificacao)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(numero_serie)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(numero_serie)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(colecao)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(colecao)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(grupo)%%>', '', $templateCode);
@@ -2278,8 +2275,11 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$templateCode = str_replace('<%%URLVALUE(serie)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(subserie)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(subserie)%%>', urlencode(''), $templateCode);
-		$templateCode = str_replace('<%%VALUE(numero_serie)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(numero_serie)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(titulo)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(titulo)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%CHECKED(titulo_atribuido)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%VALUE(descricao)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(descricao)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(tipologia)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(tipologia)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(date)%%>', '', $templateCode);

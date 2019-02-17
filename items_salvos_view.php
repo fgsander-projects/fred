@@ -27,7 +27,7 @@
 		"`items_salvos`.`tableName`" => "tableName",
 		"`items_salvos`.`pkValue`" => "pkValue",
 		"`items_salvos`.`groupID`" => "groupID",
-		"`items_salvos`.`dateAdded`" => "dateAdded",
+		"if(`items_salvos`.`dateAdded`,date_format(`items_salvos`.`dateAdded`,'%d/%m/%Y'),'')" => "dateAdded",
 		"`items_salvos`.`text`" => "text"
 	);
 	// mapping incoming sort by requests to actual query fields
@@ -37,7 +37,7 @@
 		3 => 3,
 		4 => 4,
 		5 => 5,
-		6 => 6,
+		6 => '`items_salvos`.`dateAdded`',
 		7 => 7
 	);
 
@@ -48,7 +48,7 @@
 		"`items_salvos`.`tableName`" => "tableName",
 		"`items_salvos`.`pkValue`" => "pkValue",
 		"`items_salvos`.`groupID`" => "groupID",
-		"`items_salvos`.`dateAdded`" => "dateAdded",
+		"if(`items_salvos`.`dateAdded`,date_format(`items_salvos`.`dateAdded`,'%d/%m/%Y'),'')" => "dateAdded",
 		"`items_salvos`.`text`" => "text"
 	);
 	// Fields that can be filtered
@@ -69,7 +69,7 @@
 		"`items_salvos`.`tableName`" => "tableName",
 		"`items_salvos`.`pkValue`" => "pkValue",
 		"`items_salvos`.`groupID`" => "groupID",
-		"`items_salvos`.`dateAdded`" => "dateAdded",
+		"if(`items_salvos`.`dateAdded`,date_format(`items_salvos`.`dateAdded`,'%d/%m/%Y'),'')" => "dateAdded",
 		"`items_salvos`.`text`" => "text"
 	);
 
@@ -80,11 +80,11 @@
 	$x->QueryWhere = '';
 	$x->QueryOrder = '';
 
-	$x->AllowSelection = 1;
+	$x->AllowSelection = 0;
 	$x->HideTableView = ($perm[2]==0 ? 1 : 0);
 	$x->AllowDelete = $perm[4];
 	$x->AllowMassDelete = false;
-	$x->AllowInsert = $perm[1];
+	$x->AllowInsert = 0;
 	$x->AllowUpdate = $perm[3];
 	$x->SeparateDV = 1;
 	$x->AllowDeleteOfParents = 0;
@@ -93,15 +93,17 @@
 	$x->AllowSorting = 1;
 	$x->AllowNavigation = 1;
 	$x->AllowPrinting = 1;
-	$x->AllowCSV = 1;
+	$x->AllowCSV = 0;
 	$x->RecordsPerPage = 10;
 	$x->QuickSearch = 1;
 	$x->QuickSearchText = $Translation["quick search"];
 	$x->ScriptFileName = "items_salvos_view.php";
 	$x->RedirectAfterInsert = "items_salvos_view.php?SelectedID=#ID#";
-	$x->TableTitle = "Items";
-	$x->TableIcon = "table.gif";
+	$x->TableTitle = "Itens Salvos";
+	$x->TableIcon = "resources/table_icons/heart.png";
 	$x->PrimaryKey = "`items_salvos`.`id`";
+	$x->DefaultSortField = '`items_salvos`.`dateAdded`';
+	$x->DefaultSortDirection = 'desc';
 
 	$x->ColWidth   = array(  150, 150, 150, 150, 150, 150);
 	$x->ColCaption = array("MemberID", "TableName", "PkValue", "GroupID", "DateAdded", "Text");
@@ -114,7 +116,7 @@
 	$x->TemplateDV = 'templates/items_salvos_templateDV.html';
 	$x->TemplateDVP = 'templates/items_salvos_templateDVP.html';
 
-	$x->ShowTableHeader = 1;
+	$x->ShowTableHeader = 0;
 	$x->TVClasses = "";
 	$x->DVClasses = "";
 	$x->HighlightColor = '#FFF0C2';
