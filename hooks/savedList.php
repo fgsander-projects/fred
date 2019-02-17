@@ -54,7 +54,7 @@ if (!isset($_POST['cmd']) || $_POST['cmd'] !=='savedList'){
 
 function addToList($id,$table,$image){
     $mi = getMemberInfo();
-    $t = time();
+    $t = parseCode('<%%creationDate%%>', true, true);
     $num = sqlValue("select count(1) from items_salvos where memberID = '{$mi['username']}' and tableName = '$table' and pkvalue = '$id'");
     if (!$num){
         $num = sql("INSERT INTO `items_salvos`(`memberID`, `tableName`, `pkValue`, `groupID`, `dateAdded`) VALUES ('{$mi['username']}','$table','$id','{$mi['groupID']}','$t')",$eo);
