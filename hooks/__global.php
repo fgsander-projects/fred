@@ -30,6 +30,3 @@
 	function sendmail_handler(&$pm){
 
 	}
-
-        
-        Agregado
