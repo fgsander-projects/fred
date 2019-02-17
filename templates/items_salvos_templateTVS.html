@@ -1,13 +1,24 @@
-<!-- Edit this file to change the layout of each record in the table view -->
-<!-- To disable clicking of a field, remove the  and  formatters around it-->
+		<td colspan="6" class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-9">				<dl class="dl-horizontal">
+					<dt class="items_salvos-memberID-caption field-caption-tv">MemberID</dt>
+					<dd id="items_salvos-memberID-<%%VALUE(id)%%>" class="items_salvos-memberID"><%%VALUE(memberID)%%></dd>
 
-<!-- If you wish to hide the table view header that contains the column titles, -->
-<!-- add the following to the items_salvos_init() hook (in hooks/items_salvos.php file) -->
-<!--     $options->ShowTableHeader = 0;     -->
+					<dt class="items_salvos-tableName-caption field-caption-tv">TableName</dt>
+					<dd id="items_salvos-tableName-<%%VALUE(id)%%>" class="items_salvos-tableName"><%%VALUE(tableName)%%></dd>
 
-		<td id="items_salvos-memberID-<%%VALUE(id)%%>" class="items_salvos-memberID"><%%VALUE(memberID)%%></td>
-		<td id="items_salvos-tableName-<%%VALUE(id)%%>" class="items_salvos-tableName"><%%VALUE(tableName)%%></td>
-		<td id="items_salvos-pkValue-<%%VALUE(id)%%>" class="items_salvos-pkValue"><%%VALUE(pkValue)%%></td>
-		<td id="items_salvos-groupID-<%%VALUE(id)%%>" class="items_salvos-groupID"><%%VALUE(groupID)%%></td>
-		<td id="items_salvos-dateAdded-<%%VALUE(id)%%>" class="items_salvos-dateAdded"><%%VALUE(dateAdded)%%></td>
-		<td id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text"><%%VALUE(text)%%></td>
+					<dt class="items_salvos-pkValue-caption field-caption-tv">PkValue</dt>
+					<dd id="items_salvos-pkValue-<%%VALUE(id)%%>" class="items_salvos-pkValue"><%%VALUE(pkValue)%%></dd>
+
+					<dt class="items_salvos-groupID-caption field-caption-tv">GroupID</dt>
+					<dd id="items_salvos-groupID-<%%VALUE(id)%%>" class="items_salvos-groupID"><%%VALUE(groupID)%%></dd>
+
+					<dt class="items_salvos-dateAdded-caption field-caption-tv">DateAdded</dt>
+					<dd id="items_salvos-dateAdded-<%%VALUE(id)%%>" class="items_salvos-dateAdded"><%%VALUE(dateAdded)%%></dd>
+
+					<dt class="items_salvos-text-caption field-caption-tv">Text</dt>
+					<dd id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text"><%%VALUE(text)%%></dd>
+
+				</dl>
+			</div>
+		</td>

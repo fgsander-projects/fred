@@ -12,10 +12,8 @@
 	$schema = array(   
 		'item' => array(   
 			'id' => array('appgini' => 'INT unsigned not null primary key auto_increment '),
-			'titulo' => array('appgini' => 'TEXT null '),
-			'titulo_atribuido' => array('appgini' => 'VARCHAR(40) null '),
-			'descricao' => array('appgini' => 'TEXT null '),
 			'identificacao' => array('appgini' => 'VARCHAR(80) not null unique '),
+			'numero_serie' => array('appgini' => 'INT not null '),
 			'colecao' => array('appgini' => 'INT unsigned not null '),
 			'colecao_codigo' => array('appgini' => 'INT unsigned null '),
 			'grupo' => array('appgini' => 'INT unsigned not null '),
@@ -23,7 +21,9 @@
 			'serie' => array('appgini' => 'INT unsigned not null '),
 			'serie_codigo' => array('appgini' => 'INT unsigned null '),
 			'subserie' => array('appgini' => 'INT unsigned null '),
-			'numero_serie' => array('appgini' => 'INT not null '),
+			'titulo' => array('appgini' => 'TEXT null '),
+			'titulo_atribuido' => array('appgini' => 'VARCHAR(40) null '),
+			'descricao' => array('appgini' => 'TEXT null '),
 			'tipologia' => array('appgini' => 'INT unsigned not null '),
 			'date' => array('appgini' => 'DATE null '),
 			'data_livre' => array('appgini' => 'VARCHAR(120) null '),
@@ -128,7 +128,7 @@
 			'tableName' => array('appgini' => 'VARCHAR(40) null '),
 			'pkValue' => array('appgini' => 'VARCHAR(40) null '),
 			'groupID' => array('appgini' => 'VARCHAR(40) null '),
-			'dateAdded' => array('appgini' => 'VARCHAR(40) null '),
+			'dateAdded' => array('appgini' => 'DATE null '),
 			'text' => array('appgini' => 'TEXT null ')
 		)
 	);

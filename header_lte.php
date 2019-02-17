@@ -33,6 +33,7 @@
 		<![endif]-->
 		<script src="<?php echo PREPEND_PATH; ?>resources/jquery/js/jquery-1.12.4.min.js"></script>
 		<script>var $j = jQuery.noConflict();</script>
+                <script src="<?php echo PREPEND_PATH; ?>hooks/jquery-ui/jquery-ui.min.js"></script>
                 <script src="<?php echo PREPEND_PATH; ?>LTE/dist/js/adminlte.js"></script>
 		<script src="<?php echo PREPEND_PATH; ?>resources/moment/moment-with-locales.min.js"></script>
 		<script src="<?php echo PREPEND_PATH; ?>resources/jquery/js/jquery.mark.min.js"></script>

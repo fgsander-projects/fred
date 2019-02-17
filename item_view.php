@@ -23,10 +23,8 @@
 	// Fields that can be displayed in the table view
 	$x->QueryFieldsTV = array(   
 		"`item`.`id`" => "id",
-		"`item`.`titulo`" => "titulo",
-		"concat('<i class=\"glyphicon glyphicon-', if(`item`.`titulo_atribuido`, 'check', 'unchecked'), '\"></i>')" => "titulo_atribuido",
-		"`item`.`descricao`" => "descricao",
 		"`item`.`identificacao`" => "identificacao",
+		"`item`.`numero_serie`" => "numero_serie",
 		"IF(    CHAR_LENGTH(`colecao1`.`colecao`), CONCAT_WS('',   `colecao1`.`colecao`), '') /* Cole&#231;&#227;o: */" => "colecao",
 		"IF(    CHAR_LENGTH(`colecao1`.`codigo_colecao`), CONCAT_WS('',   `colecao1`.`codigo_colecao`), '') /* C&#243;digo da Cole&#231;&#227;o: */" => "colecao_codigo",
 		"IF(    CHAR_LENGTH(`grupo1`.`grupo`), CONCAT_WS('',   `grupo1`.`grupo`), '') /* Grupo: */" => "grupo",
@@ -34,7 +32,9 @@
 		"IF(    CHAR_LENGTH(`serie1`.`serie`), CONCAT_WS('',   `serie1`.`serie`), '') /* S&#233;rie: */" => "serie",
 		"IF(    CHAR_LENGTH(`serie1`.`codigo`), CONCAT_WS('',   `serie1`.`codigo`), '') /* C&#243;digo da S&#233;rie: */" => "serie_codigo",
 		"IF(    CHAR_LENGTH(`subserie1`.`subserie`), CONCAT_WS('',   `subserie1`.`subserie`), '') /* Subs&#233;rie: */" => "subserie",
-		"`item`.`numero_serie`" => "numero_serie",
+		"`item`.`titulo`" => "titulo",
+		"concat('<i class=\"glyphicon glyphicon-', if(`item`.`titulo_atribuido`, 'check', 'unchecked'), '\"></i>')" => "titulo_atribuido",
+		"`item`.`descricao`" => "descricao",
 		"IF(    CHAR_LENGTH(`tipologia1`.`tipologia`), CONCAT_WS('',   `tipologia1`.`tipologia`), '') /* Tipologia / Esp&#233;cie: */" => "tipologia",
 		"if(`item`.`date`,date_format(`item`.`date`,'%d/%m/%Y'),'')" => "date",
 		"`item`.`data_livre`" => "data_livre",
@@ -69,17 +69,17 @@
 	$x->SortFields = array(   
 		1 => '`item`.`id`',
 		2 => 2,
-		3 => 3,
-		4 => 4,
-		5 => 5,
-		6 => '`colecao1`.`colecao`',
-		7 => '`colecao1`.`codigo_colecao`',
-		8 => '`grupo1`.`grupo`',
-		9 => '`grupo1`.`codigo_grupo`',
-		10 => '`serie1`.`serie`',
-		11 => '`serie1`.`codigo`',
-		12 => '`subserie1`.`subserie`',
-		13 => '`item`.`numero_serie`',
+		3 => '`item`.`numero_serie`',
+		4 => '`colecao1`.`colecao`',
+		5 => '`colecao1`.`codigo_colecao`',
+		6 => '`grupo1`.`grupo`',
+		7 => '`grupo1`.`codigo_grupo`',
+		8 => '`serie1`.`serie`',
+		9 => '`serie1`.`codigo`',
+		10 => '`subserie1`.`subserie`',
+		11 => 11,
+		12 => 12,
+		13 => 13,
 		14 => '`tipologia1`.`tipologia`',
 		15 => '`item`.`date`',
 		16 => 16,
@@ -114,10 +114,8 @@
 	// Fields that can be displayed in the csv file
 	$x->QueryFieldsCSV = array(   
 		"`item`.`id`" => "id",
-		"`item`.`titulo`" => "titulo",
-		"`item`.`titulo_atribuido`" => "titulo_atribuido",
-		"`item`.`descricao`" => "descricao",
 		"`item`.`identificacao`" => "identificacao",
+		"`item`.`numero_serie`" => "numero_serie",
 		"IF(    CHAR_LENGTH(`colecao1`.`colecao`), CONCAT_WS('',   `colecao1`.`colecao`), '') /* Cole&#231;&#227;o: */" => "colecao",
 		"IF(    CHAR_LENGTH(`colecao1`.`codigo_colecao`), CONCAT_WS('',   `colecao1`.`codigo_colecao`), '') /* C&#243;digo da Cole&#231;&#227;o: */" => "colecao_codigo",
 		"IF(    CHAR_LENGTH(`grupo1`.`grupo`), CONCAT_WS('',   `grupo1`.`grupo`), '') /* Grupo: */" => "grupo",
@@ -125,7 +123,9 @@
 		"IF(    CHAR_LENGTH(`serie1`.`serie`), CONCAT_WS('',   `serie1`.`serie`), '') /* S&#233;rie: */" => "serie",
 		"IF(    CHAR_LENGTH(`serie1`.`codigo`), CONCAT_WS('',   `serie1`.`codigo`), '') /* C&#243;digo da S&#233;rie: */" => "serie_codigo",
 		"IF(    CHAR_LENGTH(`subserie1`.`subserie`), CONCAT_WS('',   `subserie1`.`subserie`), '') /* Subs&#233;rie: */" => "subserie",
-		"`item`.`numero_serie`" => "numero_serie",
+		"`item`.`titulo`" => "titulo",
+		"`item`.`titulo_atribuido`" => "titulo_atribuido",
+		"`item`.`descricao`" => "descricao",
 		"IF(    CHAR_LENGTH(`tipologia1`.`tipologia`), CONCAT_WS('',   `tipologia1`.`tipologia`), '') /* Tipologia / Esp&#233;cie: */" => "tipologia",
 		"if(`item`.`date`,date_format(`item`.`date`,'%d/%m/%Y'),'')" => "date",
 		"`item`.`data_livre`" => "data_livre",
@@ -159,10 +159,8 @@
 	// Fields that can be filtered
 	$x->QueryFieldsFilters = array(   
 		"`item`.`id`" => "ID",
-		"`item`.`titulo`" => "T&#237;tulo:",
-		"`item`.`titulo_atribuido`" => "T&#237;tulo Atribu&#237;do",
-		"`item`.`descricao`" => "Descri&#231;&#227;o:",
 		"`item`.`identificacao`" => "Identifica&#231;&#227;o:",
+		"`item`.`numero_serie`" => "N&#250;mero S&#233;rie",
 		"IF(    CHAR_LENGTH(`colecao1`.`colecao`), CONCAT_WS('',   `colecao1`.`colecao`), '') /* Cole&#231;&#227;o: */" => "Cole&#231;&#227;o:",
 		"IF(    CHAR_LENGTH(`colecao1`.`codigo_colecao`), CONCAT_WS('',   `colecao1`.`codigo_colecao`), '') /* C&#243;digo da Cole&#231;&#227;o: */" => "C&#243;digo da Cole&#231;&#227;o:",
 		"IF(    CHAR_LENGTH(`grupo1`.`grupo`), CONCAT_WS('',   `grupo1`.`grupo`), '') /* Grupo: */" => "Grupo:",
@@ -170,7 +168,9 @@
 		"IF(    CHAR_LENGTH(`serie1`.`serie`), CONCAT_WS('',   `serie1`.`serie`), '') /* S&#233;rie: */" => "S&#233;rie:",
 		"IF(    CHAR_LENGTH(`serie1`.`codigo`), CONCAT_WS('',   `serie1`.`codigo`), '') /* C&#243;digo da S&#233;rie: */" => "C&#243;digo da S&#233;rie:",
 		"IF(    CHAR_LENGTH(`subserie1`.`subserie`), CONCAT_WS('',   `subserie1`.`subserie`), '') /* Subs&#233;rie: */" => "Subs&#233;rie:",
-		"`item`.`numero_serie`" => "N&#250;mero S&#233;rie",
+		"`item`.`titulo`" => "T&#237;tulo:",
+		"`item`.`titulo_atribuido`" => "T&#237;tulo Atribu&#237;do",
+		"`item`.`descricao`" => "Descri&#231;&#227;o:",
 		"IF(    CHAR_LENGTH(`tipologia1`.`tipologia`), CONCAT_WS('',   `tipologia1`.`tipologia`), '') /* Tipologia / Esp&#233;cie: */" => "Tipologia / Esp&#233;cie:",
 		"`item`.`date`" => "Data:",
 		"`item`.`data_livre`" => "Data / Per&#237;odo:",
@@ -205,10 +205,8 @@
 	// Fields that can be quick searched
 	$x->QueryFieldsQS = array(   
 		"`item`.`id`" => "id",
-		"`item`.`titulo`" => "titulo",
-		"concat('<i class=\"glyphicon glyphicon-', if(`item`.`titulo_atribuido`, 'check', 'unchecked'), '\"></i>')" => "titulo_atribuido",
-		"`item`.`descricao`" => "descricao",
 		"`item`.`identificacao`" => "identificacao",
+		"`item`.`numero_serie`" => "numero_serie",
 		"IF(    CHAR_LENGTH(`colecao1`.`colecao`), CONCAT_WS('',   `colecao1`.`colecao`), '') /* Cole&#231;&#227;o: */" => "colecao",
 		"IF(    CHAR_LENGTH(`colecao1`.`codigo_colecao`), CONCAT_WS('',   `colecao1`.`codigo_colecao`), '') /* C&#243;digo da Cole&#231;&#227;o: */" => "colecao_codigo",
 		"IF(    CHAR_LENGTH(`grupo1`.`grupo`), CONCAT_WS('',   `grupo1`.`grupo`), '') /* Grupo: */" => "grupo",
@@ -216,7 +214,9 @@
 		"IF(    CHAR_LENGTH(`serie1`.`serie`), CONCAT_WS('',   `serie1`.`serie`), '') /* S&#233;rie: */" => "serie",
 		"IF(    CHAR_LENGTH(`serie1`.`codigo`), CONCAT_WS('',   `serie1`.`codigo`), '') /* C&#243;digo da S&#233;rie: */" => "serie_codigo",
 		"IF(    CHAR_LENGTH(`subserie1`.`subserie`), CONCAT_WS('',   `subserie1`.`subserie`), '') /* Subs&#233;rie: */" => "subserie",
-		"`item`.`numero_serie`" => "numero_serie",
+		"`item`.`titulo`" => "titulo",
+		"concat('<i class=\"glyphicon glyphicon-', if(`item`.`titulo_atribuido`, 'check', 'unchecked'), '\"></i>')" => "titulo_atribuido",
+		"`item`.`descricao`" => "descricao",
 		"IF(    CHAR_LENGTH(`tipologia1`.`tipologia`), CONCAT_WS('',   `tipologia1`.`tipologia`), '') /* Tipologia / Esp&#233;cie: */" => "tipologia",
 		"if(`item`.`date`,date_format(`item`.`date`,'%d/%m/%Y'),'')" => "date",
 		"`item`.`data_livre`" => "data_livre",
@@ -281,9 +281,9 @@
 	$x->DefaultSortDirection = 'desc';
 
 	$x->ColWidth   = array(  150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150);
-	$x->ColCaption = array("T&#237;tulo:", "T&#237;tulo Atribu&#237;do", "Descri&#231;&#227;o:", "Identifica&#231;&#227;o:", "Cole&#231;&#227;o:", "C&#243;digo da Cole&#231;&#227;o:", "Grupo:", "C&#243;digo do Grupo:", "S&#233;rie:", "C&#243;digo da S&#233;rie:", "Subs&#233;rie:", "Tipologia / Esp&#233;cie:", "Data:", "Data / Per&#237;odo:", "Data Atribu&#237;da", "Autoria:", "Quantidade:", "Idioma:", "Local de Produ&#231;&#227;o:", "Ve&#237;culo de Publica&#231;&#227;o:", "Local de Publica&#231;&#227;o:", "Tipo de Publica&#231;&#227;o:", "G&#234;nero:", "Forma:", "Formato:", "Escritura:", "Suporte:", "Dimens&#227;o:", "Estado de Conserva&#231;&#227;o:", "Observa&#231;&#245;es:", "Documentos Relacionados:", "N&#250;mero da Caixa:", "Nome da Caixa:", "N&#250;mero da Pasta:", "Nome da pasta:", "Upload", "Publicar");
-	$x->ColFieldName = array('titulo', 'titulo_atribuido', 'descricao', 'identificacao', 'colecao', 'colecao_codigo', 'grupo', 'grupo_codigo', 'serie', 'serie_codigo', 'subserie', 'tipologia', 'date', 'data_livre', 'data_atribuida', 'autoria', 'quantidade', 'idioma', 'local_producao', 'local_publicacao_veiculo', 'local_publicacao', 'tipo_publicacao', 'genero', 'forma', 'formato', 'escritura', 'suporte', 'dimensao', 'estado_conservacao', 'observacoes', 'documentos_relacionados', 'numero_caixa', 'nome_caixa', 'numero_pasta', 'nome_pasta', 'upload', 'publicar');
-	$x->ColNumber  = array(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41);
+	$x->ColCaption = array("Identifica&#231;&#227;o:", "Cole&#231;&#227;o:", "C&#243;digo da Cole&#231;&#227;o:", "Grupo:", "C&#243;digo do Grupo:", "S&#233;rie:", "C&#243;digo da S&#233;rie:", "Subs&#233;rie:", "T&#237;tulo:", "T&#237;tulo Atribu&#237;do", "Descri&#231;&#227;o:", "Tipologia / Esp&#233;cie:", "Data:", "Data / Per&#237;odo:", "Data Atribu&#237;da", "Autoria:", "Quantidade:", "Idioma:", "Local de Produ&#231;&#227;o:", "Ve&#237;culo de Publica&#231;&#227;o:", "Local de Publica&#231;&#227;o:", "Tipo de Publica&#231;&#227;o:", "G&#234;nero:", "Forma:", "Formato:", "Escritura:", "Suporte:", "Dimens&#227;o:", "Estado de Conserva&#231;&#227;o:", "Observa&#231;&#245;es:", "Documentos Relacionados:", "N&#250;mero da Caixa:", "Nome da Caixa:", "N&#250;mero da Pasta:", "Nome da pasta:", "Upload", "Publicar");
+	$x->ColFieldName = array('identificacao', 'colecao', 'colecao_codigo', 'grupo', 'grupo_codigo', 'serie', 'serie_codigo', 'subserie', 'titulo', 'titulo_atribuido', 'descricao', 'tipologia', 'date', 'data_livre', 'data_atribuida', 'autoria', 'quantidade', 'idioma', 'local_producao', 'local_publicacao_veiculo', 'local_publicacao', 'tipo_publicacao', 'genero', 'forma', 'formato', 'escritura', 'suporte', 'dimensao', 'estado_conservacao', 'observacoes', 'documentos_relacionados', 'numero_caixa', 'nome_caixa', 'numero_pasta', 'nome_pasta', 'upload', 'publicar');
+	$x->ColNumber  = array(2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41);
 
 	// template paths below are based on the app main directory
 	$x->Template = 'templates/item_templateTV.html';

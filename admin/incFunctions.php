@@ -205,11 +205,11 @@
 					'homepageShowCount' => 0
 				),
 				'items_salvos' => array(
-					'Caption' => 'Items',
+					'Caption' => 'Itens Salvos',
 					'Description' => '',
-					'tableIcon' => 'table.gif',
+					'tableIcon' => 'resources/table_icons/heart.png',
 					'group' => $tg[0],
-					'homepageShowCount' => 0
+					'homepageShowCount' => 1
 				)
 		);
 
@@ -242,7 +242,7 @@
 				'nome_caixa' => 'Nome da Caixa',
 				'numero_pasta' => 'N&#250;mero da Pasta',
 				'nome_pasta' => 'Nome da Pasta',
-				'items_salvos' => 'Items'
+				'items_salvos' => 'Itens Salvos'
 			);
 
 			return $arrTables;
@@ -685,7 +685,7 @@
 	}
 	########################################################################
 	function isEmail($email) {
-		if(preg_match('/^([*+!.&#$¦\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,45})$/i', $email)){
+		if(preg_match('/^([*+!.&#$ï¿½\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,45})$/i', $email)){
 			return $email;
 		}
 
