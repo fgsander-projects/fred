@@ -203,9 +203,7 @@
 						$exit = false;
 						if($this->type === 'img' || strtolower($ext) === 'pdf' || $this->type === 'mov'){
 							//add thumbsnail
-							if (!function_exists('make_thumb')){
-								include '../_resampledIMG.php';
-							}
+                                                        include '../_resampledIMG.php';
 							$exit = make_thumb($renameFlag?$newName:$file['basename'],$filename, $ext, $this, $ret);
 							//agregar a la tabla de files
 						}
