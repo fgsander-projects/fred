@@ -1,0 +1,59 @@
+<td colspan="11">
+                    
+	<div id="items_salvos-titulo-<%%VALUE(id)%%>" class="items_salvos-tiutlo col-sm-12 h5 text-bold" style="margin-bottom: 0px;"><a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(titulo)%%></a></div>
+	<div class="col-container">
+		<div class="col col-md-2" style="padding-right: 4px;padding-left: 10px;margin-bottom: 20px;"><div id="imagesThumbs-<%%VALUE(id)%%>" class="thumbs" title="<%%VALUE(id)%%>" hidden><%%VALUE(id)%%></div>
+	</div>
+<div class="col-md-8" style="padding-left: 0px;">				<dl class="dl-horizontal"  style="margin-left:2px !important;">
+
+					<dt class="items_salvos-pkValue-caption field-caption-tv" hidden>PkValue</dt>
+					<dd id="items_salvos-pkValue-<%%VALUE(id)%%>" class="items_salvos-pkValue" hidden>
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(pkValue)%%></a>
+						</dd>
+
+					<dt class="items_salvos-groupID-caption field-caption-tv" hidden>GroupID</dt>
+					<dd id="items_salvos-groupID-<%%VALUE(id)%%>" class="items_salvos-groupID" hidden>
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(pkValue)%%></a>
+						</dd>
+
+					<dt class="items_salvos-dateAdded-caption field-caption-tv" hidden>DateAdded</dt>
+					<dd id="items_salvos-dateAdded-<%%VALUE(id)%%>" class="items_salvos-dateAdded" hidden>
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(pkValue)%%></a>
+						</dd>
+
+					<dt class="items_salvos-text-caption field-caption-tv" hidden>Text</dt>
+					<dd id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text" hidden>
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(text)%%></a>
+						</dd>
+
+<dt class="items_salvos-text-caption field-caption-tv">Titulo</dt>
+<dd id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text">
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(titulo)%%></a>
+						</dd>
+
+<dt class="items_salvos-text-caption field-caption-tv">Genero/Colcecao</dt>
+<dd id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text">
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(genero)%%></a>
+						</dd>
+
+<dt class="items_salvos-text-caption field-caption-tv">descricao</dt>
+<dd id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text">
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(descricao)%%></a>
+						</dd>
+
+<dt class="items_salvos-text-caption field-caption-tv">Codigo</dt>
+<dd id="items_salvos-text-<%%VALUE(id)%%>" class="items_salvos-text">
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(codigoCompleto)%%></a>
+						</dd>
+
+<dt class="items_salvos-tableName-caption field-caption-tv">TableName</dt>
+<dd id="items_salvos-tableName-<%%VALUE(id)%%>" class="items_salvos-tableName">
+						<a href="<%%VALUE(tableName)%%>_view.php?SelectedID=<%%VALUE(pkValue)%%>" style="display: block; padding:0px;"><%%VALUE(tableName)%%></a>
+						</dd>
+
+</dl>
+</div>
+	<div class="col col-md-2 vcenter">
+		<button id="removeFromList-<%%VALUE(id)%%>" type="button" class="btn btn-default" title="Remove from Salvos" hidden="" onclick="removeFromList('<%%VALUE(pkValue)%%>','<%%VALUE(tableName)%%>');location.reload();;"><span class="glyphicon glyphicon-remove" ></span></button>
+	</div>
+</td>

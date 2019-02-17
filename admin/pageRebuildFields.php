@@ -30,7 +30,7 @@
 			'data_atribuida' => array('appgini' => 'VARCHAR(40) null '),
 			'autoria' => array('appgini' => 'TEXT null '),
 			'quantidade' => array('appgini' => 'VARCHAR(40) null '),
-			'idioma' => array('appgini' => 'INT unsigned null '),
+			'idioma' => array('appgini' => 'BLOB null '),
 			'local_producao' => array('appgini' => 'TEXT null '),
 			'local_publicacao_veiculo' => array('appgini' => 'INT unsigned null '),
 			'local_publicacao' => array('appgini' => 'TEXT null '),
@@ -121,6 +121,15 @@
 			'id' => array('appgini' => 'INT unsigned not null primary key auto_increment '),
 			'numero_pasta' => array('appgini' => 'INT unsigned not null '),
 			'nome_pasta' => array('appgini' => 'TEXT not null ')
+		),
+		'items_salvos' => array(   
+			'id' => array('appgini' => 'INT unsigned not null primary key auto_increment '),
+			'memberID' => array('appgini' => 'VARCHAR(40) null '),
+			'tableName' => array('appgini' => 'VARCHAR(40) null '),
+			'pkValue' => array('appgini' => 'VARCHAR(40) null '),
+			'groupID' => array('appgini' => 'VARCHAR(40) null '),
+			'dateAdded' => array('appgini' => 'VARCHAR(40) null '),
+			'text' => array('appgini' => 'TEXT null ')
 		)
 	);
 

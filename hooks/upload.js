@@ -8,17 +8,17 @@
 
 function initTable(){
 //    $j('.tv-tools').hide();
-    if (is_admin() !== '2'){
-        $j('#CSV').hide();
-    }else{
-        //disable for trash setting
-//        isArchived();
-    }
+//    if (is_admin() !== '2'){
+//        $j('#CSV').hide();
+//    }else{
+//        //disable for trash setting
+////        isArchived();
+//    }
     recountsItems(thisTable());
     //move search by genero select
-    setTimeout(function(){
-        $j('#search_div').insertAfter('div.btn-group:nth-child(2)');
-    },1100);
+//    setTimeout(function(){
+//        $j('#search_div').insertAfter('div.btn-group:nth-child(2)');
+//    },1100);
 
 }
 
@@ -66,12 +66,7 @@ function recountsItems(tableName){
             success: function(response){
 //                    alert('saved items: '+ response);
                     $j('.itemSalvos').text(response);
-                    if (content_type() !== 'print-tableview'){
-                        checkButtons(tableName);
-                    }else{
-                        $j(".hidden-print").hide();
-                        removeEmpty();
-                    }
+                    checkButtons(tableName);
                     return response;
             }
         });

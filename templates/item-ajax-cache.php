@@ -16,7 +16,6 @@
 			serie_codigo: <?php echo json_encode($jdata['serie_codigo']); ?>,
 			subserie: <?php echo json_encode(array('id' => $rdata['subserie'], 'value' => $rdata['subserie'], 'text' => $jdata['subserie'])); ?>,
 			tipologia: <?php echo json_encode(array('id' => $rdata['tipologia'], 'value' => $rdata['tipologia'], 'text' => $jdata['tipologia'])); ?>,
-			idioma: <?php echo json_encode(array('id' => $rdata['idioma'], 'value' => $rdata['idioma'], 'text' => $jdata['idioma'])); ?>,
 			local_publicacao_veiculo: <?php echo json_encode(array('id' => $rdata['local_publicacao_veiculo'], 'value' => $rdata['local_publicacao_veiculo'], 'text' => $jdata['local_publicacao_veiculo'])); ?>,
 			tipo_publicacao: <?php echo json_encode(array('id' => $rdata['tipo_publicacao'], 'value' => $rdata['tipo_publicacao'], 'text' => $jdata['tipo_publicacao'])); ?>,
 			genero: <?php echo json_encode(array('id' => $rdata['genero'], 'value' => $rdata['genero'], 'text' => $jdata['genero'])); ?>,
@@ -113,14 +112,6 @@
 			if(u != 'ajax_combo.php') return false;
 			if(d.t == tn && d.f == 'tipologia' && d.id == data.tipologia.id)
 				return { results: [ data.tipologia ], more: false, elapsed: 0.01 };
-			return false;
-		});
-
-		/* saved value for idioma */
-		cache.addCheck(function(u, d){
-			if(u != 'ajax_combo.php') return false;
-			if(d.t == tn && d.f == 'idioma' && d.id == data.idioma.id)
-				return { results: [ data.idioma ], more: false, elapsed: 0.01 };
 			return false;
 		});
 
