@@ -335,28 +335,6 @@ Cap&#237;tulo de livro, coluna, cadernos e suplementos (para publica&#231;&#245;
 
 				<div class="form-group">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3">Upload <i class="glyphicon glyphicon-info-sign text-info" data-toggle="collapse" data-target="#upload-description"></i></label>
-					<div class="col-lg-9">
-						<span class="help-block collapse" id="upload-description"><div class="alert alert-info">Maximum file size allowed: 20000 KB.<br>Allowed file types: txt, doc, docx, docm, odt, pdf, rtf</div></span>
-
-						
-						<div class="row">
-							<div class="col-md-1">
-								<a id="upload-link" href="link.php?t=item&f=upload&i=<%%VALUE(id)%%>" target="_blank"><i class="glyphicon glyphicon-file" title="<%%VALUE(upload)%%>" style="font-size: x-large; top: .35em;"></i></a>
-							</div> <!-- /div.col-* -->
-							<script>jQuery(function(){ /* */ var e_upload = '<%%VALUE(upload)%%>'; if(e_upload == '' || e_upload == '&nbsp;' || e_upload == 'blank.gif') jQuery('#upload-link').hide(); });</script>						<div class="pull-right" style="overflow-x: hidden;">
-							<div class="hidden-md hidden-lg vspacer-lg"></div>
-							<%%UPLOADFILE(upload)%%>
-							<%%REMOVEFILE(upload)%%>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-
-					</div>
-				</div>
-
-				<div class="form-group">
-					<hr class="hidden-md hidden-lg">
 					<label for="usuario_cadastro" class="control-label col-lg-3">Cadastro feito pelo usu&#225;rio:</label>
 					<div class="col-lg-9">
 						<div class="form-control-static" id="usuario_cadastro"><%%VALUE(usuario_cadastro)%%></div>
@@ -379,7 +357,7 @@ Cap&#237;tulo de livro, coluna, cadernos e suplementos (para publica&#231;&#245;
 					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group" hidden="">
 					<hr class="hidden-md hidden-lg">
 					<label for="uploads" class="control-label col-lg-3">Uploads</label>
 					<div class="col-lg-9">
