@@ -9,6 +9,7 @@ $j(function(){
     $current = $j('#current_view');
     if ($current.val()== 'DVP'){
         remove_DVP_empty();
+        loadImages('dvp');
     }
 });
 

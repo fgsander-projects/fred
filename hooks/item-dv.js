@@ -89,6 +89,7 @@ function getSerie($codigo) {
 function makeCode($codigo){
     var $identificacao = $j('#identificacao');
     var $numero_serie = $j('#numero_serie');
+    
     var h=("000" + ($codigo.numSerie)).slice (-3);
     var identificacao = $codigo.colec.trim() + "_" + $codigo.group.trim() + "_" + $codigo.serie.trim() + "_" + h;
     if (identificacao !== $identificacao.val()){
