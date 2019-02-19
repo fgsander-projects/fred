@@ -5,10 +5,10 @@
 	<div id="response"></div>
         <div  id="my-awesome-dropzone" class="dropzone" style ="height: 180px; margin: 0px">
             <div class="dz-default dz-message" style="height: 150px; margin-top: 0px; margin-bottom: 0px">
-                <h4 style="margin-top: 0px">
+                <h4 style="margin-top: 30px">
 				<i class="glyphicon glyphicon-upload text-primary"></i>
-				Arrastre e solte os arquivos para iniciar o envio<br>
-				<small>Ou clique aqui para escolher manualmente.</small>			
+				<br>Arrastre e solte os arquivos para iniciar o envio<br>
+				<small>ou clique aqui para escolher manualmente.</small>			
 			</h4>
 		</div>
 	</div>
@@ -39,7 +39,7 @@
         
 	$j("div#my-awesome-dropzone").dropzone({
 	  paramName: "uploadedFile", // The name that will be used to transfer the file
-          maxFilesize: 2048,
+          maxFilesize: 200048,
 	  url: "hooks/multipleUpload/upload-ajax.php?f=" + "<?php echo $this->folder; ?>",
 	  acceptedFiles: ext,
 	  uploadMultiple: false,
@@ -53,7 +53,7 @@
                                             response = JSON.parse(response);
                                             if ( response["response-type"] === "success"){
                                                     var successDiv = $j("<div>", {class: "alert alert-success" , style: "display: none; padding-top: 6px; padding-bottom: 6px;"});
-                                                    var successMsg = "File uploaded successfully."+(response.isRenamed?"<br>The project name already exists, the file was renamed to "+response.fileName+".":"");
+                                                    var successMsg = "Arquivo enviado com sucesso."+(response.isRenamed?"<br>O nome deste arquivo já foi usado anterioremente, ele foi renomeado para: "+response.fileName+".":"");
 
                                             //function in upload.js
                                                     jsonImages(b);
@@ -77,7 +77,7 @@
                         });
 			this.on("error", function(file, response){
 				if($j.type(response) === "string"){
-					response = "You must upload a valid file: " + response; //dropzone sends it's own error messages in string
+					response = "Você precisa enviar um arquivo válido: " + response; //dropzone sends it's own error messages in string
 				}else{
 					response = response['error'];
 				}

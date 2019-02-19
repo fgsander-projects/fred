@@ -40,10 +40,10 @@ function make_thumb($source, $fileName, $ext ,&$folder,&$ret){
                             $quantum = $im->getQuantum();
     //                            $im     ->setIteratorIndex(3); //this will return 1th page of the pdf file
 //                            $im  	->flattenImages(); no funciona??
-                            $im	->levelImage(15000, 1.0, 65535);
+                        
                         }
 
-                        $im   	->setImageColorspace(255); // prevent image colors from inverting
+                      
                         $im   	->setimageformat("jpg");
                         $im   	->setresolution(600, 600);
                         $im   	->borderImage($color, 1, 1);
@@ -61,7 +61,7 @@ function make_thumb($source, $fileName, $ext ,&$folder,&$ret){
                             $target = $fo.$folder->loRes.'/'.$fileName . '_LO.jpg';
                             $im   = new Imagick($source); // 0-first page, 1-second page
                             $color= new ImagickPixel();
-                            $color->setColor("rgb(255,255,255)");
+                            
                             $im   ->setImageColorspace(255); // prevent image colors from inverting
                             $im   ->setimageformat("jpeg");
                             $im   ->setresolution(1200, 1200);

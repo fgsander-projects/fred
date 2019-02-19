@@ -47,7 +47,7 @@ $j(function(){
             //cantidad de numero ok
             var a = Number(result[0]).toFixed(2);
             var b = Number(result[1]).toFixed(2);
-            var out = `${a.replace(punto,',')} cm x ${b.replace(punto,',')} cm`;
+            var out = `${a.replace(punto,',')} x ${b.replace(punto,',')} cm`;
             // console.log(out)
             $dim.val(out);
         }else{
