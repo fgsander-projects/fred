@@ -3,9 +3,9 @@
 <div class="clearfix"></div>
 <div> 
 	<div id="response"></div>
-        <div  id="my-awesome-dropzone" class="dropzone" style ="height: 180px; margin: 0px">
-            <div class="dz-default dz-message" style="height: 150px; margin-top: 0px; margin-bottom: 0px">
-                <h4 style="margin-top: 30px">
+        <div  id="my-awesome-dropzone" class="dropzone" style ="height: auto; margin: 0px">
+            <div class="dz-default dz-message" style="height: auto; margin-top: 0px; margin-bottom: 0px">
+                <h4 style="margin-top: 15px">
 				<i class="glyphicon glyphicon-upload text-primary"></i>
 				<br>Arrastre e solte os arquivos para iniciar o envio<br>
 				<small>ou clique aqui para escolher manualmente.</small>			

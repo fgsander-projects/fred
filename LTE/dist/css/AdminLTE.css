@@ -29,6 +29,7 @@ body {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color:#fff !important;
 }
 .wrapper:before,
 .wrapper:after {
@@ -87,7 +88,7 @@ body {
 }
 .content-wrapper {
   min-height: 100%;
-  background-color: #222D32;
+  background-color: #fff;
 /*  background: url(../img/photo1.png);*/
   background-repeat: no-repeat;
   background-attachment: fixed;

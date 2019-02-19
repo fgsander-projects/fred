@@ -17,7 +17,7 @@
 	// translate them here. Do NOT translate them directly in 
 	// the "defaultLang.php" file.
 	// 
-	// Tranaslated to Brasilian Portuguese (PT-BR) Marcelo Vitoria (marcelo.nasca@gmail.com)
+	// Tranaslated to Brasilian Portuguese (PT-BR)
 	// AppGini 5.70 - 24/01/2018
 	// =====================================================
 		
@@ -65,7 +65,7 @@
 	$Translation['Start typing to get suggestions'] = 'Comece a digitar para obter sugestões.';
 
 	// _dml.php
-	$Translation['are you sure?'] = 'Você tem certeza que deseja Excluir este registro ?';
+	$Translation['are you sure?'] = 'Você tem certeza que deseja EXCLUIR este registro? \nEsta é uma ação irreversível!';
 	$Translation['add new record'] = 'Adicionar';
 	$Translation['update record'] = 'Atualizar';
 	$Translation['delete record'] = 'Excluir';
