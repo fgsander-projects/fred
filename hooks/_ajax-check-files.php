@@ -277,7 +277,7 @@
                         
             $i=0;
             $dir = $current_dir . '/..';
-            $plugin ->folder = '/safra/images';
+            $plugin ->folder = '/arquivos/images';
             $ret =[];
             foreach ($myFiles as $myF){
                 $f=json_decode($myF);

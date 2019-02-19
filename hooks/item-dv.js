@@ -24,7 +24,7 @@ $j(function(){
         },500);
     });
     
-    $j('#uploadFrame').load('hooks/multipleUpload/index.php',{folder: '/safra/images'});
+    $j('#uploadFrame').load('hooks/multipleUpload/index.php',{folder: '/arquivos/images'});
     
     var a = getUploadedFile();
     loadImages($j('#titulo').val());

@@ -6,7 +6,7 @@
                 
 		$error_msgs = array();
 		$plugins_error = false;
-                $folder = '/safra/images';
+                $folder = '/arquivos/images';
                 
 		if( !@include("{$base_dir}/lib.php") ) $plugins_error = true;
 		if( !@include("{$resources_dir}/AppGiniPlugin.php") ) $plugins_error = true;

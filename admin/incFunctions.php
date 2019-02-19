@@ -207,7 +207,7 @@
 				'items_salvos' => array(
 					'Caption' => 'Itens Salvos',
 					'Description' => '',
-					'tableIcon' => 'resources/table_icons/heart.png',
+					'tableIcon' => 'resources/table_icons/star.png',
 					'group' => $tg[0],
 					'homepageShowCount' => 1
 				)

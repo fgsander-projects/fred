@@ -1,263 +1,267 @@
 <!-- Edit this file to change the layout of the detail view print preview page -->
 
 
-<div class="panel-heading"><h3 class="panel-title">
-	<strong><%%DETAIL_VIEW_TITLE%%></strong>
-	<div class="hidden-print pull-right">
-		<div class="btn-group">
-			<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> <%%TRANSLATION(Print)%%></button>
-			<button type="submit" id="back" title="<%%TRANSLATION(Cancel Printing)%%>" class="btn btn-default"><i class="glyphicon glyphicon-remove-circle"></i> <%%TRANSLATION(Cancel Printing)%%></button>
+<div class="panel-heading">
+	<h3 class="panel-title">
+		<strong><%%DETAIL_VIEW_TITLE%%></strong>
+		<div class="hidden-print pull-right">
+			<div class="btn-group">
+				<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> <%%TRANSLATION(Print)%%></button>
+				<button type="submit" id="back" title="<%%TRANSLATION(Cancel Printing)%%>" class="btn btn-default"><i class="glyphicon glyphicon-remove-circle"></i> <%%TRANSLATION(Cancel Printing)%%></button>
+			</div>
 		</div>
-	</div>
-	<div class="clearfix"></div>
-</h3></div>
-
+		<div class="clearfix"></div>
+	</h3>
+</div>
 <div class="panel-body">
 	<fieldset class="form-horizontal">
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Identifica&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(identificacao)%%></div>
+		<div class="row">
+			<div class="col col-md-10">
+			
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+					<label class="col-xs-3 control-label">Identifica&#231;&#227;o:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(identificacao)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">N&#250;mero S&#233;rie</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><%%VALUE(numero_serie)%%></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Cole&#231;&#227;o:</label>
+							<div class="col-xs-9">
+								<div class="form-control-static"><span id="colecao<%%RND1%%>"><%%COMBOTEXT(colecao)%%></span></div>
+							</div>
+						</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">C&#243;digo da Cole&#231;&#227;o:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="colecao_codigo<%%RND1%%>"></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Grupo:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="grupo<%%RND1%%>"><%%COMBOTEXT(grupo)%%></span></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">C&#243;digo do Grupo:</label>
+							<div class="col-xs-9">
+						<div class="form-control-static"><span id="grupo_codigo<%%RND1%%>"></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+					<label class="col-xs-3 control-label">S&#233;rie:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><span id="serie<%%RND1%%>"><%%COMBOTEXT(serie)%%></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">C&#243;digo da S&#233;rie:</label>
+						<div class="col-xs-9">
+						<div class="form-control-static"><span id="serie_codigo<%%RND1%%>"></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Subs&#233;rie:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><span id="subserie<%%RND1%%>"><%%COMBOTEXT(subserie)%%></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">T&#237;tulo:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><%%VALUE(titulo)%%></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">T&#237;tulo Atribu&#237;do</label>
+							<div class="col-xs-9">
+						<div class="form-control-static"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%> readonly></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(descricao)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Tipologia / Esp&#233;cie:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="tipologia<%%RND1%%>"><%%COMBOTEXT(tipologia)%%></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Data:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><%%COMBOTEXT(date)%%></div>
+						</div>
+					</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Data / Per&#237;odo:</label>
+						<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(data_livre)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Data Atribu&#237;da</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><input type="checkbox" name="data_atribuida" id="data_atribuida" value="1" <%%CHECKED(data_atribuida)%%> readonly></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Autoria:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(autoria)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Quantidade:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><%%VALUE(quantidade)%%></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Idioma:</label>
+							<div class="col-xs-9">
+						<div class="form-control-static"><%%COMBOTEXT(idioma)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+					<label class="col-xs-3 control-label">Local de Produ&#231;&#227;o:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(local_producao)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Ve&#237;culo de Publica&#231;&#227;o:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="local_publicacao_veiculo<%%RND1%%>"><%%COMBOTEXT(local_publicacao_veiculo)%%></span></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Local de Publica&#231;&#227;o:</label>
+							<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(local_publicacao)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Tipo de Publica&#231;&#227;o:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="tipo_publicacao<%%RND1%%>"><%%COMBOTEXT(tipo_publicacao)%%></span></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">G&#234;nero:</label>
+							<div class="col-xs-9">
+								<div class="form-control-static"><span id="genero<%%RND1%%>"><%%COMBOTEXT(genero)%%></span></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Forma:</label>
+							<div class="col-xs-9">
+								<div class="form-control-static"><%%COMBOTEXT(forma)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Formato:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="formato<%%RND1%%>"><%%COMBOTEXT(formato)%%></span></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Escritura:</label>
+							<div class="col-xs-9">
+								<div class="form-control-static"><%%COMBOTEXT(escritura)%%></div>
+							</div>
+					</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Suporte:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="suporte<%%RND1%%>"><%%COMBOTEXT(suporte)%%></span></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Dimens&#227;o:</label>
+							<div class="col-xs-9">
+								<div class="form-control-static"><%%VALUE(dimensao)%%></div>
+							</div>
+						</div>
+						<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+					<label class="col-xs-3 control-label">Estado de Conserva&#231;&#227;o:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><%%COMBOTEXT(estado_conservacao)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Observa&#231;&#245;es:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(observacoes)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Documentos Relacionados:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="documentos_relacionados<%%RND1%%>"><%%COMBOTEXT(documentos_relacionados)%%></span></div>
+						</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">N&#250;mero da Caixa:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><span id="numero_caixa<%%RND1%%>"><%%COMBOTEXT(numero_caixa)%%></span></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Nome da Caixa:</label>
+							<div class="col-xs-9">
+						<div class="form-control-static"><span id="nome_caixa<%%RND1%%>"><%%COMBOTEXT(nome_caixa)%%></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+					<label class="col-xs-3 control-label">N&#250;mero da Pasta:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><span id="numero_pasta<%%RND1%%>"><%%COMBOTEXT(numero_pasta)%%></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+					<label class="col-xs-3 control-label">Nome da pasta:</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><span id="nome_pasta<%%RND1%%>"><%%COMBOTEXT(nome_pasta)%%></span></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">Cadastro feito pelo usu&#225;rio:</label>
+						<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(usuario_cadastro)%%></div>
+					</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+						<label class="col-xs-3 control-label">&#218;ltima edi&#231;&#227;o feita pelo usu&#225;rio:</label>
+						<div class="col-xs-9">
+							<div class="form-control-static"><%%VALUE(usuario_alteracao)%%></div>
+						</div>
+					</div>
+					<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+							<label class="col-xs-3 control-label">Publicar</label>
+							<div class="col-xs-9">
+								<div class="form-control-static"><input type="checkbox" name="publicar" id="publicar" value="1" <%%CHECKED(publicar)%%> readonly></div>
+							</div>
+				</div>
+				<div class="form-group" style="border-bottom: dotted 1px #DDD;" hidden="">
+					<label class="col-xs-3 control-label">Uploads</label>
+					<div class="col-xs-9">
+						<div class="form-control-static"><%%VALUE(uploads)%%></div>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">N&#250;mero S&#233;rie</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(numero_serie)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Cole&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="colecao<%%RND1%%>"><%%COMBOTEXT(colecao)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">C&#243;digo da Cole&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="colecao_codigo<%%RND1%%>"></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Grupo:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="grupo<%%RND1%%>"><%%COMBOTEXT(grupo)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">C&#243;digo do Grupo:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="grupo_codigo<%%RND1%%>"></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">S&#233;rie:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="serie<%%RND1%%>"><%%COMBOTEXT(serie)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">C&#243;digo da S&#233;rie:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="serie_codigo<%%RND1%%>"></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Subs&#233;rie:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="subserie<%%RND1%%>"><%%COMBOTEXT(subserie)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">T&#237;tulo:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(titulo)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">T&#237;tulo Atribu&#237;do</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><input type="checkbox" name="titulo_atribuido" id="titulo_atribuido" value="1" <%%CHECKED(titulo_atribuido)%%> readonly></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(descricao)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Tipologia / Esp&#233;cie:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="tipologia<%%RND1%%>"><%%COMBOTEXT(tipologia)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Data:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%COMBOTEXT(date)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Data / Per&#237;odo:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(data_livre)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Data Atribu&#237;da</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><input type="checkbox" name="data_atribuida" id="data_atribuida" value="1" <%%CHECKED(data_atribuida)%%> readonly></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Autoria:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(autoria)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Quantidade:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(quantidade)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Idioma:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%COMBOTEXT(idioma)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Local de Produ&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(local_producao)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Ve&#237;culo de Publica&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="local_publicacao_veiculo<%%RND1%%>"><%%COMBOTEXT(local_publicacao_veiculo)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Local de Publica&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(local_publicacao)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Tipo de Publica&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="tipo_publicacao<%%RND1%%>"><%%COMBOTEXT(tipo_publicacao)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">G&#234;nero:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="genero<%%RND1%%>"><%%COMBOTEXT(genero)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Forma:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%COMBOTEXT(forma)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Formato:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="formato<%%RND1%%>"><%%COMBOTEXT(formato)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Escritura:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%COMBOTEXT(escritura)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Suporte:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="suporte<%%RND1%%>"><%%COMBOTEXT(suporte)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Dimens&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(dimensao)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Estado de Conserva&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%COMBOTEXT(estado_conservacao)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Observa&#231;&#245;es:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(observacoes)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Documentos Relacionados:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="documentos_relacionados<%%RND1%%>"><%%COMBOTEXT(documentos_relacionados)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">N&#250;mero da Caixa:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="numero_caixa<%%RND1%%>"><%%COMBOTEXT(numero_caixa)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Nome da Caixa:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="nome_caixa<%%RND1%%>"><%%COMBOTEXT(nome_caixa)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">N&#250;mero da Pasta:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="numero_pasta<%%RND1%%>"><%%COMBOTEXT(numero_pasta)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Nome da pasta:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="nome_pasta<%%RND1%%>"><%%COMBOTEXT(nome_pasta)%%></span></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Upload</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><a id="upload-link" href="link.php?t=item&f=upload&i=<%%VALUE(id)%%>" target="_blank"><i class="glyphicon glyphicon-file" title="<%%VALUE(upload)%%>" style="font-size: x-large;"></i></a><script>jQuery(function(){ /* */ var e_upload = '<%%VALUE(upload)%%>'; if(e_upload == '' || e_upload == '&nbsp;' || e_upload == 'blank.gif') jQuery('#upload-link').hide(); });</script></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Cadastro feito pelo usu&#225;rio:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(usuario_cadastro)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">&#218;ltima edi&#231;&#227;o feita pelo usu&#225;rio:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(usuario_alteracao)%%></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Publicar</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><input type="checkbox" name="publicar" id="publicar" value="1" <%%CHECKED(publicar)%%> readonly></div>
-			</div>
-		</div>
-		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">Uploads</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(uploads)%%></div>
+			<div class="col col-md-2" style="padding-right: 4px;padding-left: 10px;margin-bottom: 20px;">
+					<div id="imagesThumbs-<%%VALUE(id)%%>" class="thumbs" title="<%%VALUE(id)%%>" hidden><%%VALUE(id)%%>
+					</div>
 			</div>
 		</div>
 	</fieldset>
@@ -271,7 +275,7 @@
 	$j(function(){
 		/* prevent loading child records in multiple DVP */
 		if($j('[id=item-children]').length > 1) return;
-
+		
 		post(
 			'parent-children.php', {
 				ParentTable: 'item',

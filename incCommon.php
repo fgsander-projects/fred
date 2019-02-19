@@ -61,7 +61,7 @@
 			'nome_caixa' => array('Nome da Caixa', '', 'resources/table_icons/box_front.png', 'Localiza&#231;&#227;o'),
 			'numero_pasta' => array('N&#250;mero da Pasta', '', 'resources/table_icons/folders.png', 'Localiza&#231;&#227;o'),
 			'nome_pasta' => array('Nome da Pasta', '', 'resources/table_icons/folders.png', 'Localiza&#231;&#227;o'),
-			'items_salvos' => array('Itens Salvos', '', 'resources/table_icons/heart.png', 'Acervo')
+			'items_salvos' => array('Itens Salvos', '', 'resources/table_icons/star.png', 'Acervo')
 		);
 		if($skip_authentication || getLoggedAdmin()) return $arrTables;
 

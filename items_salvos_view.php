@@ -100,7 +100,7 @@
 	$x->ScriptFileName = "items_salvos_view.php";
 	$x->RedirectAfterInsert = "items_salvos_view.php?SelectedID=#ID#";
 	$x->TableTitle = "Itens Salvos";
-	$x->TableIcon = "resources/table_icons/heart.png";
+	$x->TableIcon = "resources/table_icons/star.png";
 	$x->PrimaryKey = "`items_salvos`.`id`";
 	$x->DefaultSortField = '`items_salvos`.`dateAdded`';
 	$x->DefaultSortDirection = 'desc';
