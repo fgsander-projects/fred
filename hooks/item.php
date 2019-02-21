@@ -95,7 +95,7 @@
 		
 		if ($data['numero_serie'] != $next){
 			$data['numero_serie'] = $next;
-			$next = substr("000".$next,-3);
+			$next = substr("0000".$next,-4);
 			//hacer el código
 			$data['identificacao'] = $codes['colec']."_".$codes['group']."_".$codes['serie']."_".$next;
 		}

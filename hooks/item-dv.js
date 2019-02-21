@@ -90,7 +90,11 @@ function makeCode($codigo){
     var $identificacao = $j('#identificacao');
     var $numero_serie = $j('#numero_serie');
     
+<<<<<<< HEAD
     var h=("000" + ($codigo.numSerie)).slice (-4);
+=======
+    var h=("0000" + ($codigo.numSerie)).slice (-4);
+>>>>>>> 73ade3198d5ff6cbca782562d72253aca3548996
     var identificacao = $codigo.colec.trim() + "_" + $codigo.group.trim() + "_" + $codigo.serie.trim() + "_" + h;
     if (identificacao !== $identificacao.val()){
         $numero_serie.val($codigo.numSerie);
