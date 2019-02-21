@@ -77,25 +77,6 @@ function genero_delete($selected_id, $AllowDeleteOfParents=false, $skipChecks=fa
 			return $Translation['Couldn\'t delete this record'];
 	}
 
-	// child table: item
-	$res = sql("select `id` from `genero` where `id`='$selected_id'", $eo);
-	$id = db_fetch_row($res);
-	$rires = sql("select count(1) from `item` where `genero`='".addslashes($id[0])."'", $eo);
-	$rirow = db_fetch_row($rires);
-	if($rirow[0] && !$AllowDeleteOfParents && !$skipChecks){
-		$RetMsg = $Translation["couldn't delete"];
-		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
-		$RetMsg = str_replace("<TableName>", "item", $RetMsg);
-		return $RetMsg;
-	}elseif($rirow[0] && $AllowDeleteOfParents && !$skipChecks){
-		$RetMsg = $Translation["confirm delete"];
-		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
-		$RetMsg = str_replace("<TableName>", "item", $RetMsg);
-		$RetMsg = str_replace("<Delete>", "<input type=\"button\" class=\"button\" value=\"".$Translation['yes']."\" onClick=\"window.location='genero_view.php?SelectedID=".urlencode($selected_id)."&delete_x=1&confirmed=1';\">", $RetMsg);
-		$RetMsg = str_replace("<Cancel>", "<input type=\"button\" class=\"button\" value=\"".$Translation['no']."\" onClick=\"window.location='genero_view.php?SelectedID=".urlencode($selected_id)."';\">", $RetMsg);
-		return $RetMsg;
-	}
-
 	sql("delete from `genero` where `id`='$selected_id'", $eo);
 
 	// hook: genero_after_delete

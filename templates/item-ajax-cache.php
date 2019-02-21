@@ -18,10 +18,8 @@
 			tipologia: <?php echo json_encode(array('id' => $rdata['tipologia'], 'value' => $rdata['tipologia'], 'text' => $jdata['tipologia'])); ?>,
 			local_publicacao_veiculo: <?php echo json_encode(array('id' => $rdata['local_publicacao_veiculo'], 'value' => $rdata['local_publicacao_veiculo'], 'text' => $jdata['local_publicacao_veiculo'])); ?>,
 			tipo_publicacao: <?php echo json_encode(array('id' => $rdata['tipo_publicacao'], 'value' => $rdata['tipo_publicacao'], 'text' => $jdata['tipo_publicacao'])); ?>,
-			genero: <?php echo json_encode(array('id' => $rdata['genero'], 'value' => $rdata['genero'], 'text' => $jdata['genero'])); ?>,
 			formato: <?php echo json_encode(array('id' => $rdata['formato'], 'value' => $rdata['formato'], 'text' => $jdata['formato'])); ?>,
 			suporte: <?php echo json_encode(array('id' => $rdata['suporte'], 'value' => $rdata['suporte'], 'text' => $jdata['suporte'])); ?>,
-			documentos_relacionados: <?php echo json_encode(array('id' => $rdata['documentos_relacionados'], 'value' => $rdata['documentos_relacionados'], 'text' => $jdata['documentos_relacionados'])); ?>,
 			numero_caixa: <?php echo json_encode(array('id' => $rdata['numero_caixa'], 'value' => $rdata['numero_caixa'], 'text' => $jdata['numero_caixa'])); ?>,
 			nome_caixa: <?php echo json_encode(array('id' => $rdata['nome_caixa'], 'value' => $rdata['nome_caixa'], 'text' => $jdata['nome_caixa'])); ?>,
 			numero_pasta: <?php echo json_encode(array('id' => $rdata['numero_pasta'], 'value' => $rdata['numero_pasta'], 'text' => $jdata['numero_pasta'])); ?>,
@@ -131,14 +129,6 @@
 			return false;
 		});
 
-		/* saved value for genero */
-		cache.addCheck(function(u, d){
-			if(u != 'ajax_combo.php') return false;
-			if(d.t == tn && d.f == 'genero' && d.id == data.genero.id)
-				return { results: [ data.genero ], more: false, elapsed: 0.01 };
-			return false;
-		});
-
 		/* saved value for formato */
 		cache.addCheck(function(u, d){
 			if(u != 'ajax_combo.php') return false;
@@ -152,14 +142,6 @@
 			if(u != 'ajax_combo.php') return false;
 			if(d.t == tn && d.f == 'suporte' && d.id == data.suporte.id)
 				return { results: [ data.suporte ], more: false, elapsed: 0.01 };
-			return false;
-		});
-
-		/* saved value for documentos_relacionados */
-		cache.addCheck(function(u, d){
-			if(u != 'ajax_combo.php') return false;
-			if(d.t == tn && d.f == 'documentos_relacionados' && d.id == data.documentos_relacionados.id)
-				return { results: [ data.documentos_relacionados ], more: false, elapsed: 0.01 };
 			return false;
 		});
 
