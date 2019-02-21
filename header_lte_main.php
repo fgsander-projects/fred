@@ -3,10 +3,11 @@
 
                       <!-- Logo -->
                       <a href="index.php" class="logo">
-                        <!-- mini logo for sidebar mini 50x50 pixels -->
-                        <span class="logo-mini"><b><i class="glyphicon glyphicon-home"></i></b>&nbsp;Acervo</span>
-                        <!-- logo for regular state and mobile devices -->
-                        <span class="logo-lg"><b><i class="glyphicon glyphicon-home"></i>&nbsp;Acervo</b></span>
+					   
+                        <!-- mini logo for sidebar mini 50x50 pixels
+                        <span class="logo-mini"><b><i class="glyphicon glyphicon-home"></i></b>&nbsp;</span> -->
+                        <!-- logo for regular state and mobile devices
+                        <span class="logo-lg"><b><i class="glyphicon glyphicon-home"></i>&nbsp;</b></span> -->
                       </a>
 
                       <!-- Header Navbar -->
@@ -15,7 +16,7 @@
                         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                           <span class="sr-only">Toggle navigation</span>
                         </a>
-                        <p class="navbar-text hidden-xs" style="color: white;">Acervo Frederico Morais</p>
+                        <p class="navbar-text hidden-xs" style="color: white;">Memória Frederico Morais</p>
 
                         <!-- Navbar Right Menu -->
                         <div class="navbar-custom-menu">
@@ -35,7 +36,7 @@
                                         <img src="images/no_image.png" class="img-circle user-image mpi-header-avatar" alt="User Image">
                                         <p>
                                             <?php echo getLoggedMemberID(); ?> - <?php echo $memberInfo['group']; ?>
-                                            <small>Member since <?php echo $memberInfo['signupDate']; ?></small>
+                                            <small>Usuário desde: <?php echo $memberInfo['signupDate']; ?></small>
                                         </p>
                                     </li>
                                     <?php if(!$_GET['signIn'] && !$_GET['loginFailed']){ ?>

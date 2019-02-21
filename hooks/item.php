@@ -144,7 +144,7 @@
             $buttons['gallery']['openGallery']['icon'] = 'fa fa-files-o';
             $buttons['gallery']['openGallery']['onclick'] = "script|var btn = \$j('#openGalery').button('loading');openGalery(btn);";
             $buttons['gallery']['openGallery']['confirm'] = '';
-            $buttons['gallery']['openGallery']['attr'] = 'data-loading-text="Loading..."';
+            $buttons['gallery']['openGallery']['attr'] = 'data-loading-text="Carregando..."';
             
             $html .= mkbuttons('item', $selectedID, $buttons);
 
