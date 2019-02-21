@@ -498,8 +498,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	// combobox: date
 	$combo_date = new DateCombo;
 	$combo_date->DateFormat = "dmy";
-	$combo_date->MinYear = 1900;
-	$combo_date->MaxYear = 2100;
+	$combo_date->MinYear = 2019;
+	$combo_date->MaxYear = 1900;
 	$combo_date->DefaultDate = parseMySQLDate('', '');
 	$combo_date->MonthNames = $Translation['month names'];
 	$combo_date->NamePrefix = 'date';

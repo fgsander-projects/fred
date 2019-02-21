@@ -269,7 +269,7 @@
 	$x->AllowNavigation = 1;
 	$x->AllowPrinting = 1;
 	$x->AllowCSV = 1;
-	$x->RecordsPerPage = 25;
+	$x->RecordsPerPage = 525;
 	$x->QuickSearch = 1;
 	$x->QuickSearchText = $Translation["quick search"];
 	$x->ScriptFileName = "item_view.php";
