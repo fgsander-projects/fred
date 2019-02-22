@@ -134,9 +134,6 @@
 				</div>
 			</div>
 		</td>
-		<script
-		>$j(function(){
-			var e_upload = '<%%VALUE(upload)%%>'; 
-			if(e_upload == '' || e_upload == '&nbsp;') $j(/*<*/ '#item-upload-<%%VALUE(id)%%>' /*>*/).html('');
-			});
-		</script>
+		<script>$j(function(){
+			var e_upload = '<%%VALUE(upload)%%>'; if(e_upload == '' || e_upload == '&nbsp;') $j(/*<*/ '#item-upload-<%%VALUE(id)%%>' /*>*/).html('');
+		});</script>

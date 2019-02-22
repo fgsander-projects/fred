@@ -144,28 +144,6 @@
 				'list_type' => 0,
 				'not_null' => false
 			),
-			'formato' => array(
-				'parent_table' => 'formato',
-				'parent_pk_field' => 'id',
-				'parent_caption' => '`formato`.`formato`',
-				'parent_from' => '`formato` ',
-				'filterers' => array(),
-				'custom_query' => '',
-				'inherit_permissions' => false,
-				'list_type' => 0,
-				'not_null' => false
-			),
-			'suporte' => array(
-				'parent_table' => 'suporte',
-				'parent_pk_field' => 'id',
-				'parent_caption' => '`suporte`.`suporte`',
-				'parent_from' => '`suporte` ',
-				'filterers' => array(),
-				'custom_query' => '',
-				'inherit_permissions' => false,
-				'list_type' => 0,
-				'not_null' => false
-			),
 			'numero_caixa' => array(
 				'parent_table' => 'numero_caixa',
 				'parent_pk_field' => 'id',
