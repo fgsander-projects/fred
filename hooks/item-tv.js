@@ -11,6 +11,12 @@ $j(function(){
         remove_DVP_empty();
         loadImages('dvp');
     }
+    if ($current.val()== 'TVP'){
+        $j('.hidden-print').hide();
+        setTimeout(function(){
+            $j('kbd').hide();
+        },1000);
+    }
 });
 
 
