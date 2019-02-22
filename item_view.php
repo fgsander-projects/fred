@@ -46,7 +46,7 @@
 		"IF(    CHAR_LENGTH(`local_comunicacao1`.`local_comunicacao`), CONCAT_WS('',   `local_comunicacao1`.`local_comunicacao`), '') /* Ve&#237;culo de Publica&#231;&#227;o: */" => "local_publicacao_veiculo",
 		"`item`.`local_publicacao`" => "local_publicacao",
 		"IF(    CHAR_LENGTH(`tipo_publicacao1`.`tipo_publicacao`), CONCAT_WS('',   `tipo_publicacao1`.`tipo_publicacao`), '') /* Tipo de Publica&#231;&#227;o: */" => "tipo_publicacao",
-		"`item`.`genero`" => "genero",
+		"IF(    CHAR_LENGTH(`genero1`.`genero`), CONCAT_WS('',   `genero1`.`genero`), '') /* G&#234;nero: */" => "genero",
 		"`item`.`forma`" => "forma",
 		"IF(    CHAR_LENGTH(`formato1`.`formato`), CONCAT_WS('',   `formato1`.`formato`), '') /* Formato: */" => "formato",
 		"`item`.`escritura`" => "escritura",
@@ -54,7 +54,7 @@
 		"`item`.`dimensao`" => "dimensao",
 		"`item`.`estado_conservacao`" => "estado_conservacao",
 		"`item`.`observacoes`" => "observacoes",
-		"`item`.`documentos_relacionados`" => "documentos_relacionados",
+		"IF(    CHAR_LENGTH(`item1`.`identificacao`) || CHAR_LENGTH(`item1`.`titulo`), CONCAT_WS('',   `item1`.`identificacao`, ' - ', `item1`.`titulo`), '') /* Documentos Relacionados: */" => "documentos_relacionados",
 		"IF(    CHAR_LENGTH(`numero_caixa1`.`numero_caixa`), CONCAT_WS('',   `numero_caixa1`.`numero_caixa`), '') /* N&#250;mero da Caixa: */" => "numero_caixa",
 		"IF(    CHAR_LENGTH(`nome_caixa1`.`nome_caixa`), CONCAT_WS('',   `nome_caixa1`.`nome_caixa`), '') /* Nome da Caixa: */" => "nome_caixa",
 		"IF(    CHAR_LENGTH(`numero_pasta1`.`numero_pasta`), CONCAT_WS('',   `numero_pasta1`.`numero_pasta`), '') /* N&#250;mero da Pasta: */" => "numero_pasta",
@@ -91,7 +91,7 @@
 		22 => '`local_comunicacao1`.`local_comunicacao`',
 		23 => 23,
 		24 => '`tipo_publicacao1`.`tipo_publicacao`',
-		25 => 25,
+		25 => '`genero1`.`genero`',
 		26 => 26,
 		27 => '`formato1`.`formato`',
 		28 => 28,
@@ -137,7 +137,7 @@
 		"IF(    CHAR_LENGTH(`local_comunicacao1`.`local_comunicacao`), CONCAT_WS('',   `local_comunicacao1`.`local_comunicacao`), '') /* Ve&#237;culo de Publica&#231;&#227;o: */" => "local_publicacao_veiculo",
 		"`item`.`local_publicacao`" => "local_publicacao",
 		"IF(    CHAR_LENGTH(`tipo_publicacao1`.`tipo_publicacao`), CONCAT_WS('',   `tipo_publicacao1`.`tipo_publicacao`), '') /* Tipo de Publica&#231;&#227;o: */" => "tipo_publicacao",
-		"`item`.`genero`" => "genero",
+		"IF(    CHAR_LENGTH(`genero1`.`genero`), CONCAT_WS('',   `genero1`.`genero`), '') /* G&#234;nero: */" => "genero",
 		"`item`.`forma`" => "forma",
 		"IF(    CHAR_LENGTH(`formato1`.`formato`), CONCAT_WS('',   `formato1`.`formato`), '') /* Formato: */" => "formato",
 		"`item`.`escritura`" => "escritura",
@@ -145,7 +145,7 @@
 		"`item`.`dimensao`" => "dimensao",
 		"`item`.`estado_conservacao`" => "estado_conservacao",
 		"`item`.`observacoes`" => "observacoes",
-		"`item`.`documentos_relacionados`" => "documentos_relacionados",
+		"IF(    CHAR_LENGTH(`item1`.`identificacao`) || CHAR_LENGTH(`item1`.`titulo`), CONCAT_WS('',   `item1`.`identificacao`, ' - ', `item1`.`titulo`), '') /* Documentos Relacionados: */" => "documentos_relacionados",
 		"IF(    CHAR_LENGTH(`numero_caixa1`.`numero_caixa`), CONCAT_WS('',   `numero_caixa1`.`numero_caixa`), '') /* N&#250;mero da Caixa: */" => "numero_caixa",
 		"IF(    CHAR_LENGTH(`nome_caixa1`.`nome_caixa`), CONCAT_WS('',   `nome_caixa1`.`nome_caixa`), '') /* Nome da Caixa: */" => "nome_caixa",
 		"IF(    CHAR_LENGTH(`numero_pasta1`.`numero_pasta`), CONCAT_WS('',   `numero_pasta1`.`numero_pasta`), '') /* N&#250;mero da Pasta: */" => "numero_pasta",
@@ -182,7 +182,7 @@
 		"IF(    CHAR_LENGTH(`local_comunicacao1`.`local_comunicacao`), CONCAT_WS('',   `local_comunicacao1`.`local_comunicacao`), '') /* Ve&#237;culo de Publica&#231;&#227;o: */" => "Ve&#237;culo de Publica&#231;&#227;o:",
 		"`item`.`local_publicacao`" => "Local de Publica&#231;&#227;o:",
 		"IF(    CHAR_LENGTH(`tipo_publicacao1`.`tipo_publicacao`), CONCAT_WS('',   `tipo_publicacao1`.`tipo_publicacao`), '') /* Tipo de Publica&#231;&#227;o: */" => "Tipo de Publica&#231;&#227;o:",
-		"`item`.`genero`" => "G&#234;nero:",
+		"IF(    CHAR_LENGTH(`genero1`.`genero`), CONCAT_WS('',   `genero1`.`genero`), '') /* G&#234;nero: */" => "G&#234;nero:",
 		"`item`.`forma`" => "Forma:",
 		"IF(    CHAR_LENGTH(`formato1`.`formato`), CONCAT_WS('',   `formato1`.`formato`), '') /* Formato: */" => "Formato:",
 		"`item`.`escritura`" => "Escritura:",
@@ -190,7 +190,7 @@
 		"`item`.`dimensao`" => "Dimens&#227;o:",
 		"`item`.`estado_conservacao`" => "Estado de Conserva&#231;&#227;o:",
 		"`item`.`observacoes`" => "Observa&#231;&#245;es:",
-		"`item`.`documentos_relacionados`" => "Documentos Relacionados:",
+		"IF(    CHAR_LENGTH(`item1`.`identificacao`) || CHAR_LENGTH(`item1`.`titulo`), CONCAT_WS('',   `item1`.`identificacao`, ' - ', `item1`.`titulo`), '') /* Documentos Relacionados: */" => "Documentos Relacionados:",
 		"IF(    CHAR_LENGTH(`numero_caixa1`.`numero_caixa`), CONCAT_WS('',   `numero_caixa1`.`numero_caixa`), '') /* N&#250;mero da Caixa: */" => "N&#250;mero da Caixa:",
 		"IF(    CHAR_LENGTH(`nome_caixa1`.`nome_caixa`), CONCAT_WS('',   `nome_caixa1`.`nome_caixa`), '') /* Nome da Caixa: */" => "Nome da Caixa:",
 		"IF(    CHAR_LENGTH(`numero_pasta1`.`numero_pasta`), CONCAT_WS('',   `numero_pasta1`.`numero_pasta`), '') /* N&#250;mero da Pasta: */" => "N&#250;mero da Pasta:",
@@ -228,7 +228,7 @@
 		"IF(    CHAR_LENGTH(`local_comunicacao1`.`local_comunicacao`), CONCAT_WS('',   `local_comunicacao1`.`local_comunicacao`), '') /* Ve&#237;culo de Publica&#231;&#227;o: */" => "local_publicacao_veiculo",
 		"`item`.`local_publicacao`" => "local_publicacao",
 		"IF(    CHAR_LENGTH(`tipo_publicacao1`.`tipo_publicacao`), CONCAT_WS('',   `tipo_publicacao1`.`tipo_publicacao`), '') /* Tipo de Publica&#231;&#227;o: */" => "tipo_publicacao",
-		"`item`.`genero`" => "genero",
+		"IF(    CHAR_LENGTH(`genero1`.`genero`), CONCAT_WS('',   `genero1`.`genero`), '') /* G&#234;nero: */" => "genero",
 		"`item`.`forma`" => "forma",
 		"IF(    CHAR_LENGTH(`formato1`.`formato`), CONCAT_WS('',   `formato1`.`formato`), '') /* Formato: */" => "formato",
 		"`item`.`escritura`" => "escritura",
@@ -236,7 +236,7 @@
 		"`item`.`dimensao`" => "dimensao",
 		"`item`.`estado_conservacao`" => "estado_conservacao",
 		"`item`.`observacoes`" => "observacoes",
-		"`item`.`documentos_relacionados`" => "documentos_relacionados",
+		"IF(    CHAR_LENGTH(`item1`.`identificacao`) || CHAR_LENGTH(`item1`.`titulo`), CONCAT_WS('',   `item1`.`identificacao`, ' - ', `item1`.`titulo`), '') /* Documentos Relacionados: */" => "documentos_relacionados",
 		"IF(    CHAR_LENGTH(`numero_caixa1`.`numero_caixa`), CONCAT_WS('',   `numero_caixa1`.`numero_caixa`), '') /* N&#250;mero da Caixa: */" => "numero_caixa",
 		"IF(    CHAR_LENGTH(`nome_caixa1`.`nome_caixa`), CONCAT_WS('',   `nome_caixa1`.`nome_caixa`), '') /* Nome da Caixa: */" => "nome_caixa",
 		"IF(    CHAR_LENGTH(`numero_pasta1`.`numero_pasta`), CONCAT_WS('',   `numero_pasta1`.`numero_pasta`), '') /* N&#250;mero da Pasta: */" => "numero_pasta",
@@ -249,9 +249,9 @@
 	);
 
 	// Lookup fields that can be used as filterers
-	$x->filterers = array(  'colecao' => 'Cole&#231;&#227;o:', 'grupo' => 'Grupo:', 'serie' => 'S&#233;rie:', 'subserie' => 'Subs&#233;rie:', 'tipologia' => 'Tipologia / Esp&#233;cie:', 'local_publicacao_veiculo' => 'Ve&#237;culo de Publica&#231;&#227;o:', 'tipo_publicacao' => 'Tipo de Publica&#231;&#227;o:', 'formato' => 'Formato:', 'suporte' => 'Suporte:', 'numero_caixa' => 'N&#250;mero da Caixa:', 'nome_caixa' => 'Nome da Caixa:', 'numero_pasta' => 'N&#250;mero da Pasta:', 'nome_pasta' => 'Nome da pasta:');
+	$x->filterers = array(  'colecao' => 'Cole&#231;&#227;o:', 'grupo' => 'Grupo:', 'serie' => 'S&#233;rie:', 'subserie' => 'Subs&#233;rie:', 'tipologia' => 'Tipologia / Esp&#233;cie:', 'local_publicacao_veiculo' => 'Ve&#237;culo de Publica&#231;&#227;o:', 'tipo_publicacao' => 'Tipo de Publica&#231;&#227;o:', 'genero' => 'G&#234;nero:', 'formato' => 'Formato:', 'suporte' => 'Suporte:', 'documentos_relacionados' => 'Documentos Relacionados:', 'numero_caixa' => 'N&#250;mero da Caixa:', 'nome_caixa' => 'Nome da Caixa:', 'numero_pasta' => 'N&#250;mero da Pasta:', 'nome_pasta' => 'Nome da pasta:');
 
-	$x->QueryFrom = "`item` LEFT JOIN `colecao` as colecao1 ON `colecao1`.`id`=`item`.`colecao` LEFT JOIN `grupo` as grupo1 ON `grupo1`.`id`=`item`.`grupo` LEFT JOIN `serie` as serie1 ON `serie1`.`id`=`item`.`serie` LEFT JOIN `subserie` as subserie1 ON `subserie1`.`id`=`item`.`subserie` LEFT JOIN `tipologia` as tipologia1 ON `tipologia1`.`id`=`item`.`tipologia` LEFT JOIN `local_comunicacao` as local_comunicacao1 ON `local_comunicacao1`.`id`=`item`.`local_publicacao_veiculo` LEFT JOIN `tipo_publicacao` as tipo_publicacao1 ON `tipo_publicacao1`.`id`=`item`.`tipo_publicacao` LEFT JOIN `formato` as formato1 ON `formato1`.`id`=`item`.`formato` LEFT JOIN `suporte` as suporte1 ON `suporte1`.`id`=`item`.`suporte` LEFT JOIN `numero_caixa` as numero_caixa1 ON `numero_caixa1`.`id`=`item`.`numero_caixa` LEFT JOIN `nome_caixa` as nome_caixa1 ON `nome_caixa1`.`id`=`item`.`nome_caixa` LEFT JOIN `numero_pasta` as numero_pasta1 ON `numero_pasta1`.`id`=`item`.`numero_pasta` LEFT JOIN `nome_pasta` as nome_pasta1 ON `nome_pasta1`.`id`=`item`.`nome_pasta` ";
+	$x->QueryFrom = "`item` LEFT JOIN `colecao` as colecao1 ON `colecao1`.`id`=`item`.`colecao` LEFT JOIN `grupo` as grupo1 ON `grupo1`.`id`=`item`.`grupo` LEFT JOIN `serie` as serie1 ON `serie1`.`id`=`item`.`serie` LEFT JOIN `subserie` as subserie1 ON `subserie1`.`id`=`item`.`subserie` LEFT JOIN `tipologia` as tipologia1 ON `tipologia1`.`id`=`item`.`tipologia` LEFT JOIN `local_comunicacao` as local_comunicacao1 ON `local_comunicacao1`.`id`=`item`.`local_publicacao_veiculo` LEFT JOIN `tipo_publicacao` as tipo_publicacao1 ON `tipo_publicacao1`.`id`=`item`.`tipo_publicacao` LEFT JOIN `genero` as genero1 ON `genero1`.`id`=`item`.`genero` LEFT JOIN `formato` as formato1 ON `formato1`.`id`=`item`.`formato` LEFT JOIN `suporte` as suporte1 ON `suporte1`.`id`=`item`.`suporte` LEFT JOIN `item` as item1 ON `item1`.`id`=`item`.`documentos_relacionados` LEFT JOIN `numero_caixa` as numero_caixa1 ON `numero_caixa1`.`id`=`item`.`numero_caixa` LEFT JOIN `nome_caixa` as nome_caixa1 ON `nome_caixa1`.`id`=`item`.`nome_caixa` LEFT JOIN `numero_pasta` as numero_pasta1 ON `numero_pasta1`.`id`=`item`.`numero_pasta` LEFT JOIN `nome_pasta` as nome_pasta1 ON `nome_pasta1`.`id`=`item`.`nome_pasta` ";
 	$x->QueryWhere = '';
 	$x->QueryOrder = '';
 
