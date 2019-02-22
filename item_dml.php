@@ -517,8 +517,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions($idioma_data)));
 		$combo_idioma->ListData = $combo_idioma->ListItem;
 	}else{
+//		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("Portugues;;Espa&#241;olisimo")));
                 $res = sql('select idioma from idioma',$e);
-		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("Portugues;;Espa&#241;olisimo")));
                 while( $row = db_fetch_assoc( $res)){
                     $new_array[] = $row['idioma']; // Inside while loop
                 }
@@ -541,7 +541,17 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_genero->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions($genero_data)));
 		$combo_genero->ListData = $combo_genero->ListItem;
 	}else{
-		$combo_genero->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("gnero1;;genero2")));
+//		$combo_genero->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("gnero1;;genero2")));
+                
+                $res = sql('select genero from genero',$e);
+                $new_array=[];
+                while( $row = db_fetch_assoc( $res)){
+                    $new_array[] = $row['genero']; // Inside while loop
+                }
+
+                $combo_genero->ListItem = $new_array;
+                
+                
 		$combo_genero->ListData = $combo_genero->ListItem;
 	}
 	$combo_genero->SelectName = 'genero';
@@ -606,6 +616,13 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_documentos_relacionados->ListData = $combo_documentos_relacionados->ListItem;
 	}else{
 		$combo_documentos_relacionados->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("related1;;related2")));
+                
+                $res = sql('select identificacao from item',$e);
+                $new_array=[];
+                while( $row = db_fetch_assoc( $res)){
+                    $new_array[] = $row['identificacao']; // Inside while loop
+                }
+                $combo_documentos_relacionados->ListItem = $new_array;
 		$combo_documentos_relacionados->ListData = $combo_documentos_relacionados->ListItem;
 	}
 	$combo_documentos_relacionados->SelectName = 'documentos_relacionados';
