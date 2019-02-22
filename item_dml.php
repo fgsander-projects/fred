@@ -65,8 +65,14 @@ function item_insert(){
 		if($data['local_publicacao'] == empty_lookup_value){ $data['local_publicacao'] = ''; }
 	$data['tipo_publicacao'] = makeSafe($_REQUEST['tipo_publicacao']);
 		if($data['tipo_publicacao'] == empty_lookup_value){ $data['tipo_publicacao'] = ''; }
-	$data['genero'] = makeSafe($_REQUEST['genero']);
-		if($data['genero'] == empty_lookup_value){ $data['genero'] = ''; }
+	if(is_array($_REQUEST['genero'])){
+		$MultipleSeparator=', ';
+		foreach($_REQUEST['genero'] as $k => $v)
+			$data['genero'] .= makeSafe($v) . $MultipleSeparator;
+		$data['genero'] = substr($data['genero'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['genero']='';
+	}
 	if(is_array($_REQUEST['forma'])){
 		$MultipleSeparator=', ';
 		foreach($_REQUEST['forma'] as $k => $v)
@@ -98,8 +104,14 @@ function item_insert(){
 		$data['estado_conservacao']='';
 	}
 	$data['observacoes'] = br2nl(makeSafe($_REQUEST['observacoes']));
-	$data['documentos_relacionados'] = makeSafe($_REQUEST['documentos_relacionados']);
-		if($data['documentos_relacionados'] == empty_lookup_value){ $data['documentos_relacionados'] = ''; }
+	if(is_array($_REQUEST['documentos_relacionados'])){
+		$MultipleSeparator=', ';
+		foreach($_REQUEST['documentos_relacionados'] as $k => $v)
+			$data['documentos_relacionados'] .= makeSafe($v) . $MultipleSeparator;
+		$data['documentos_relacionados'] = substr($data['documentos_relacionados'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['documentos_relacionados']='';
+	}
 	$data['numero_caixa'] = makeSafe($_REQUEST['numero_caixa']);
 		if($data['numero_caixa'] == empty_lookup_value){ $data['numero_caixa'] = ''; }
 	$data['nome_caixa'] = makeSafe($_REQUEST['nome_caixa']);
@@ -205,25 +217,6 @@ function item_delete($selected_id, $AllowDeleteOfParents=false, $skipChecks=fals
 		$args=array();
 		if(!item_before_delete($selected_id, $skipChecks, getMemberInfo(), $args))
 			return $Translation['Couldn\'t delete this record'];
-	}
-
-	// child table: item
-	$res = sql("select `id` from `item` where `id`='$selected_id'", $eo);
-	$id = db_fetch_row($res);
-	$rires = sql("select count(1) from `item` where `documentos_relacionados`='".addslashes($id[0])."'", $eo);
-	$rirow = db_fetch_row($rires);
-	if($rirow[0] && !$AllowDeleteOfParents && !$skipChecks){
-		$RetMsg = $Translation["couldn't delete"];
-		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
-		$RetMsg = str_replace("<TableName>", "item", $RetMsg);
-		return $RetMsg;
-	}elseif($rirow[0] && $AllowDeleteOfParents && !$skipChecks){
-		$RetMsg = $Translation["confirm delete"];
-		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
-		$RetMsg = str_replace("<TableName>", "item", $RetMsg);
-		$RetMsg = str_replace("<Delete>", "<input type=\"button\" class=\"button\" value=\"".$Translation['yes']."\" onClick=\"window.location='item_view.php?SelectedID=".urlencode($selected_id)."&delete_x=1&confirmed=1';\">", $RetMsg);
-		$RetMsg = str_replace("<Cancel>", "<input type=\"button\" class=\"button\" value=\"".$Translation['no']."\" onClick=\"window.location='item_view.php?SelectedID=".urlencode($selected_id)."';\">", $RetMsg);
-		return $RetMsg;
 	}
 
 	// delete file stored in the 'upload' field
@@ -340,8 +333,14 @@ function item_update($selected_id){
 		if($data['local_publicacao'] == empty_lookup_value){ $data['local_publicacao'] = ''; }
 	$data['tipo_publicacao'] = makeSafe($_REQUEST['tipo_publicacao']);
 		if($data['tipo_publicacao'] == empty_lookup_value){ $data['tipo_publicacao'] = ''; }
-	$data['genero'] = makeSafe($_REQUEST['genero']);
-		if($data['genero'] == empty_lookup_value){ $data['genero'] = ''; }
+	if(is_array($_REQUEST['genero'])){
+		$MultipleSeparator = ', ';
+		foreach($_REQUEST['genero'] as $k => $v)
+			$data['genero'] .= makeSafe($v) . $MultipleSeparator;
+		$data['genero']=substr($data['genero'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['genero']='';
+	}
 	if(is_array($_REQUEST['forma'])){
 		$MultipleSeparator = ', ';
 		foreach($_REQUEST['forma'] as $k => $v)
@@ -373,8 +372,14 @@ function item_update($selected_id){
 		$data['estado_conservacao']='';
 	}
 	$data['observacoes'] = br2nl(makeSafe($_REQUEST['observacoes']));
-	$data['documentos_relacionados'] = makeSafe($_REQUEST['documentos_relacionados']);
-		if($data['documentos_relacionados'] == empty_lookup_value){ $data['documentos_relacionados'] = ''; }
+	if(is_array($_REQUEST['documentos_relacionados'])){
+		$MultipleSeparator = ', ';
+		foreach($_REQUEST['documentos_relacionados'] as $k => $v)
+			$data['documentos_relacionados'] .= makeSafe($v) . $MultipleSeparator;
+		$data['documentos_relacionados']=substr($data['documentos_relacionados'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['documentos_relacionados']='';
+	}
 	$data['numero_caixa'] = makeSafe($_REQUEST['numero_caixa']);
 		if($data['numero_caixa'] == empty_lookup_value){ $data['numero_caixa'] = ''; }
 	$data['nome_caixa'] = makeSafe($_REQUEST['nome_caixa']);
@@ -466,10 +471,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$filterer_tipologia = thisOr(undo_magic_quotes($_REQUEST['filterer_tipologia']), '');
 	$filterer_local_publicacao_veiculo = thisOr(undo_magic_quotes($_REQUEST['filterer_local_publicacao_veiculo']), '');
 	$filterer_tipo_publicacao = thisOr(undo_magic_quotes($_REQUEST['filterer_tipo_publicacao']), '');
-	$filterer_genero = thisOr(undo_magic_quotes($_REQUEST['filterer_genero']), '');
 	$filterer_formato = thisOr(undo_magic_quotes($_REQUEST['filterer_formato']), '');
 	$filterer_suporte = thisOr(undo_magic_quotes($_REQUEST['filterer_suporte']), '');
-	$filterer_documentos_relacionados = thisOr(undo_magic_quotes($_REQUEST['filterer_documentos_relacionados']), '');
 	$filterer_numero_caixa = thisOr(undo_magic_quotes($_REQUEST['filterer_numero_caixa']), '');
 	$filterer_nome_caixa = thisOr(undo_magic_quotes($_REQUEST['filterer_nome_caixa']), '');
 	$filterer_numero_pasta = thisOr(undo_magic_quotes($_REQUEST['filterer_numero_pasta']), '');
@@ -498,8 +501,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	// combobox: date
 	$combo_date = new DateCombo;
 	$combo_date->DateFormat = "dmy";
-	$combo_date->MinYear = 2019;
-	$combo_date->MaxYear = 1900;
+	$combo_date->MinYear = 1900;
+	$combo_date->MaxYear = 2100;
 	$combo_date->DefaultDate = parseMySQLDate('', '');
 	$combo_date->MonthNames = $Translation['month names'];
 	$combo_date->NamePrefix = 'date';
@@ -514,8 +517,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions($idioma_data)));
 		$combo_idioma->ListData = $combo_idioma->ListItem;
 	}else{
+//		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("Portugues;;Espa&#241;olisimo")));
                 $res = sql('select idioma from idioma',$e);
-		$combo_idioma->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("Portugues;;Espa&#241;olisimo")));
                 while( $row = db_fetch_assoc( $res)){
                     $new_array[] = $row['idioma']; // Inside while loop
                 }
@@ -528,7 +531,30 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	// combobox: tipo_publicacao
 	$combo_tipo_publicacao = new DataCombo;
 	// combobox: genero
-	$combo_genero = new DataCombo;
+	$combo_genero = new Combo;
+	$combo_genero->ListType = 3;
+	$combo_genero->MultipleSeparator = ', ';
+	$combo_genero->ListBoxHeight = 10;
+	$combo_genero->RadiosPerLine = 1;
+	if(is_file(dirname(__FILE__).'/hooks/item.genero.csv')){
+		$genero_data = addslashes(implode('', @file(dirname(__FILE__).'/hooks/item.genero.csv')));
+		$combo_genero->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions($genero_data)));
+		$combo_genero->ListData = $combo_genero->ListItem;
+	}else{
+//		$combo_genero->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("gnero1;;genero2")));
+                
+                $res = sql('select genero from genero',$e);
+                $new_array=[];
+                while( $row = db_fetch_assoc( $res)){
+                    $new_array[] = $row['genero']; // Inside while loop
+                }
+
+                $combo_genero->ListItem = $new_array;
+                
+                
+		$combo_genero->ListData = $combo_genero->ListItem;
+	}
+	$combo_genero->SelectName = 'genero';
 	// combobox: forma
 	$combo_forma = new Combo;
 	$combo_forma->ListType = 3;
@@ -579,7 +605,27 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	}
 	$combo_estado_conservacao->SelectName = 'estado_conservacao';
 	// combobox: documentos_relacionados
-	$combo_documentos_relacionados = new DataCombo;
+	$combo_documentos_relacionados = new Combo;
+	$combo_documentos_relacionados->ListType = 3;
+	$combo_documentos_relacionados->MultipleSeparator = ', ';
+	$combo_documentos_relacionados->ListBoxHeight = 10;
+	$combo_documentos_relacionados->RadiosPerLine = 1;
+	if(is_file(dirname(__FILE__).'/hooks/item.documentos_relacionados.csv')){
+		$documentos_relacionados_data = addslashes(implode('', @file(dirname(__FILE__).'/hooks/item.documentos_relacionados.csv')));
+		$combo_documentos_relacionados->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions($documentos_relacionados_data)));
+		$combo_documentos_relacionados->ListData = $combo_documentos_relacionados->ListItem;
+	}else{
+		$combo_documentos_relacionados->ListItem = explode('||', entitiesToUTF8(convertLegacyOptions("related1;;related2")));
+                
+                $res = sql('select identificacao from item',$e);
+                $new_array=[];
+                while( $row = db_fetch_assoc( $res)){
+                    $new_array[] = $row['identificacao']; // Inside while loop
+                }
+                $combo_documentos_relacionados->ListItem = $new_array;
+		$combo_documentos_relacionados->ListData = $combo_documentos_relacionados->ListItem;
+	}
+	$combo_documentos_relacionados->SelectName = 'documentos_relacionados';
 	// combobox: numero_caixa
 	$combo_numero_caixa = new DataCombo;
 	// combobox: nome_caixa, filterable by: numero_caixa
@@ -646,10 +692,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_tipologia->SelectedData = $filterer_tipologia;
 		$combo_local_publicacao_veiculo->SelectedData = $filterer_local_publicacao_veiculo;
 		$combo_tipo_publicacao->SelectedData = $filterer_tipo_publicacao;
-		$combo_genero->SelectedData = $filterer_genero;
 		$combo_formato->SelectedData = $filterer_formato;
 		$combo_suporte->SelectedData = $filterer_suporte;
-		$combo_documentos_relacionados->SelectedData = $filterer_documentos_relacionados;
 		$combo_numero_caixa->SelectedData = $filterer_numero_caixa;
 		$combo_nome_caixa->SelectedData = $filterer_nome_caixa;
 		$combo_numero_pasta->SelectedData = $filterer_numero_pasta;
@@ -670,8 +714,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$combo_local_publicacao_veiculo->MatchText = '<span id="local_publicacao_veiculo-container-readonly' . $rnd1 . '"></span><input type="hidden" name="local_publicacao_veiculo" id="local_publicacao_veiculo' . $rnd1 . '" value="' . html_attr($combo_local_publicacao_veiculo->SelectedData) . '">';
 	$combo_tipo_publicacao->HTML = '<span id="tipo_publicacao-container' . $rnd1 . '"></span><input type="hidden" name="tipo_publicacao" id="tipo_publicacao' . $rnd1 . '" value="' . html_attr($combo_tipo_publicacao->SelectedData) . '">';
 	$combo_tipo_publicacao->MatchText = '<span id="tipo_publicacao-container-readonly' . $rnd1 . '"></span><input type="hidden" name="tipo_publicacao" id="tipo_publicacao' . $rnd1 . '" value="' . html_attr($combo_tipo_publicacao->SelectedData) . '">';
-	$combo_genero->HTML = '<span id="genero-container' . $rnd1 . '"></span><input type="hidden" name="genero" id="genero' . $rnd1 . '" value="' . html_attr($combo_genero->SelectedData) . '">';
-	$combo_genero->MatchText = '<span id="genero-container-readonly' . $rnd1 . '"></span><input type="hidden" name="genero" id="genero' . $rnd1 . '" value="' . html_attr($combo_genero->SelectedData) . '">';
+	$combo_genero->Render();
 	$combo_forma->Render();
 	$combo_formato->HTML = '<span id="formato-container' . $rnd1 . '"></span><input type="hidden" name="formato" id="formato' . $rnd1 . '" value="' . html_attr($combo_formato->SelectedData) . '">';
 	$combo_formato->MatchText = '<span id="formato-container-readonly' . $rnd1 . '"></span><input type="hidden" name="formato" id="formato' . $rnd1 . '" value="' . html_attr($combo_formato->SelectedData) . '">';
@@ -679,8 +722,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$combo_suporte->HTML = '<span id="suporte-container' . $rnd1 . '"></span><input type="hidden" name="suporte" id="suporte' . $rnd1 . '" value="' . html_attr($combo_suporte->SelectedData) . '">';
 	$combo_suporte->MatchText = '<span id="suporte-container-readonly' . $rnd1 . '"></span><input type="hidden" name="suporte" id="suporte' . $rnd1 . '" value="' . html_attr($combo_suporte->SelectedData) . '">';
 	$combo_estado_conservacao->Render();
-	$combo_documentos_relacionados->HTML = '<span id="documentos_relacionados-container' . $rnd1 . '"></span><input type="hidden" name="documentos_relacionados" id="documentos_relacionados' . $rnd1 . '" value="' . html_attr($combo_documentos_relacionados->SelectedData) . '">';
-	$combo_documentos_relacionados->MatchText = '<span id="documentos_relacionados-container-readonly' . $rnd1 . '"></span><input type="hidden" name="documentos_relacionados" id="documentos_relacionados' . $rnd1 . '" value="' . html_attr($combo_documentos_relacionados->SelectedData) . '">';
+	$combo_documentos_relacionados->Render();
 	$combo_numero_caixa->HTML = '<span id="numero_caixa-container' . $rnd1 . '"></span><input type="hidden" name="numero_caixa" id="numero_caixa' . $rnd1 . '" value="' . html_attr($combo_numero_caixa->SelectedData) . '">';
 	$combo_numero_caixa->MatchText = '<span id="numero_caixa-container-readonly' . $rnd1 . '"></span><input type="hidden" name="numero_caixa" id="numero_caixa' . $rnd1 . '" value="' . html_attr($combo_numero_caixa->SelectedData) . '">';
 	$combo_nome_caixa->HTML = '<span id="nome_caixa-container' . $rnd1 . '"></span><input type="hidden" name="nome_caixa" id="nome_caixa' . $rnd1 . '" value="' . html_attr($combo_nome_caixa->SelectedData) . '">';
@@ -702,10 +744,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		AppGini.current_tipologia__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['tipologia'] : $filterer_tipologia); ?>"};
 		AppGini.current_local_publicacao_veiculo__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['local_publicacao_veiculo'] : $filterer_local_publicacao_veiculo); ?>"};
 		AppGini.current_tipo_publicacao__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['tipo_publicacao'] : $filterer_tipo_publicacao); ?>"};
-		AppGini.current_genero__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['genero'] : $filterer_genero); ?>"};
 		AppGini.current_formato__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['formato'] : $filterer_formato); ?>"};
 		AppGini.current_suporte__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['suporte'] : $filterer_suporte); ?>"};
-		AppGini.current_documentos_relacionados__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['documentos_relacionados'] : $filterer_documentos_relacionados); ?>"};
 		AppGini.current_numero_caixa__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['numero_caixa'] : $filterer_numero_caixa); ?>"};
 		AppGini.current_nome_caixa__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['nome_caixa'] : $filterer_nome_caixa); ?>"};
 		AppGini.current_numero_pasta__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['numero_pasta'] : $filterer_numero_pasta); ?>"};
@@ -720,10 +760,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 				if(typeof(tipologia_reload__RAND__) == 'function') tipologia_reload__RAND__();
 				if(typeof(local_publicacao_veiculo_reload__RAND__) == 'function') local_publicacao_veiculo_reload__RAND__();
 				if(typeof(tipo_publicacao_reload__RAND__) == 'function') tipo_publicacao_reload__RAND__();
-				if(typeof(genero_reload__RAND__) == 'function') genero_reload__RAND__();
 				if(typeof(formato_reload__RAND__) == 'function') formato_reload__RAND__();
 				if(typeof(suporte_reload__RAND__) == 'function') suporte_reload__RAND__();
-				if(typeof(documentos_relacionados_reload__RAND__) == 'function') documentos_relacionados_reload__RAND__();
 				if(typeof(numero_caixa_reload__RAND__) == 'function') numero_caixa_reload__RAND__();
 				<?php echo (!$AllowUpdate || $dvprint ? 'if(typeof(nome_caixa_reload__RAND__) == \'function\') nome_caixa_reload__RAND__(AppGini.current_numero_caixa__RAND__.value);' : ''); ?>
 				<?php echo (!$AllowUpdate || $dvprint ? 'if(typeof(numero_pasta_reload__RAND__) == \'function\') numero_pasta_reload__RAND__(AppGini.current_nome_caixa__RAND__.value);' : ''); ?>
@@ -1277,83 +1315,6 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		<?php } ?>
 
 		}
-		function genero_reload__RAND__(){
-		<?php if(($AllowUpdate || $AllowInsert) && !$dvprint){ ?>
-
-			$j("#genero-container__RAND__").select2({
-				/* initial default value */
-				initSelection: function(e, c){
-					$j.ajax({
-						url: 'ajax_combo.php',
-						dataType: 'json',
-						data: { id: AppGini.current_genero__RAND__.value, t: 'item', f: 'genero' },
-						success: function(resp){
-							c({
-								id: resp.results[0].id,
-								text: resp.results[0].text
-							});
-							$j('[name="genero"]').val(resp.results[0].id);
-							$j('[id=genero-container-readonly__RAND__]').html('<span id="genero-match-text">' + resp.results[0].text + '</span>');
-							if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=genero_view_parent]').hide(); }else{ $j('.btn[id=genero_view_parent]').show(); }
-
-
-							if(typeof(genero_update_autofills__RAND__) == 'function') genero_update_autofills__RAND__();
-						}
-					});
-				},
-				width: '100%',
-				formatNoMatches: function(term){ /* */ return '<?php echo addslashes($Translation['No matches found!']); ?>'; },
-				minimumResultsForSearch: 5,
-				loadMorePadding: 200,
-				ajax: {
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					cache: true,
-					data: function(term, page){ /* */ return { s: term, p: page, t: 'item', f: 'genero' }; },
-					results: function(resp, page){ /* */ return resp; }
-				},
-				escapeMarkup: function(str){ /* */ return str; }
-			}).on('change', function(e){
-				AppGini.current_genero__RAND__.value = e.added.id;
-				AppGini.current_genero__RAND__.text = e.added.text;
-				$j('[name="genero"]').val(e.added.id);
-				if(e.added.id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=genero_view_parent]').hide(); }else{ $j('.btn[id=genero_view_parent]').show(); }
-
-
-				if(typeof(genero_update_autofills__RAND__) == 'function') genero_update_autofills__RAND__();
-			});
-
-			if(!$j("#genero-container__RAND__").length){
-				$j.ajax({
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					data: { id: AppGini.current_genero__RAND__.value, t: 'item', f: 'genero' },
-					success: function(resp){
-						$j('[name="genero"]').val(resp.results[0].id);
-						$j('[id=genero-container-readonly__RAND__]').html('<span id="genero-match-text">' + resp.results[0].text + '</span>');
-						if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=genero_view_parent]').hide(); }else{ $j('.btn[id=genero_view_parent]').show(); }
-
-						if(typeof(genero_update_autofills__RAND__) == 'function') genero_update_autofills__RAND__();
-					}
-				});
-			}
-
-		<?php }else{ ?>
-
-			$j.ajax({
-				url: 'ajax_combo.php',
-				dataType: 'json',
-				data: { id: AppGini.current_genero__RAND__.value, t: 'item', f: 'genero' },
-				success: function(resp){
-					$j('[id=genero-container__RAND__], [id=genero-container-readonly__RAND__]').html('<span id="genero-match-text">' + resp.results[0].text + '</span>');
-					if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=genero_view_parent]').hide(); }else{ $j('.btn[id=genero_view_parent]').show(); }
-
-					if(typeof(genero_update_autofills__RAND__) == 'function') genero_update_autofills__RAND__();
-				}
-			});
-		<?php } ?>
-
-		}
 		function formato_reload__RAND__(){
 		<?php if(($AllowUpdate || $AllowInsert) && !$dvprint){ ?>
 
@@ -1503,83 +1464,6 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 					if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=suporte_view_parent]').hide(); }else{ $j('.btn[id=suporte_view_parent]').show(); }
 
 					if(typeof(suporte_update_autofills__RAND__) == 'function') suporte_update_autofills__RAND__();
-				}
-			});
-		<?php } ?>
-
-		}
-		function documentos_relacionados_reload__RAND__(){
-		<?php if(($AllowUpdate || $AllowInsert) && !$dvprint){ ?>
-
-			$j("#documentos_relacionados-container__RAND__").select2({
-				/* initial default value */
-				initSelection: function(e, c){
-					$j.ajax({
-						url: 'ajax_combo.php',
-						dataType: 'json',
-						data: { id: AppGini.current_documentos_relacionados__RAND__.value, t: 'item', f: 'documentos_relacionados' },
-						success: function(resp){
-							c({
-								id: resp.results[0].id,
-								text: resp.results[0].text
-							});
-							$j('[name="documentos_relacionados"]').val(resp.results[0].id);
-							$j('[id=documentos_relacionados-container-readonly__RAND__]').html('<span id="documentos_relacionados-match-text">' + resp.results[0].text + '</span>');
-							if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=item_view_parent]').hide(); }else{ $j('.btn[id=item_view_parent]').show(); }
-
-
-							if(typeof(documentos_relacionados_update_autofills__RAND__) == 'function') documentos_relacionados_update_autofills__RAND__();
-						}
-					});
-				},
-				width: '100%',
-				formatNoMatches: function(term){ /* */ return '<?php echo addslashes($Translation['No matches found!']); ?>'; },
-				minimumResultsForSearch: 5,
-				loadMorePadding: 200,
-				ajax: {
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					cache: true,
-					data: function(term, page){ /* */ return { s: term, p: page, t: 'item', f: 'documentos_relacionados' }; },
-					results: function(resp, page){ /* */ return resp; }
-				},
-				escapeMarkup: function(str){ /* */ return str; }
-			}).on('change', function(e){
-				AppGini.current_documentos_relacionados__RAND__.value = e.added.id;
-				AppGini.current_documentos_relacionados__RAND__.text = e.added.text;
-				$j('[name="documentos_relacionados"]').val(e.added.id);
-				if(e.added.id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=item_view_parent]').hide(); }else{ $j('.btn[id=item_view_parent]').show(); }
-
-
-				if(typeof(documentos_relacionados_update_autofills__RAND__) == 'function') documentos_relacionados_update_autofills__RAND__();
-			});
-
-			if(!$j("#documentos_relacionados-container__RAND__").length){
-				$j.ajax({
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					data: { id: AppGini.current_documentos_relacionados__RAND__.value, t: 'item', f: 'documentos_relacionados' },
-					success: function(resp){
-						$j('[name="documentos_relacionados"]').val(resp.results[0].id);
-						$j('[id=documentos_relacionados-container-readonly__RAND__]').html('<span id="documentos_relacionados-match-text">' + resp.results[0].text + '</span>');
-						if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=item_view_parent]').hide(); }else{ $j('.btn[id=item_view_parent]').show(); }
-
-						if(typeof(documentos_relacionados_update_autofills__RAND__) == 'function') documentos_relacionados_update_autofills__RAND__();
-					}
-				});
-			}
-
-		<?php }else{ ?>
-
-			$j.ajax({
-				url: 'ajax_combo.php',
-				dataType: 'json',
-				data: { id: AppGini.current_documentos_relacionados__RAND__.value, t: 'item', f: 'documentos_relacionados' },
-				success: function(resp){
-					$j('[id=documentos_relacionados-container__RAND__], [id=documentos_relacionados-container-readonly__RAND__]').html('<span id="documentos_relacionados-match-text">' + resp.results[0].text + '</span>');
-					if(resp.results[0].id == '<?php echo empty_lookup_value; ?>'){ $j('.btn[id=item_view_parent]').hide(); }else{ $j('.btn[id=item_view_parent]').show(); }
-
-					if(typeof(documentos_relacionados_update_autofills__RAND__) == 'function') documentos_relacionados_update_autofills__RAND__();
 				}
 			});
 		<?php } ?>
@@ -1986,8 +1870,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$jsReadOnly .= "\tjQuery('#local_publicacao').replaceWith('<div class=\"form-control-static\" id=\"local_publicacao\">' + (jQuery('#local_publicacao').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#tipo_publicacao').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#tipo_publicacao_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
-		$jsReadOnly .= "\tjQuery('#genero').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
-		$jsReadOnly .= "\tjQuery('#genero_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
+		$jsReadOnly .= "\tjQuery('#genero').replaceWith('<div class=\"form-control-static\" id=\"genero\">' + (jQuery('#genero').val() || '') + '</div>'); jQuery('#genero-multi-selection-help').hide();\n";
+		$jsReadOnly .= "\tjQuery('#s2id_genero').remove();\n";
 		$jsReadOnly .= "\tjQuery('#forma').replaceWith('<div class=\"form-control-static\" id=\"forma\">' + (jQuery('#forma').val() || '') + '</div>'); jQuery('#forma-multi-selection-help').hide();\n";
 		$jsReadOnly .= "\tjQuery('#s2id_forma').remove();\n";
 		$jsReadOnly .= "\tjQuery('#formato').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
@@ -2000,8 +1884,8 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$jsReadOnly .= "\tjQuery('#estado_conservacao').replaceWith('<div class=\"form-control-static\" id=\"estado_conservacao\">' + (jQuery('#estado_conservacao').val() || '') + '</div>'); jQuery('#estado_conservacao-multi-selection-help').hide();\n";
 		$jsReadOnly .= "\tjQuery('#s2id_estado_conservacao').remove();\n";
 		$jsReadOnly .= "\tjQuery('#observacoes').replaceWith('<div class=\"form-control-static\" id=\"observacoes\">' + (jQuery('#observacoes').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#documentos_relacionados').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
-		$jsReadOnly .= "\tjQuery('#documentos_relacionados_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
+		$jsReadOnly .= "\tjQuery('#documentos_relacionados').replaceWith('<div class=\"form-control-static\" id=\"documentos_relacionados\">' + (jQuery('#documentos_relacionados').val() || '') + '</div>'); jQuery('#documentos_relacionados-multi-selection-help').hide();\n";
+		$jsReadOnly .= "\tjQuery('#s2id_documentos_relacionados').remove();\n";
 		$jsReadOnly .= "\tjQuery('#numero_caixa').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#numero_caixa_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#nome_caixa').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
@@ -2049,8 +1933,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$templateCode = str_replace('<%%COMBOTEXT(tipo_publicacao)%%>', $combo_tipo_publicacao->MatchText, $templateCode);
 	$templateCode = str_replace('<%%URLCOMBOTEXT(tipo_publicacao)%%>', urlencode($combo_tipo_publicacao->MatchText), $templateCode);
 	$templateCode = str_replace('<%%COMBO(genero)%%>', $combo_genero->HTML, $templateCode);
-	$templateCode = str_replace('<%%COMBOTEXT(genero)%%>', $combo_genero->MatchText, $templateCode);
-	$templateCode = str_replace('<%%URLCOMBOTEXT(genero)%%>', urlencode($combo_genero->MatchText), $templateCode);
+	$templateCode = str_replace('<%%COMBOTEXT(genero)%%>', $combo_genero->SelectedData, $templateCode);
 	$templateCode = str_replace('<%%COMBO(forma)%%>', $combo_forma->HTML, $templateCode);
 	$templateCode = str_replace('<%%COMBOTEXT(forma)%%>', $combo_forma->SelectedData, $templateCode);
 	$templateCode = str_replace('<%%COMBO(formato)%%>', $combo_formato->HTML, $templateCode);
@@ -2064,8 +1947,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$templateCode = str_replace('<%%COMBO(estado_conservacao)%%>', $combo_estado_conservacao->HTML, $templateCode);
 	$templateCode = str_replace('<%%COMBOTEXT(estado_conservacao)%%>', $combo_estado_conservacao->SelectedData, $templateCode);
 	$templateCode = str_replace('<%%COMBO(documentos_relacionados)%%>', $combo_documentos_relacionados->HTML, $templateCode);
-	$templateCode = str_replace('<%%COMBOTEXT(documentos_relacionados)%%>', $combo_documentos_relacionados->MatchText, $templateCode);
-	$templateCode = str_replace('<%%URLCOMBOTEXT(documentos_relacionados)%%>', urlencode($combo_documentos_relacionados->MatchText), $templateCode);
+	$templateCode = str_replace('<%%COMBOTEXT(documentos_relacionados)%%>', $combo_documentos_relacionados->SelectedData, $templateCode);
 	$templateCode = str_replace('<%%COMBO(numero_caixa)%%>', $combo_numero_caixa->HTML, $templateCode);
 	$templateCode = str_replace('<%%COMBOTEXT(numero_caixa)%%>', $combo_numero_caixa->MatchText, $templateCode);
 	$templateCode = str_replace('<%%URLCOMBOTEXT(numero_caixa)%%>', urlencode($combo_numero_caixa->MatchText), $templateCode);
@@ -2080,7 +1962,7 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 	$templateCode = str_replace('<%%URLCOMBOTEXT(nome_pasta)%%>', urlencode($combo_nome_pasta->MatchText), $templateCode);
 
 	/* lookup fields array: 'lookup field name' => array('parent table name', 'lookup field caption') */
-	$lookup_fields = array(  'colecao' => array('colecao', 'Cole&#231;&#227;o:'), 'grupo' => array('grupo', 'Grupo:'), 'serie' => array('serie', 'S&#233;rie:'), 'subserie' => array('subserie', 'Subs&#233;rie:'), 'tipologia' => array('tipologia', 'Tipologia / Esp&#233;cie:'), 'local_publicacao_veiculo' => array('local_comunicacao', 'Ve&#237;culo de Publica&#231;&#227;o:'), 'tipo_publicacao' => array('tipo_publicacao', 'Tipo de Publica&#231;&#227;o:'), 'genero' => array('genero', 'G&#234;nero:'), 'formato' => array('formato', 'Formato:'), 'suporte' => array('suporte', 'Suporte:'), 'documentos_relacionados' => array('item', 'Documentos Relacionados:'), 'numero_caixa' => array('numero_caixa', 'N&#250;mero da Caixa:'), 'nome_caixa' => array('nome_caixa', 'Nome da Caixa:'), 'numero_pasta' => array('numero_pasta', 'N&#250;mero da Pasta:'), 'nome_pasta' => array('nome_pasta', 'Nome da pasta:'));
+	$lookup_fields = array(  'colecao' => array('colecao', 'Cole&#231;&#227;o:'), 'grupo' => array('grupo', 'Grupo:'), 'serie' => array('serie', 'S&#233;rie:'), 'subserie' => array('subserie', 'Subs&#233;rie:'), 'tipologia' => array('tipologia', 'Tipologia / Esp&#233;cie:'), 'local_publicacao_veiculo' => array('local_comunicacao', 'Ve&#237;culo de Publica&#231;&#227;o:'), 'tipo_publicacao' => array('tipo_publicacao', 'Tipo de Publica&#231;&#227;o:'), 'formato' => array('formato', 'Formato:'), 'suporte' => array('suporte', 'Suporte:'), 'numero_caixa' => array('numero_caixa', 'N&#250;mero da Caixa:'), 'nome_caixa' => array('nome_caixa', 'Nome da Caixa:'), 'numero_pasta' => array('numero_pasta', 'N&#250;mero da Pasta:'), 'nome_pasta' => array('nome_pasta', 'Nome da pasta:'));
 	foreach($lookup_fields as $luf => $ptfc){
 		$pt_perm = getTablePermissions($ptfc[0]);
 

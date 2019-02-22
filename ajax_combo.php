@@ -144,17 +144,6 @@
 				'list_type' => 0,
 				'not_null' => false
 			),
-			'genero' => array(
-				'parent_table' => 'genero',
-				'parent_pk_field' => 'id',
-				'parent_caption' => '`genero`.`genero`',
-				'parent_from' => '`genero` ',
-				'filterers' => array(),
-				'custom_query' => '',
-				'inherit_permissions' => false,
-				'list_type' => 0,
-				'not_null' => false
-			),
 			'formato' => array(
 				'parent_table' => 'formato',
 				'parent_pk_field' => 'id',
@@ -174,17 +163,6 @@
 				'filterers' => array(),
 				'custom_query' => '',
 				'inherit_permissions' => false,
-				'list_type' => 0,
-				'not_null' => false
-			),
-			'documentos_relacionados' => array(
-				'parent_table' => 'item',
-				'parent_pk_field' => 'id',
-				'parent_caption' => 'IF(CHAR_LENGTH(`item`.`identificacao`) || CHAR_LENGTH(`item`.`titulo`), CONCAT_WS(\'\', `item`.`identificacao`, \' - \', `item`.`titulo`), \'\')',
-				'parent_from' => '`item` LEFT JOIN `colecao` as colecao1 ON `colecao1`.`id`=`item`.`colecao` LEFT JOIN `grupo` as grupo1 ON `grupo1`.`id`=`item`.`grupo` LEFT JOIN `serie` as serie1 ON `serie1`.`id`=`item`.`serie` LEFT JOIN `subserie` as subserie1 ON `subserie1`.`id`=`item`.`subserie` LEFT JOIN `tipologia` as tipologia1 ON `tipologia1`.`id`=`item`.`tipologia` LEFT JOIN `local_comunicacao` as local_comunicacao1 ON `local_comunicacao1`.`id`=`item`.`local_publicacao_veiculo` LEFT JOIN `tipo_publicacao` as tipo_publicacao1 ON `tipo_publicacao1`.`id`=`item`.`tipo_publicacao` LEFT JOIN `genero` as genero1 ON `genero1`.`id`=`item`.`genero` LEFT JOIN `formato` as formato1 ON `formato1`.`id`=`item`.`formato` LEFT JOIN `suporte` as suporte1 ON `suporte1`.`id`=`item`.`suporte` LEFT JOIN `item` as item1 ON `item1`.`id`=`item`.`documentos_relacionados` LEFT JOIN `numero_caixa` as numero_caixa1 ON `numero_caixa1`.`id`=`item`.`numero_caixa` LEFT JOIN `nome_caixa` as nome_caixa1 ON `nome_caixa1`.`id`=`item`.`nome_caixa` LEFT JOIN `numero_pasta` as numero_pasta1 ON `numero_pasta1`.`id`=`item`.`numero_pasta` LEFT JOIN `nome_pasta` as nome_pasta1 ON `nome_pasta1`.`id`=`item`.`nome_pasta` ',
-				'filterers' => array(),
-				'custom_query' => '',
-				'inherit_permissions' => true,
 				'list_type' => 0,
 				'not_null' => false
 			),
