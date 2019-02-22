@@ -39,7 +39,9 @@
                                             <small>Usuário desde: <?php echo $memberInfo['signupDate']; ?></small>
                                         </p>
                                     </li>
-                                    <?php if(!$_GET['signIn'] && !$_GET['loginFailed']){ ?>
+                                    <?php 
+                                    $script_name = basename($_SERVER['PHP_SELF']);
+                                    if(!$_GET['signIn'] && !$_GET['loginFailed'] && $script_name != 'membership_signup.php'){ ?>
                                     <!-- Menu Body -->
                                     <li class="user-body">
                                       <div class="row">

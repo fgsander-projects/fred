@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="panel-body">
-				<form method="post" action="index.php">
+				<form method="post" action="">
 					<div class="form-group">
 						<label class="control-label" for="username"><?php echo $Translation['username']; ?></label>
 						<input class="form-control" name="username" id="username" type="text" placeholder="<?php echo $Translation['username']; ?>" required>

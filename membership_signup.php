@@ -101,11 +101,11 @@
 
 <?php if(!$noSignup){ ?>
 	<div class="row">
-		<div class="hidden-xs col-sm-4 col-md-6 col-lg-8" id="signup_splash">
+		<div class="hidden-xs col-sm-2 col-md-3 col-lg-2" id="signup_splash">
 			<!-- customized splash content here -->
 		</div>
 
-		<div class="col-sm-8 col-md-6 col-lg-4">
+		<div class="col-sm-8 col-md-6 col-lg-8">
 			<div class="panel panel-success">
 
 				<div class="panel-heading">

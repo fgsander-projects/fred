@@ -136,7 +136,11 @@
                                       }
                                   }
                               }else{
+                                  //ver si está solicitando registrarse???
+                                  $script_name = basename($_SERVER['PHP_SELF']);
+                                    if($script_name != 'membership_signup.php'){
                                       ?><script>window.location='index.php?signIn=1';</script><?php
+                                    }
                               }
                               ?>
 
