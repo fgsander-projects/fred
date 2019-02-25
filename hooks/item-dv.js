@@ -1,5 +1,7 @@
 /* global $j */
 
+var COUNT = 1;
+
 function thisTable(){
     return 'item';
 }
@@ -12,14 +14,19 @@ $j(function(){
         $actionButtons.append('<p></p><div id="uploadFrame"></div>');
             
     var $body = $j("body");
+
     $body.on('DOMSubtreeModified', "#colecao_codigo, #grupo_codigo, #serie_codigo", function() {
         setTimeout(function(){
             if (is_add_new()){
                 getSerie(setValue());
             }else{
-                $codigo = setValue();
-                $codigo.numSerie = $j('#numero_serie').val();
-                getSerie($codigo);
+                if (COUNT > 3){
+                    $codigo = setValue();
+                    $codigo.numSerie = $j('#numero_serie').val();
+                    getSerie($codigo);
+                }else{
+                    COUNT += 1 ;
+                }
             }
         },500);
     });
@@ -79,6 +86,7 @@ function getSerie($codigo) {
                 if (is_add_new()){
                     $codigo.numSerie = 1;
                 }
+                
             }
             makeCode($codigo);
         },

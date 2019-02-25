@@ -28,9 +28,9 @@ function getLastNumber($codes){
         "numSerie"	=> $res['numero_serie']
     ];
 
-    if($resCodes === $codes){
+    if($resCodes == $codes){
         //not changue
-        return $null;
+        return null;
     }
 
     return $res;
