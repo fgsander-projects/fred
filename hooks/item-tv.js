@@ -12,7 +12,7 @@ $j(function(){
         loadImages('dvp');
     }
     if ($current.val()== 'TVP'){
-        $j('.hidden-print').hide();
+        // $j('.hidden-print').hide();
         setTimeout(function(){
             $j('kbd').hide();
         },1000);
