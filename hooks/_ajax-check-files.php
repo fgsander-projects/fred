@@ -135,7 +135,7 @@
         }
         function childCode($val){
             //format de child code
-            return substr("000" . $val, -3);
+            return substr("0000" . $val, -4);
         }
         
         function availableCodeItem($code,&$id){
