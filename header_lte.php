@@ -20,12 +20,14 @@
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>LTE/Ionicons/css/ionicons.min.css">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>LTE/dist/css/AdminLTE.css">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>LTE/dist/css/skins/skin-blue.css">
+                <link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>hooks/jquery-ui/jquery-ui.min.css">
 		<!-- /LTE adding -->
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>resources/lightbox/css/lightbox.css" media="screen">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>resources/select2/select2.css" media="screen">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>resources/timepicker/bootstrap-timepicker.min.css" media="screen">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>resources/datepicker/css/datepicker.css" media="screen">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>resources/bootstrap-datetimepicker/bootstrap-datetimepicker.css" media="screen">
+                <link rel="stylesheet" href="hooks/lightbox/myLightbox.css">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>dynamic.css.php">
 		<link rel="stylesheet" href="<?php echo PREPEND_PATH; ?>myCustom.css" mediad="screen">
 		<!--[if lt IE 9]>
@@ -33,6 +35,7 @@
 		<![endif]-->
 		<script src="<?php echo PREPEND_PATH; ?>resources/jquery/js/jquery-1.12.4.min.js"></script>
 		<script>var $j = jQuery.noConflict();</script>
+                <script src="<?php echo PREPEND_PATH; ?>hooks/jquery-ui/jquery-ui.min.js"></script>
 		<script src="<?php echo PREPEND_PATH; ?>LTE/dist/js/adminlte.js"></script>
 		<script src="<?php echo PREPEND_PATH; ?>LTE/dist/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="<?php echo PREPEND_PATH; ?>LTE/dist/jquery-slimscroll/jquery.slimscroll.js"></script>
