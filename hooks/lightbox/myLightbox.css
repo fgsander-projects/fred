@@ -89,7 +89,6 @@ img.demo {
   border-radius: 5px;
   height: auto;
   max-width: 100%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
 .active,
@@ -101,9 +100,13 @@ img.hover-shadow {
   transition: 0.3s
 }
 
-.hover-shadow:hover {
+/*.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}*/
+.hover-shadow {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
+
 .lb-data .lb-details {
         width: 100%;
 	text-align: center;
