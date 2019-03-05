@@ -298,7 +298,7 @@ function imageForm($a,$folder,$index,$json,$mi,$tableName,$indice){
             <div class="panel-body">
                <div class="col col-lg-2">
                     <a href="<?php echo $image; ?>" data-lightbox="item_form">
-                        <img id="image-<?php echo $index; ?>" class="hover-shadow" src="<?php echo $image . '?m=' . $modif; ?>" alt="<?php echo $folderT.'/'.$a['name']; ?>" style=" width:100%; margin-left: auto; margin-right:auto; border-radius: 5px; margin-bottom:6px; ">
+                        <img id="image-<?php echo $index; ?>" class="hover-shadow" src="<?php echo $image . '?m=' . $modif; ?>" alt="<?php echo $folderT.'/'.$a['name']; ?>" style="width:100%; margin-left: auto; margin-right:auto; border-radius: 5px; margin-bottom:6px; ">
                     </a>
                 </div> <!--/.col-lg-2 -->
                 
@@ -306,9 +306,9 @@ function imageForm($a,$folder,$index,$json,$mi,$tableName,$indice){
                    <?php if ($a['extension']=== 'pdf'){ ?>
                         <div class="col-lg--6 pdf-container" style="margin-bottom: 10px;margin-left: 10px;">
                             <div class="input-group">
-                                <input id="pagPDF-<?php echo $index; ?>" type="text" class="form-control" source = " <?php echo $source ?>" placeholder="Analyzing File..." disabled="true">
+                                <input id="pagPDF-<?php echo $index; ?>" type="text" class="form-control" source = " <?php echo $source ?>" placeholder="Lendo o arquivo..." disabled="true">
                                 <span class="input-group-btn">
-                                    <button id="pdfBut-<?php echo $index; ?>" data-loading-text="Loading..." class="pdfButton btn btn-default" type="button" disabled="true">Selecionar</button>
+                                    <button id="pdfBut-<?php echo $index; ?>" data-loading-text="Carregando..." class="pdfButton btn btn-default" type="button" disabled="true">Selecionar</button>
                                 </span>
                             </div><!-- /.input-group -->
                         </div><!-- /.col-lg-9 -->
@@ -332,8 +332,8 @@ function imageForm($a,$folder,$index,$json,$mi,$tableName,$indice){
                         ?>
                         <br>
                         - Extensão:        <?php echo $a['extension']; ?><br>
-                        - Tipo de arquivo: <?php echo $a['type'];      ?><br>
-                        - Alta resolução:  <?php echo $a['hd_image'];  ?><br>
+                        <!--- Tipo de arquivo: <?php echo $a['type'];      ?><br>-->
+                        <!--- Alta resolução:  <?php echo $a['hd_image'];  ?><br>-->
                         - Tamanho:         <?php 
                                             if ( isset($a['size']) && $a['size'] !== 'false'){
                                                 echo $a['size'].'-('.$size.')';
@@ -391,7 +391,7 @@ function imageForm($a,$folder,$index,$json,$mi,$tableName,$indice){
                         $j('#' + msg.tag + '~  span button').attr('cantpages',msg.ret);
                         $j('#' + msg.tag).attr('placeholder','Digite o número da página (máx. ' + msg.ret + ' )');
                     }else{
-                        $j('#' + msg.tag).attr('placeholder','The file has only one page');
+                        $j('#' + msg.tag).attr('placeholder','O documento tem apenas 1 página.');
                     }
                 });
             });

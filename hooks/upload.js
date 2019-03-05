@@ -201,7 +201,7 @@ function currentSlide(n,x) {
 
 function showPdf(file, n, i, tv){
     var visible = 'hidden';
-    var msg = '<div style ="height:100%;"><embed src="' + file + '#view=FitH"  width="100%" height="100%" style="z-index: 2;"></div>';
+    var msg = '<div style ="height:100%;"><embed src="' + file + '#view=Fit"  width="100%" height="100%" style="z-index: 2;"></div>';
     modal_window({
         message: msg,
         title: n,

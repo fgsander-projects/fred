@@ -277,7 +277,7 @@
 	$x->TableTitle = "Itens";
 	$x->TableIcon = "resources/table_icons/curriculum_vitae.png";
 	$x->PrimaryKey = "`item`.`id`";
-	$x->DefaultSortField = '1';
+	$x->DefaultSortField = '42';
 	$x->DefaultSortDirection = 'desc';
 
 	$x->ColWidth   = array(  150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150);

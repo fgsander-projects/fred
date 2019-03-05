@@ -34,7 +34,7 @@ function make_thumb($source, $fileName, $ext ,&$folder,&$ret){
                         }
                         $color= new ImagickPixel();
                         $d = $im->getImageGeometry();
-                        $color->setColor("rgb(255,255,255)");
+                       // $color->setColor("rgb(255,255,255)");
 
                         if(strtolower($ext) === 'pdf'){
                             $quantum = $im->getQuantum();
@@ -62,7 +62,7 @@ function make_thumb($source, $fileName, $ext ,&$folder,&$ret){
                             $im   = new Imagick($source); // 0-first page, 1-second page
                             $color= new ImagickPixel();
                             
-                            $im   ->setImageColorspace(255); // prevent image colors from inverting
+                            //$im   ->setImageColorspace(255); // prevent image colors from inverting
                             $im   ->setimageformat("jpeg");
                             $im   ->setresolution(1200, 1200);
                             $im   ->borderImage($color, 1, 1);
