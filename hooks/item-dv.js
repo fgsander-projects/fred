@@ -1,12 +1,14 @@
 /* global $j */
 
 var COUNT = 1;
+var CURRENT = '';
 
 function thisTable(){
     return 'item';
 }
 
 $j(function(){
+    CURRENT = $j('#numero_serie').val();
     $j('#identificacao, #numero_serie, #uploads').attr('readonly',true);
     
     var $actionButtons = $j('#item_dv_action_buttons .btn-toolbar');
@@ -14,6 +16,11 @@ $j(function(){
         $actionButtons.append('<p></p><div id="uploadFrame"></div>');
             
     var $body = $j("body");
+    
+    if (!is_add_new()){
+        addWarningBtn("identificacao","changue serial number","fa fa-edit");
+        addWarningBtn("numero_serie");
+    }
 
     $body.on('DOMSubtreeModified', "#colecao_codigo, #grupo_codigo, #serie_codigo", function() {
         setTimeout(function(){
@@ -23,9 +30,10 @@ $j(function(){
                 if (COUNT > 3){
                     $codigo = setValue();
                     $codigo.numSerie = $j('#numero_serie').val();
+                    $codigo.current = CURRENT;
                     getSerie($codigo);
                 }else{
-                    COUNT += 1 ;
+                    COUNT += 1;
                 }
             }
         },500);
@@ -61,9 +69,32 @@ $j(function(){
             console.log ('no se puede verificar las dimesiones')
             $dim.parent().parent().toggleClass('has-error')
         }
-        
     })
 
+    $j( "body" ).on( "click", ".btn-fix",function(){
+            var field = this.attributes.myfield.value;
+            if (field === 'identificacao'){
+                    $j('.numero_serie').show();
+                    $j('#numero_serie').prop('readonly',false);
+            };
+            if (field === 'numero_serie'){
+                    $j('#numero_serie').val(CURRENT);
+                    ToggleFix(field);
+                    $j('#numero_serie').trigger("change");
+//                    makeCode(setValue())
+            };
+    });
+
+    $j('#numero_serie').on('change',function(){
+        var serie = parseInt(this.value);
+        $codigo = setValue();
+        $codigo.numSerie = serie;
+        if (serie !== parseInt(CURRENT)){
+            checkCode($codigo)
+        }else{
+            makeCode($codigo);
+        }
+    });
 });
 
 function setValue(){
@@ -86,9 +117,27 @@ function getSerie($codigo) {
                 if (is_add_new()){
                     $codigo.numSerie = 1;
                 }
-                
             }
             makeCode($codigo);
+        },
+        "json"
+    );
+}
+
+function checkCode($codigo) {
+    $j.get("hooks/item_AJAX.php", 
+        {codes: $codigo, id:"01", cmd:"checkCode"},
+        function (data) {
+            if (data){
+                //code exist
+                console.log('existe')
+                ToggleFix('numero_serie','danger');
+            }else{
+                //can changue value
+                console.log('NO existe')
+                makeCode($codigo);
+                ToggleFix('numero_serie');
+            }
         },
         "json"
     );

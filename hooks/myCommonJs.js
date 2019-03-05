@@ -24,13 +24,13 @@ function show_warning(field, campo, msg){
 	
 	return false;
 }
-function addWarningBtn(field, title = "Click to fix value"){
+function addWarningBtn(field, title = "Click to fix value", icon = "glyphicon glyphicon-ok"){
     var oldhtml='';
     var newhtml='';
     oldhtml = $j('#' + field ).closest('div').html();
     newhtml =   '<div class="input-group">' + oldhtml +
                         '<span class="input-group-btn">'+
-                            '<button class="btn btn-default btn-fix" myfield="'+ field +'" type="button" title="'+ title +'"><span class="glyphicon glyphicon-ok"></span></button>'+
+                            '<button class="btn btn-default btn-fix" myfield="'+ field +'" type="button" title="'+ title +'"><span class="' + icon + '"></span></button>'+
                         '</span>'+
                 '</div>';
     $j('#' + field ).closest('div').html(newhtml);
