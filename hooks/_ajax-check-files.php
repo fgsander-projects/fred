@@ -113,7 +113,7 @@
         
         function ControlNumbers($a, &$completeCode, &$child, &$msg){
             $b = explode("-",$a);//get numbers codes
-            if ($b[0]==='SAFRA'){
+            if ($b[0]==='BRFM'){
                 //check the other numbers
                 if (intval($b[1])>0 && intval($b[2])>0 ){
                     //check if codenumber is available
@@ -140,7 +140,7 @@
         
         function availableCodeItem($code,&$id){
             //error if the code exist!
-            $ret = sqlValue("SELECT id FROM safra_acervo WHERE codigoCompleto = '$code' ");
+            $ret = sqlValue("SELECT id FROM frederico_morais WHERE identificacao = '$code' ");
             $id=$ret;
             if ($ret) {$ret = 'success';}else{$ret='error';}
             return $ret;
@@ -148,9 +148,9 @@
         
         function getIdItem($code,&$id){
             //error if the code exist!
-            $ret = sqlValue("SELECT id FROM safra_acervo WHERE codigoCompleto = '$code' ");
+            $ret = sqlValue("SELECT id FROM frederico_morais WHERE identificacao = '$code' ");
             $id=$ret;
-            $ret = sqlValue("SELECT uploadedFiles FROM safra_acervo WHERE codigoCompleto = '$code' ");
+            $ret = sqlValue("SELECT uploads FROM frederico_morais WHERE identificacao = '$code' ");
             return $ret;
         }
         
@@ -262,7 +262,7 @@
             $recID = db_insert_id(db_link());
 
             // mm: save ownership data
-            set_record_owner('safra_acervo', $recID, getLoggedMemberID());
+            set_record_owner('frederico_morais', $recID, getLoggedMemberID());
             return $recID;
         }
         
@@ -322,7 +322,7 @@
                                 $json = json_encode($uploaded);
                             }
                             
-                            $fin = sql("UPDATE safra_acervo SET uploadedFiles= '$json' WHERE id = '$id' ",$eo);
+                            $fin = sql("UPDATE frederico_morais SET uploads= '$json' WHERE id = '$id' ",$eo);
                             
                             if ($fin) {$f->valid = 'success';}else{$f->valid = 'error';}
                             $f->msg = "update item: $fin";
