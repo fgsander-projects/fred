@@ -71,7 +71,7 @@
                                                                 if($tc['homepageShowCount']){
                                                                     $sql_from = get_sql_from($lte_table);
                                                                     if ($lte_table === 'items_salvos'){
-                                                                        $count_records = sqlValue("select count(1) from " . $sql_from . "where items_salvos.memberID ='" . getLoggedMemberID() . "'") ;
+                                                                        $count_records = sqlValue("select count(1) from items_salvos where items_salvos.memberID ='" . getLoggedMemberID() . "'") ;
                                                                     }else{
                                                                         $count_records = ($sql_from ? sqlValue("select count(1) from " . $sql_from) : 0);
                                                                     }
