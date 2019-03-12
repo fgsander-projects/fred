@@ -122,22 +122,22 @@
 	$x->HighlightColor = '#FFF0C2';
 
 	// mm: build the query based on current member's permissions
-//	$DisplayRecords = $_REQUEST['DisplayRecords'];
-//	if(!in_array($DisplayRecords, array('user', 'group'))){ $DisplayRecords = 'all'; }
-//	if($perm[2]==1 || ($perm[2]>1 && $DisplayRecords=='user' && !$_REQUEST['NoFilter_x'])){ // view owner only
-//		$x->QueryFrom.=', membership_userrecords';
-//		$x->QueryWhere="where `items_salvos`.`id`=membership_userrecords.pkValue and membership_userrecords.tableName='items_salvos' and lcase(membership_userrecords.memberID)='".getLoggedMemberID()."'";
-//	}elseif($perm[2]==2 || ($perm[2]>2 && $DisplayRecords=='group' && !$_REQUEST['NoFilter_x'])){ // view group only
-//		$x->QueryFrom.=', membership_userrecords';
-//		$x->QueryWhere="where `items_salvos`.`id`=membership_userrecords.pkValue and membership_userrecords.tableName='items_salvos' and membership_userrecords.groupID='".getLoggedGroupID()."'";
-//	}elseif($perm[2]==3){ // view all
-//		// no further action
-//	}elseif($perm[2]==0){ // view none
-//		$x->QueryFields = array("Not enough permissions" => "NEP");
-//		$x->QueryFrom = '`items_salvos`';
-//		$x->QueryWhere = '';
-//		$x->DefaultSortField = '';
-//	}
+	$DisplayRecords = $_REQUEST['DisplayRecords'];
+	if(!in_array($DisplayRecords, array('user', 'group'))){ $DisplayRecords = 'all'; }
+	if($perm[2]==1 || ($perm[2]>1 && $DisplayRecords=='user' && !$_REQUEST['NoFilter_x'])){ // view owner only
+		$x->QueryFrom.=', items_salvos';
+		$x->QueryWhere="where `items_salvos`.memberID='".getLoggedMemberID()."'";
+	}elseif($perm[2]==2 || ($perm[2]>2 && $DisplayRecords=='group' && !$_REQUEST['NoFilter_x'])){ // view group only
+		$x->QueryFrom.=', items_salvos';
+		$x->QueryWhere="where `items_salvos`.groupID='".getLoggedGroupID()."'";
+	}elseif($perm[2]==3){ // view all
+		// no further action
+	}elseif($perm[2]==0){ // view none
+		$x->QueryFields = array("Not enough permissions" => "NEP");
+		$x->QueryFrom = '`items_salvos`';
+		$x->QueryWhere = '';
+		$x->DefaultSortField = '';
+	}
 	// hook: items_salvos_init
 	$render=TRUE;
 	if(function_exists('items_salvos_init')){
