@@ -125,10 +125,10 @@
 	$DisplayRecords = $_REQUEST['DisplayRecords'];
 	if(!in_array($DisplayRecords, array('user', 'group'))){ $DisplayRecords = 'all'; }
 	if($perm[2]==1 || ($perm[2]>1 && $DisplayRecords=='user' && !$_REQUEST['NoFilter_x'])){ // view owner only
-		$x->QueryFrom.=', items_salvos';
+		$x->QueryFrom.='';
 		$x->QueryWhere="where `items_salvos`.memberID='".getLoggedMemberID()."'";
 	}elseif($perm[2]==2 || ($perm[2]>2 && $DisplayRecords=='group' && !$_REQUEST['NoFilter_x'])){ // view group only
-		$x->QueryFrom.=', items_salvos';
+		$x->QueryFrom.='';
 		$x->QueryWhere="where `items_salvos`.groupID='".getLoggedGroupID()."'";
 	}elseif($perm[2]==3){ // view all
 		// no further action
