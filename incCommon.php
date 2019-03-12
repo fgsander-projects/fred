@@ -227,8 +227,14 @@
 		$perm = getTablePermissions($table_name);
 		if($perm[2] == 1){ // view owner only
 			$from .= ", membership_userrecords WHERE `{$table_name}`.`{$pkey[$table_name]}`=membership_userrecords.pkValue and membership_userrecords.tableName='{$table_name}' and lcase(membership_userrecords.memberID)='" . getLoggedMemberID() . "'";
+                        if ($table_name === "items_salvos"){
+                            $from .= " WHERE `{$table_name}`.memberID='" . getLoggedMemberID() . "'";
+                        }
 		}elseif($perm[2] == 2){ // view group only
 			$from .= ", membership_userrecords WHERE `{$table_name}`.`{$pkey[$table_name]}`=membership_userrecords.pkValue and membership_userrecords.tableName='{$table_name}' and membership_userrecords.groupID='" . getLoggedGroupID() . "'";
+                        if ($table_name === "items_salvos"){
+                            $from .= " WHERE `{$table_name}`.groupID='" . getLoggedGroupID() . "'";
+                        }
 		}elseif($perm[2] == 3){ // view all
 			$from .= ' WHERE 1=1';
 		}else{ // view none
