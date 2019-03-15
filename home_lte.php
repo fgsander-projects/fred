@@ -8,15 +8,15 @@
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-                <div class="col-lg-3 col-xs-6">
-                          <!-- small box -->
+<!--                <div class="col-lg-3 col-xs-6">
+                           small box 
                           <div class="small-box bg-aqua">
                             <div class="inner">
                               <h3>
                                   <?php 
-                                      $sql_from = get_sql_from('orders');
-                                      $count_records = ($sql_from ? sqlValue("select count(1) from " . $sql_from) : 0);
-                                      echo number_format($count_records);
+//                                      $sql_from = get_sql_from('orders');
+//                                      $count_records = ($sql_from ? sqlValue("select count(1) from " . $sql_from) : 0);
+//                                      echo number_format($count_records);
                                   ?>
                               </h3>
 
@@ -29,7 +29,7 @@
                               More info <i class="fa fa-arrow-circle-right"></i>
                             </a>
                           </div>
-                        </div>
+                        </div>-->
     
 
 <?php include_once("$currDir/footer.php"); ?>

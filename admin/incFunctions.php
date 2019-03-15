@@ -203,6 +203,13 @@
 					'tableIcon' => 'resources/table_icons/folders.png',
 					'group' => $tg[3],
 					'homepageShowCount' => 0
+				),
+				'items_salvos' => array(
+					'Caption' => 'Itens Salvos',
+					'Description' => '',
+					'tableIcon' => 'resources/table_icons/star.png',
+					'group' => $tg[0],
+					'homepageShowCount' => 1
 				)
 		);
 
@@ -234,7 +241,8 @@
 				'numero_caixa' => 'N&#250;mero da Caixa',
 				'nome_caixa' => 'Nome da Caixa',
 				'numero_pasta' => 'N&#250;mero da Pasta',
-				'nome_pasta' => 'Nome da Pasta'
+				'nome_pasta' => 'Nome da Pasta',
+				'items_salvos' => 'Itens Salvos'
 			);
 
 			return $arrTables;
@@ -1112,7 +1120,7 @@
 		$host = (isset($s['HTTP_HOST']) ? $s['HTTP_HOST'] : $s['SERVER_NAME'] . $port);
 
 		$fp = normalize_path(dirname(__FILE__));
-		$dr = normalize_path($s['DOCUMENT_ROOT']);
+		$dr = normalize_path(realpath($s['DOCUMENT_ROOT']));
 
 		$uri = str_replace($dr, '', $fp);
 		// remove '/admin' postfix

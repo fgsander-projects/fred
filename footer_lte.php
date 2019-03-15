@@ -14,10 +14,10 @@
         <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
-              Anything you want
+             
             </div>
             <!-- Default to the left -->
-            <strong>&copy; 2019 <a href="#">Acervo Frederico Morais</a>.</strong> All rights reserved.
+            <strong>Memória Frederico Morais &copy; 2019 <a href="#"></a>.</strong> 
             <!-- Add footer template above here -->
             <div class="clearfix"></div>
             <?php if(!defined('APPGINI_SETUP') && is_file(dirname(__FILE__) . '/hooks/footer-extras.php')){ include(dirname(__FILE__).'/hooks/footer-extras.php'); } ?>

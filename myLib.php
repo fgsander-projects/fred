@@ -136,3 +136,14 @@ function importData(){
         $res = sql(file_get_contents("$dir/$sql"),$eo);
     }
 }
+
+function htmlentities_to_utf8($input){
+    //http://php.net/manual/es/function.html-entity-decode.php
+    $output = preg_replace_callback("/(&#[0-9]+;)/", 
+        function($m) { 
+            return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES");
+         }, 
+         $input); 
+
+    return $output;
+}

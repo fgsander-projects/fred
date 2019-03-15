@@ -1,0 +1,25 @@
+		<td colspan="6" class="row">
+			<div class="col-container">
+				<div class="col col-md-2" style="padding-right: 4px;padding-left: 10px;margin-bottom: 20px;">
+                                    <div id="imagesThumbs-<%%VALUE(pkValue)%%>" class="thumbs" title="<%%VALUE(pkValue)%%>" hidden>
+                                        <%%VALUE(pkValue)%%>
+                                    </div>
+                            </div>
+			</div>
+			<div class="col-md-10">		
+                            <dl class="dl-horizontal">
+
+					<dd id="items_salvos-pkValue-<%%VALUE(id)%%>" class="items_salvos-pkValue" myId ="<%%VALUE(id)%%>" hidden=''><%%VALUE(pkValue)%%></dd>
+
+                                        <dd id="items_salvos-dateAdded-<%%VALUE(id)%%>" class="items_salvos-dateAdded" myId ="<%%VALUE(id)%%>" date='<%%VALUE(dateAdded)%%>'>
+                                            <div id="btn-dateAdded-<%%VALUE(id)%%>" class='btn btn-default' style="background-color: transparent;">Added: <%%VALUE(dateAdded)%%></div>    
+                                            <button id="removeFromList-<%%VALUE(id)%%>" type="button" class="btn btn-default" title="Remove from Salvos" hidden="" onclick="removeFromList('<%%VALUE(pkValue)%%>','<%%VALUE(tableName)%%>');location.reload();;">
+                                                <span class="glyphicon glyphicon-remove" ></span>
+                                            </button>
+                                        </dd>
+                                        
+                                        <div id="items_Salvos_item-<%%VALUE(id)%%>" class=""></div>
+
+				</dl>
+			</div>
+		</td>

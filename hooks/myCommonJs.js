@@ -24,13 +24,13 @@ function show_warning(field, campo, msg){
 	
 	return false;
 }
-function addWarningBtn(field, title = "Click to fix value"){
+function addWarningBtn(field, title = "Click to fix value", icon = "glyphicon glyphicon-ok"){
     var oldhtml='';
     var newhtml='';
     oldhtml = $j('#' + field ).closest('div').html();
     newhtml =   '<div class="input-group">' + oldhtml +
                         '<span class="input-group-btn">'+
-                            '<button class="btn btn-default btn-fix" myfield="'+ field +'" type="button" title="'+ title +'"><span class="glyphicon glyphicon-ok"></span></button>'+
+                            '<button class="btn btn-default btn-fix" myfield="'+ field +'" type="button" title="'+ title +'"><span class="' + icon + '"></span></button>'+
                         '</span>'+
                 '</div>';
     $j('#' + field ).closest('div').html(newhtml);
@@ -125,6 +125,30 @@ function showCardsTV(field, dest, url){
     }
 }
 
+
+function showItem(id, dest, url){
+    //field = field to get the ID from
+    //dest = ID where to put the html result
+    //url = url&cmd for ajax
+    if (id >0){
+        $j.ajax({
+            method: 'post', //post, get
+            dataType: 'html', //json,text,html
+            url: 'hooks/' + url + '_card_AJAX.php',
+            cache: 'false',
+            data: {id: id, cmd: 'record'}
+        })
+        .done(function (msg) {
+            //function at response
+//            var data = $j.parseJSON(msg);
+//            ajaxCard( data[`${field}`], url, dest );
+                $j(dest).html(msg);
+                showTumbs();
+        });
+    }
+}
+
+
 function showParent(Data){
     var parent_id = parseInt(Data.attributes.myid.value);
     var pt = Data.attributes.pt.value;
@@ -138,4 +162,20 @@ function showParent(Data){
             size: 'full',
             title: title
     });
+}
+
+
+//remove empty values from table
+function removeEmpty(){
+    $j('dt').filter(function(){
+                var t = ($j(this).next().is('dd'));
+                if (t){
+                    var a =$j(this).next().text();
+                    if (a === '' || a === ' ' || a === '\xa0'){ //&nbsp;
+                        $j(this).next().remove();
+                        return true;
+                    }
+                    return false;
+                }
+           }).remove();
 }

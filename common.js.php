@@ -271,6 +271,8 @@ function item_validateData(){
 	$j('.has-error').removeClass('has-error');
 	/* Field identificacao can't be empty */
 	if($j('#identificacao').val() == ''){ modal_window({ message: '<div class="alert alert-danger"><?php echo addslashes($Translation['field not null']); ?></div>', title: "<?php echo addslashes($Translation['error:']); ?> Identifica&#231;&#227;o:", close: function(){ /* */ $j('[name=identificacao]').eq(0).focus().parents('.form-group').addClass('has-error'); }, footer: [{ label: '<?php echo addslashes($Translation['ok']); ?>' }] }); return false; };
+	/* Field numero_serie can't be empty */
+	if($j('#numero_serie').val() == ''){ modal_window({ message: '<div class="alert alert-danger"><?php echo addslashes($Translation['field not null']); ?></div>', title: "<?php echo addslashes($Translation['error:']); ?> N&#250;mero S&#233;rie", close: function(){ /* */ $j('[name=numero_serie]').eq(0).focus().parents('.form-group').addClass('has-error'); }, footer: [{ label: '<?php echo addslashes($Translation['ok']); ?>' }] }); return false; };
 	/* Field colecao can't be empty */
 	if($j('#colecao').val() == ''){ modal_window({ message: '<div class="alert alert-danger"><?php echo addslashes($Translation['field not null']); ?></div>', title: "<?php echo addslashes($Translation['error:']); ?> Cole&#231;&#227;o:", close: function(){ /* */ $j('[name=colecao]').eq(0).focus().parents('.form-group').addClass('has-error'); }, footer: [{ label: '<?php echo addslashes($Translation['ok']); ?>' }] }); return false; };
 	/* Field grupo can't be empty */
@@ -383,6 +385,10 @@ function nome_pasta_validateData(){
 	if($j('#numero_pasta').val() == ''){ modal_window({ message: '<div class="alert alert-danger"><?php echo addslashes($Translation['field not null']); ?></div>', title: "<?php echo addslashes($Translation['error:']); ?> N&#250;mero da Pasta:", close: function(){ /* */ $j('[name=numero_pasta]').eq(0).focus().parents('.form-group').addClass('has-error'); }, footer: [{ label: '<?php echo addslashes($Translation['ok']); ?>' }] }); return false; };
 	/* Field nome_pasta can't be empty */
 	if($j('#nome_pasta').val() == ''){ modal_window({ message: '<div class="alert alert-danger"><?php echo addslashes($Translation['field not null']); ?></div>', title: "<?php echo addslashes($Translation['error:']); ?> Nome da Pasta:", close: function(){ /* */ $j('[name=nome_pasta]').eq(0).focus().parents('.form-group').addClass('has-error'); }, footer: [{ label: '<?php echo addslashes($Translation['ok']); ?>' }] }); return false; };
+	return true;
+}
+function items_salvos_validateData(){
+	$j('.has-error').removeClass('has-error');
 	return true;
 }
 

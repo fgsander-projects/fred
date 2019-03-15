@@ -29,7 +29,7 @@
                                           }
                                   }
 
-                                    $len = 17;
+                                    $len = 21;
                                     $i = 0; 
                                     //$ico_menu = '{"Table Group Index":"icon class"};
                                     //'Acervo', 'Cole&#231;&#227;o / Grupo / S&#233;rie / Subs&#233;rie', 'Identifica&#231;&#227;o', 'Localiza&#231;&#227;o
@@ -52,8 +52,9 @@
                                                 <a href="#"><i class="<?php echo $json[$i] ? $json[$i] : $ico; ?>"></i>
                                                     <span>
                                                         <?php 
-                                                            $dot = (strlen($lte_group) > $len+22) ? "..." : "";
-                                                            echo substr($lte_group,0,$len+22).$dot; 
+                                                            $lte_group = htmlentities_to_utf8($lte_group);
+                                                            $dot = (strlen($lte_group) > $len) ? "..." : "";
+                                                            echo substr($lte_group,0,$len+3).$dot; 
                                                         ?>
                                                         <?php // echo $lte_group; ?>
                                                     </span>
@@ -69,7 +70,11 @@
                                                                 $count_badge ='';
                                                                 if($tc['homepageShowCount']){
                                                                     $sql_from = get_sql_from($lte_table);
-                                                                    $count_records = ($sql_from ? sqlValue("select count(1) from " . $sql_from) : 0);
+                                                                    if ($lte_table === 'items_salvos'){
+                                                                        $count_records = sqlValue("select count(1) from items_salvos where items_salvos.memberID ='" . getLoggedMemberID() . "'") ;
+                                                                    }else{
+                                                                        $count_records = ($sql_from ? sqlValue("select count(1) from " . $sql_from) : 0);
+                                                                    }
                                                                     $count_badge = '<small class="label pull-right bg-green">' . number_format($count_records) . '</small>';
                                                                 }
                                                                 /* hide current table in homepage? */
@@ -80,8 +85,9 @@
                                                                             <?php echo ($tc['tableIcon'] ? '<img src="' . $tc['tableIcon'] . '">' : '');?>
                                                                             <strong class="table-caption">
                                                                                 <?php 
-                                                                                    $dot = (strlen($tc['Caption']) > $len) ? "..." : "";
-                                                                                    echo substr($tc['Caption'],0,$len).$dot; 
+                                                                                    $caption =  htmlentities_to_utf8($tc['Caption']); 
+                                                                                    $dot = (strlen($caption) > $len) ? "..." : "";
+                                                                                    echo substr($caption,0,$len).$dot; 
                                                                                 ?>
                                                                             </strong>
                                                                             <?php echo $count_badge; ?>
@@ -134,7 +140,11 @@
                                       }
                                   }
                               }else{
+                                  //ver si está solicitando registrarse???
+                                  $script_name = basename($_SERVER['PHP_SELF']);
+                                    if($script_name != 'membership_signup.php'){
                                       ?><script>window.location='index.php?signIn=1';</script><?php
+                                    }
                               }
                               ?>
 

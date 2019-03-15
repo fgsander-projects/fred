@@ -87,8 +87,8 @@ body {
 }
 .content-wrapper {
   min-height: 100%;
-  background-color: #ecf0f5;
-  background: url(../img/photo1.png);
+  background-color: #222D32;
+/*  background: url(../img/photo1.png);*/
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -4947,8 +4947,7 @@ table.text-center th {
   .no-print,
   .main-sidebar,
   .left-side,
-  .main-header,
-  .content-header {
+  .main-header {
     display: none !important;
   }
   .content-wrapper,

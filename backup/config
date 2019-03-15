@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[user]
+	name = ale_felipe_server
+	email = ale_felipe_server@localhost
+[remote "origin"]
+	url = https://github.com/fgsander-projects/fred.git
