@@ -2,6 +2,10 @@
 	// For help on using hooks, please refer to https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks
 
 	function item_init(&$options, $memberInfo, &$args){
+		/* Inserted by Search Page Maker for AppGini on 2019-03-19 07:43:30 */
+		$options->FilterPage = 'hooks/item_filter.php';
+		/* End of Search Page Maker for AppGini code */
+
 
 		return TRUE;
 	}
