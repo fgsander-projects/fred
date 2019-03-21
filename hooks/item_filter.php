@@ -102,8 +102,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_6").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});
@@ -184,8 +184,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_8").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});
@@ -266,8 +266,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_10").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});
@@ -348,8 +348,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_14").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});
@@ -411,31 +411,23 @@
 
 		
 			<!-- ########################################################## -->
-			
-	<div class="row" style="border-bottom: dotted 2px #DDD;">
+			<!-- genero -->
+            <div class="row" style="border-bottom: dotted 2px #DDD;">
 		
 		<div class="hidden-xs hidden-sm col-md-3 vspacer-lg text-right"><label for="">Gênero:</label></div>
 		<div class="hidden-md hidden-lg col-xs-12 vspacer-lg"><label for="">Gênero:</label></div>
 		
-		
-		<input type="hidden" class="optionsData" name="FilterField[7]" value="25">
-		<div class="col-xs-10 col-sm-11 col-md-8 col-lg-6">
 
+
+		<div class="col-md-8 col-lg-6 vspacer-md">
+			<div id="filter_25" class="vspacer-lg"><span></span></div>
+
+			<input type="hidden" class="populatedLookupData" name="7" value="<?php echo htmlspecialchars($FilterValue[7]); ?>" >
 			<input type="hidden" name="FilterAnd[7]" value="and">
-			<input type="hidden" name="FilterOperator[7]" value="equal-to">
-			<input type="hidden" name="FilterValue[7]" id="25_currValue" value="<?php echo htmlspecialchars($FilterValue[7]); ?>" size="3">
-
-	
-			<div class="radio">
-				<label>
-					 <input type="radio" name="FilterValue[7]" class="filter_25" value='gnero1'>gnero1				</label>
-			</div>
-	 
-			<div class="radio">
-				<label>
-					 <input type="radio" name="FilterValue[7]" class="filter_25" value='genero2'>genero2				</label>
-			</div>
-	 		</div>
+			<input type="hidden" name="FilterField[7]" value="25">  
+			<input type="hidden" id="lookupoperator_25" name="FilterOperator[7]" value="like">
+			<input type="hidden" id="filterfield_25" name="FilterValue[7]" value="<?php echo htmlspecialchars($FilterValue[7]); ?>" size="3">
+		</div>
 
 		
 		<div class="col-xs-3 col-xs-offset-9 col-md-offset-0 col-md-1">
@@ -444,13 +436,59 @@
 
 			</div>
 	<script>
-		//for population
-		var filterValue_25 = '<?php echo htmlspecialchars($FilterValue[ 7 ]); ?>';
-		$j(function () {
-			if (filterValue_25) {
-				$j("input[class =filter_25][value ='" + filterValue_25 + "']").attr("checked", "checked");
+		
+		$j(function(){
+			/* display a drop-down of categories that populates its content from ajax_combo.php */
+			$j("#filter_25").select2({
+				ajax: {
+					url: "ajax_combo.php",
+					dataType: 'json',
+					cache: true,
+					data: function(term, page){ return { s: term, p:page, t:"genero", f:"genero" }; },
+					results: function (resp, page) { return resp; }
+				}
+			}).on('change', function(e){
+				$j("#filterfield_25").val(e.added.text);
+				$j("#lookupoperator_25").val('like');
+				if (e.added.id=='{empty_value}'){
+					$j("#lookupoperator_25").val('is-empty');
+				}
+			});
+
+
+			/* preserve the applied category filter and show it when re-opening the filters page */
+			if ($j("#filterfield_25").val().length){
+				
+				//None case 
+				if ($j("#filterfield_25").val() == '<None>'){
+					$j("#filter_25").select2( 'data' , {
+						id: '{empty-value}',
+						text: '<None>'
+					});
+					$j("#lookupoperator_25").val('is-empty');
+					return;
+				}
+				$j.ajax({
+					url: 'ajax_combo.php',
+					dataType: 'json',
+					data: {
+						s: $j("#filterfield_25").val(),  //search term
+						p: 1,                                         //page number
+						t:"genero",                //table name
+						f:"genero"               //field name
+					}
+				}).done(function(response){
+					if (response.results.length){
+						$j("#filter_25").select2( 'data' , {
+							id: response.results[0].id,
+							text: response.results[0].text
+						});
+					}
+				});
 			}
-		})
+
+		});
+
 	</script>
 			
 			<!-- ########################################################## -->
@@ -509,24 +547,16 @@
 		<div class="hidden-md hidden-lg col-xs-12 vspacer-lg"><label for="">Formato:</label></div>
 		
 		
-		<input type="hidden" class="optionsData" name="FilterField[9]" value="27">
-		<div class="col-xs-10 col-sm-11 col-md-8 col-lg-6">
+		<div class="col-md-8 col-lg-6 vspacer-md">
+			<div id="filter_27" class="vspacer-lg"><span></span></div>
 
+			<input type="hidden" class="populatedLookupData" name="4" value="<?php echo htmlspecialchars($FilterValue[9]); ?>" >
 			<input type="hidden" name="FilterAnd[9]" value="and">
-			<input type="hidden" name="FilterOperator[9]" value="equal-to">
-			<input type="hidden" name="FilterValue[9]" id="27_currValue" value="<?php echo htmlspecialchars($FilterValue[9]); ?>" size="3">
+			<input type="hidden" name="FilterField[9]" value="27">  
+			<input type="hidden" id="lookupoperator_27" name="FilterOperator[9]" value="like">
+			<input type="hidden" id="filterfield_27" name="FilterValue[9]" value="<?php echo htmlspecialchars($FilterValue[9]); ?>" size="3">
+		</div>
 
-	
-			<div class="radio">
-				<label>
-					 <input type="radio" name="FilterValue[9]" class="filter_27" value='formato1'>formato1				</label>
-			</div>
-	 
-			<div class="radio">
-				<label>
-					 <input type="radio" name="FilterValue[9]" class="filter_27" value='formato2'>formato2				</label>
-			</div>
-	 		</div>
 
 		
 		<div class="col-xs-3 col-xs-offset-9 col-md-offset-0 col-md-1">
@@ -535,13 +565,139 @@
 
 			</div>
 	<script>
-		//for population
-		var filterValue_27 = '<?php echo htmlspecialchars($FilterValue[ 9 ]); ?>';
-		$j(function () {
-			if (filterValue_27) {
-				$j("input[class =filter_27][value ='" + filterValue_27 + "']").attr("checked", "checked");
+		$j(function(){
+			/* display a drop-down of categories that populates its content from ajax_combo.php */
+			$j("#filter_27").select2({
+				ajax: {
+					url: "ajax_combo.php",
+					dataType: 'json',
+					cache: true,
+					data: function(term, page){ return { s: term, p:page, t:"formato", f:"formato" }; },
+					results: function (resp, page) { return resp; }
+				}
+			}).on('change', function(e){
+				$j("#filterfield_27").val(e.added.text);
+				$j("#lookupoperator_27").val('like');
+				if (e.added.id=='{empty_value}'){
+					$j("#lookupoperator_27").val('is-empty');
+				}
+			});
+
+
+			/* preserve the applied category filter and show it when re-opening the filters page */
+			if ($j("#filterfield_27").val().length){
+				
+				//None case 
+				if ($j("#filterfield_27").val() == '<None>'){
+					$j("#filter_27").select2( 'data' , {
+						id: '{empty-value}',
+						text: '<None>'
+					});
+					$j("#lookupoperator_27").val('is-empty');
+					return;
+				}
+				$j.ajax({
+					url: 'ajax_combo.php',
+					dataType: 'json',
+					data: {
+						s: $j("#filterfield_27").val(),  //search term
+						p: 1,                                         //page number
+						t:"formato",                //table name
+						f:"formato"               //field name
+					}
+				}).done(function(response){
+					if (response.results.length){
+						$j("#filter_27").select2( 'data' , {
+							id: response.results[0].id,
+							text: response.results[0].text
+						});
+					}
+				});
 			}
-		})
+
+		});
+
+	</script>
+			
+			<!-- ########################################################## -->
+			
+	<div class="row" style="border-bottom: dotted 2px #DDD;">
+		
+		<div class="hidden-xs hidden-sm col-md-3 vspacer-lg text-right"><label for="">Suporte:</label></div>
+		<div class="hidden-md hidden-lg col-xs-12 vspacer-lg"><label for="">Suporte:</label></div>
+		
+
+
+		<div class="col-md-8 col-lg-6 vspacer-md">
+			<div id="filter_29" class="vspacer-lg"><span></span></div>
+
+			<input type="hidden" class="populatedLookupData" name="4" value="<?php echo htmlspecialchars($FilterValue[10]); ?>" >
+			<input type="hidden" name="FilterAnd[10]" value="and">
+			<input type="hidden" name="FilterField[10]" value="29">  
+			<input type="hidden" id="lookupoperator_29" name="FilterOperator[10]" value="like">
+			<input type="hidden" id="filterfield_29" name="FilterValue[10]" value="<?php echo htmlspecialchars($FilterValue[10]); ?>" size="3">
+		</div>
+
+		
+		<div class="col-xs-3 col-xs-offset-9 col-md-offset-0 col-md-1">
+			<button type="button" class="btn btn-default vspacer-md btn-block" title='Clear fields' onclick="clearFilters($j(this).parent());" ><span class="glyphicon glyphicon-trash text-danger"></button>
+		</div>
+
+			</div>
+	<script>
+			
+			$j(function(){
+			/* display a drop-down of categories that populates its content from ajax_combo.php */
+			$j("#filter_29").select2({
+				ajax: {
+					url: "ajax_combo.php",
+					dataType: 'json',
+					cache: true,
+					data: function(term, page){ return { s: term, p:page, t:"suporte", f:"suporte" }; },
+					results: function (resp, page) { return resp; }
+				}
+			}).on('change', function(e){
+				$j("#filterfield_29").val(e.added.text);
+				$j("#lookupoperator_29").val('like');
+				if (e.added.id=='{empty_value}'){
+					$j("#lookupoperator_29").val('is-empty');
+				}
+			});
+
+
+			/* preserve the applied category filter and show it when re-opening the filters page */
+			if ($j("#filterfield_29").val().length){
+				
+				//None case 
+				if ($j("#filterfield_29").val() == '<None>'){
+					$j("#filter_29").select2( 'data' , {
+						id: '{empty-value}',
+						text: '<None>'
+					});
+					$j("#lookupoperator_29").val('is-empty');
+					return;
+				}
+				$j.ajax({
+					url: 'ajax_combo.php',
+					dataType: 'json',
+					data: {
+						s: $j("#filterfield_29").val(),  //search term
+						p: 1,                                         //page number
+						t:"suporte",                //table name
+						f:"suporte"               //field name
+					}
+				}).done(function(response){
+					if (response.results.length){
+						$j("#filter_29").select2( 'data' , {
+							id: response.results[0].id,
+							text: response.results[0].text
+						});
+					}
+				});
+			}
+
+		});
+
 	</script>
 			
 			<!-- ########################################################## -->
@@ -552,70 +708,27 @@
 		<div class="hidden-md hidden-lg col-xs-12 vspacer-lg"><label for="">Escritura:</label></div>
 		
 		
-		<input type="hidden" class="optionsData" name="FilterField[10]" value="28">
-		<div class="col-xs-10 col-sm-11 col-md-8 col-lg-6">
-
-			<input type="hidden" name="FilterAnd[10]" value="and">
-			<input type="hidden" name="FilterOperator[10]" value="equal-to">
-			<input type="hidden" name="FilterValue[10]" id="28_currValue" value="<?php echo htmlspecialchars($FilterValue[10]); ?>" size="3">
-
-	
-			<div class="radio">
-				<label>
-					 <input type="radio" name="FilterValue[10]" class="filter_28" value='Manuscrito'>Manuscrito				</label>
-			</div>
-	 
-			<div class="radio">
-				<label>
-					 <input type="radio" name="FilterValue[10]" class="filter_28" value='Impresso'>Impresso				</label>
-			</div>
-	 
-			<div class="radio">
-				<label>
-					 <input type="radio" name="FilterValue[10]" class="filter_28" value='Datilografado'>Datilografado				</label>
-			</div>
-	 		</div>
-
-		
-		<div class="col-xs-3 col-xs-offset-9 col-md-offset-0 col-md-1">
-			<button type="button" class="btn btn-default vspacer-md btn-block" title='Clear fields' onclick="clearFilters($j(this).parent());" ><span class="glyphicon glyphicon-trash text-danger"></button>
-		</div>
-
-			</div>
-	<script>
-		//for population
-		var filterValue_28 = '<?php echo htmlspecialchars($FilterValue[ 10 ]); ?>';
-		$j(function () {
-			if (filterValue_28) {
-				$j("input[class =filter_28][value ='" + filterValue_28 + "']").attr("checked", "checked");
-			}
-		})
-	</script>
-			
-			<!-- ########################################################## -->
-			
-	<div class="row" style="border-bottom: dotted 2px #DDD;">
-		
-		<div class="hidden-xs hidden-sm col-md-3 vspacer-lg text-right"><label for="">Suporte:</label></div>
-		<div class="hidden-md hidden-lg col-xs-12 vspacer-lg"><label for="">Suporte:</label></div>
-		
-		
-		<input type="hidden" class="optionsData" name="FilterField[11]" value="29">
+		<input type="hidden" class="optionsData" name="FilterField[11]" value="28">
 		<div class="col-xs-10 col-sm-11 col-md-8 col-lg-6">
 
 			<input type="hidden" name="FilterAnd[11]" value="and">
 			<input type="hidden" name="FilterOperator[11]" value="equal-to">
-			<input type="hidden" name="FilterValue[11]" id="29_currValue" value="<?php echo htmlspecialchars($FilterValue[11]); ?>" size="3">
+			<input type="hidden" name="FilterValue[11]" id="28_currValue" value="<?php echo htmlspecialchars($FilterValue[11]); ?>" size="3">
 
 	
 			<div class="radio">
 				<label>
-					 <input type="radio" name="FilterValue[11]" class="filter_29" value='soporte1'>soporte1				</label>
+					 <input type="radio" name="FilterValue[11]" class="filter_28" value='Manuscrito'>Manuscrito				</label>
 			</div>
 	 
 			<div class="radio">
 				<label>
-					 <input type="radio" name="FilterValue[11]" class="filter_29" value='soporte2'>soporte2				</label>
+					 <input type="radio" name="FilterValue[11]" class="filter_28" value='Impresso'>Impresso				</label>
+			</div>
+	 
+			<div class="radio">
+				<label>
+					 <input type="radio" name="FilterValue[11]" class="filter_28" value='Datilografado'>Datilografado				</label>
 			</div>
 	 		</div>
 
@@ -627,10 +740,10 @@
 			</div>
 	<script>
 		//for population
-		var filterValue_29 = '<?php echo htmlspecialchars($FilterValue[ 11 ]); ?>';
+		var filterValue_28 = '<?php echo htmlspecialchars($FilterValue[ 11 ]); ?>';
 		$j(function () {
-			if (filterValue_29) {
-				$j("input[class =filter_29][value ='" + filterValue_29 + "']").attr("checked", "checked");
+			if (filterValue_28) {
+				$j("input[class =filter_28][value ='" + filterValue_28 + "']").attr("checked", "checked");
 			}
 		})
 	</script>
@@ -706,8 +819,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_34").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});
@@ -788,8 +901,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_35").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});
@@ -870,8 +983,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_36").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});
@@ -952,8 +1065,8 @@
 				}).done(function(response){
 					if (response.results.length){
 						$j("#filter_37").select2( 'data' , {
-							id: response.results[1].id,
-							text: response.results[1].text
+							id: response.results[0].id,
+							text: response.results[0].text
 						});
 					}
 				});

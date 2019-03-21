@@ -404,7 +404,7 @@
 
 			global $Translation;
 			static $connected = false, $db_link;
-
+			
 			$dbServer = config('dbServer');
 			$dbUsername = config('dbUsername');
 			$dbPassword = config('dbPassword');
@@ -415,7 +415,7 @@
 			$footer = (defined('ADMIN_AREA') ? "{$admin_dir}/incFooter.php" : "{$admin_dir}/../footer.php");
 
 			ob_start();
-
+			
 			if(!$connected){
 				/****** Connect to MySQL ******/
 				if(!extension_loaded('mysql') && !extension_loaded('mysqli')){
@@ -685,7 +685,7 @@
 	}
 	########################################################################
 	function isEmail($email) {
-		if(preg_match('/^([*+!.&#$¦\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,45})$/i', $email)){
+		if(preg_match('/^([*+!.&#$ï¿½\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,45})$/i', $email)){
 			return $email;
 		}
 
