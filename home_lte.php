@@ -18,6 +18,7 @@
               <div class="input-group input-group-lg">
                 <input id="term" type="text" class="form-control">
                     <span class="input-group-btn">
+                      <button id="_del" type="button" class="btn btn-info btn-flat btn-danger">delete!</button>
                       <button id="_go" type="button" class="btn btn-info btn-flat">Go!</button>
                     </span>
               </div>
@@ -28,6 +29,11 @@
                 </div>
               </div>
               <div id="result">
+                <table class="table table-hover">
+                  <tbody>
+                  
+                  </tbody>
+                </table>
               </div><!-- /result -->
               <!-- /input-group -->
             </div>
@@ -46,13 +52,16 @@ $j('#_go').on('click', function(){
       url:'hooks/search_AJX.php',
       data: { cmd: 'search', s: term }
     })
+    .fail((e)=>{
+      console.log('ERROR!:' + e);
+    })
     .done(function(msg){;
       $bar=$j('#records');
       $bar.css('width','0%');
-      $result = $j('#result');
+      $result = $j('#result table tbody');
       $result.html('');
       console.log(msg);
-      if (msg.total >0){
+      if (msg && msg.total >0){
         $bar.attr('aria-valuemax',msg.hits.length);
         
         var i = 0;
@@ -64,10 +73,10 @@ $j('#_go').on('click', function(){
           $bar.attr('aria-valuenow',i);
           console.log(item._source.contenido);
 
-          $result.append(item._source.contenido + '<hr><br>')
+          $result.append('<tr><td>' + item._source.contenido + '<td></tr>')
 
           b=(i/msg.hits.length)*100;
-          $bar.css('width', b+'%');
+          $bar.css('width', b + '%');
         })
         }else{
           $j('#found').text('nothing was found');
@@ -77,6 +86,19 @@ $j('#_go').on('click', function(){
     $j('#found').text('write more than 3 characters');
   }
 })
+$j('#_del').click(function (e) { 
+  //e.preventDefault();
+  $j.ajax({
+    type: "POST",
+    url: "hooks/search_AJX.php",
+    data: { cmd: 'erase', s: 'term'},
+    dataType: "json",
+    success: function (response) {
+      console.log(response);
+    }
+  });
+  
+});
 </script>
 
 

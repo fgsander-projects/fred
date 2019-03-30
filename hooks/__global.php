@@ -2,7 +2,7 @@
 	// For help on using hooks, please refer to https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks
 
 	function login_ok($memberInfo, &$args){
-
+		updateSqlViews();
 		return '';
 	}
 
