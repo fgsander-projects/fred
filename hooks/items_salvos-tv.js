@@ -8,7 +8,7 @@ function removeFromList(id, tableName){
             dataType: "text",
             url:'hooks/savedList.php',
             data: { cmd: 'deleteItem', id: id, tableName: tableName}
-        })
+        });
 }
 
 $j(function(){
