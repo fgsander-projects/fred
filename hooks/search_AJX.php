@@ -6,40 +6,52 @@ include("$base_dir/lib.php");
 use Elasticsearch\ClientBuilder;
 require '../vendor/autoload.php';
 
+$mi = getMemberInfo();
+if(!$mi['username'] || $mi['username'] == 'guest'){
+    echo "Access denied";
+    exit;
+}
 
-if (isset($_POST['cmd']) && isset($_POST['s']) ){
-    $cmd = makeSafe($_POST['cmd']); 
-    $s = makeSafe($_POST['s']);
+if (isset($_REQUEST['cmd']) && isset($_REQUEST['s']) ){
+    $cmd = makeSafe($_REQUEST['cmd']); 
+    $s = makeSafe($_REQUEST['s']);
     if ($cmd === 'search'){
-        // $vowels = array("á", "é", "í", "ó", "ú", "Á", "É", "í", "Ó", "ú","ñ","Ñ");
-        // $s = str_replace($vowels, "?", $s);
 
         echo json_encode(processRequest($s),true);
     }
     if ($cmd === 'erase'){
-        //delete document
-        $client = ClientBuilder::create()->build();
-        //Si la conexion fue exitosa mostramos este mensaje
-        if ($client) {
-            //Cargamos el array con los parametros del documento a borrar
-            $params = [
-                //Nombre del index (bd)
-                'index' => 'documento',
-            ];
-            //Pasamos los parametros a la funcion delete de elasticseach
-            $response = $client->indices()->delete($params);
-            //Mostramos la respuesta
-            echo json_encode($response);
-        }
-            //Si no se pudo realizar la conexion mostramos este otro mensaje y nos salimos
-        else{
-            echo 'Conexion fallida</br>';
-            exit;
-        }
+        echo json_encode(deleteDocument(),true);
     }
+    if ($cmd === 'create'){
+        echo json_encode(createDocument(),true);
+    }
+
     return;
 }    
-
+function createDocument(){
+    system("/usr/share/logstash/bin/logstash -f import.conf");
+    return;
+}
+function deleteDocument(){
+ //delete document
+ $client = ClientBuilder::create()->build();
+ //Si la conexion fue exitosa mostramos este mensaje
+ if ($client) {
+     //Cargamos el array con los parametros del documento a borrar
+     $params = [
+         //Nombre del index (bd)
+         'index' => 'documento',
+     ];
+     //Pasamos los parametros a la funcion delete de elasticseach
+     $response = $client->indices()->delete($params);
+     //Mostramos la respuesta
+     return $response;
+ }
+     //Si no se pudo realizar la conexion mostramos este otro mensaje y nos salimos
+ else{
+     return 'Conexion fallida</br>';
+ }
+}
 function processRequest($s){
     
     $client = ClientBuilder::create()->build();
@@ -57,11 +69,12 @@ function processRequest($s){
                     'multi_match' => [
                         'query' =>"$s",
                         "fields"=> ["contenido"],
-                        "fuzziness" => "AUTO"
-                    ]
+                        "fuzziness" => "AUTO",
+                        "minimum_should_match" => "45%"
                     ],
-                "_source" => ["contenido"],
-                "size"=> 1
+                ],
+                "_source" => ["contenido","identificador"],
+                "size"=> 10
             ]
 
         ];

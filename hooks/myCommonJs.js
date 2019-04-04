@@ -38,32 +38,31 @@ function addWarningBtn(field, title = "Click to fix value", icon = "glyphicon gl
 
 function ToggleFix (field, a = 'default'){
     
-    if (!$j('#' + field).next().children('.btn-fix').hasClass('btn-' + a)){
+    $field = $j('#' + field).next().children('.btn-fix');
+
+    if (!$field.hasClass('btn-' + a)){
+
+        $field.removeClass('btn-warning btn-danger btn-default');
+        $field.children().removeClass('glyphicon-warning-sign glyphicon-remove glyphicon-ok');
 
         if (a === 'default'){
-            $j('#' + field).next().children('.btn-fix').removeClass('btn-warning btn-danger');
-            $j('#' + field).next().children('.btn-fix').children().removeClass('glyphicon-warning-sign glyphicon-remove ');
-            $j('#' + field).next().children('.btn-fix').children().toggleClass('glyphicon-ok');
+            $field.children().toggleClass('glyphicon-ok');
             $j('#' + field).parents('.form-group').removeClass('has-error');
-        };
+        }
         if (a === 'warning'){
-            $j('#' + field).next().children('.btn-fix').children().toggleClass('glyphicon-warning-sign');
-            $j('#' + field).next().children('.btn-fix').removeClass('btn-default');
-            $j('#' + field).next().children('.btn-fix').children().removeClass('glyphicon-ok');
-        };
+            $field.children().toggleClass('glyphicon-warning-sign');
+        }
         if (a === 'danger'){
-            $j('#' + field).next().children('.btn-fix').children().toggleClass('glyphicon-remove');
-            $j('#' + field).next().children('.btn-fix').removeClass('btn-default');
-            $j('#' + field).next().children('.btn-fix').children().removeClass('glyphicon-ok');
-        };
-        $j('#' + field).next().children('.btn-fix').toggleClass('btn-' + a);
+            $field.children().toggleClass('glyphicon-remove');
+        }
+        $field.toggleClass('btn-' + a);
     }
 }
 
 function is_add_new(){
     var add_new_mode = (!$j('input[name=SelectedID]').val());
     return add_new_mode;
-};
+}
 
 function getNumbers(inputString){
     var regex=/\d+\.\d+|\.\d+|\d+/g, 
@@ -178,4 +177,16 @@ function removeEmpty(){
                     return false;
                 }
            }).remove();
+}
+
+function getUrlVars(url) {
+    //https://stackoverflow.com/questions/17483057/convert-url-to-json
+    var hash;
+    var myJson = {};
+    var hashes = url.slice(url.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        myJson[hash[0]] = hash[1];
+    }
+    return myJson;
 }

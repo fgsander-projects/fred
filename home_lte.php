@@ -3,12 +3,9 @@
 
 
     <!-- Main content -->
-    
-
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-    
         <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Search...</h3>
@@ -18,7 +15,6 @@
               <div class="input-group input-group-lg">
                 <input id="term" type="text" class="form-control">
                     <span class="input-group-btn">
-                      <button id="_del" type="button" class="btn btn-info btn-flat btn-danger">delete!</button>
                       <button id="_go" type="button" class="btn btn-info btn-flat">Go!</button>
                     </span>
               </div>
@@ -41,8 +37,20 @@
           </div>
 
 <script>
+function thisTable(){
+    return 'item';
+}
+
 $j('#_go').on('click', function(){
-  
+  search();
+})
+$j(document).on('keypress',function(e) {
+    if(e.which == 13) {
+      search();
+    }
+});
+function search(){
+   
   term = $j('#term').val();
   if (term.length > 3){
     console.log(term);
@@ -60,46 +68,53 @@ $j('#_go').on('click', function(){
       $bar.css('width','0%');
       $result = $j('#result table tbody');
       $result.html('');
-      console.log(msg);
       if (msg && msg.total >0){
         $bar.attr('aria-valuemax',msg.hits.length);
         
         var i = 0;
         var b = 0;
+        var id = 0;
+        var thumb ="";
         $j('#found').text(' ' + msg.total + ' matches they found in: ' + msg.hits.length +' records')
         
         msg.hits.forEach(function(item){
           i++;
           $bar.attr('aria-valuenow',i);
-          console.log(item._source.contenido);
-
-          $result.append('<tr><td>' + item._source.contenido + '<td></tr>')
-
+          id = item._source.identificador;
+          $j.ajax({
+            type: "post",
+            url: "hooks/item_card_AJAX.php",
+            data: {id: id, cmd: 'record'},
+            dataType: "html",
+            success: function (response) {
+              var data = getUrlVars(this.data);
+              var thumb =   '<div class="col-container">'+
+                            '  <div class="col col-md-2" style="padding-right: 4px;padding-left: 10px;margin-bottom: 20px;">'+
+                            '    <div id="imagesThumbs-'+ data.id +'" class="thumbs" title="'+ data.id +'" hidden="" style="display: block;">'+
+                            '    </div>'+
+                            '  </div>'+
+                            '</div>';
+              $result.append('<tr><td><div class="col col-md-10" id = "#items_Salvos_item-'+ data.id +'">' + thumb + response + '</div></td></tr>')
+            }
+          });
           b=(i/msg.hits.length)*100;
           $bar.css('width', b + '%');
         })
-        }else{
-          $j('#found').text('nothing was found');
-        }
+        setTimeout(() => {
+          showTumbs();
+        }, 1000);
+      }else{
+        $j('#found').text('nothing was found');
+      }
     })
   }else{
     $j('#found').text('write more than 3 characters');
   }
-})
-$j('#_del').click(function (e) { 
-  //e.preventDefault();
-  $j.ajax({
-    type: "POST",
-    url: "hooks/search_AJX.php",
-    data: { cmd: 'erase', s: 'term'},
-    dataType: "json",
-    success: function (response) {
-      console.log(response);
-    }
-  });
-  
-});
+}
 </script>
 
 
 <?php include_once("$currDir/footer.php"); ?>
+
+
+
