@@ -109,20 +109,16 @@ function search(){
           showTumbs();
           recountsItems(thisTable());
           setTimeout(() => {
-            // $j('.form-group').filter(function(){
-            //   //console.log($j('.form-control-static').eq(x).text());
-            //   //$object = $j('.form-control-static').eq(x);
-            //   $text = $j(this).next().next().text();
-            //   $text = $j.trim($text);
-            //   if (!$text){
-            //     console.log($j(this));
-            //     console.log($text.length);
-            //       //$j(this).remove();
-            //       return true;
-            //   }
-            //   return false;
-            // }).remove();
-          }, 1500);
+            $j('.form-group').each(function(index, element){
+              console.log(index);
+              $text = $j.trim($j('.form-control-static', this).text());
+              console.log($text);
+              if (!$text){
+                console.log($text.length);
+                  $j(this).remove();
+              }
+            });
+          }, 1000);
                           
     })
   }else{
