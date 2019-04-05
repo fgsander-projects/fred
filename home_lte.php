@@ -91,8 +91,8 @@ function search(){
               var thumb =   '<div class="col-container">'+
                             '  <div class="col col-md-2" style="padding-right: 4px;padding-left: 10px;margin-bottom: 20px;">'+
                             '    <div id="imagesThumbs-'+ data.id +'" class="thumbs" title="'+ data.id +'" hidden="" style="display: block;">'+
-                            '    </div><br>'+
-                            '    <button id="addToList-'+ data.id +'" type="button" class="btn btn-default addToList " title="Adicionar / Remover aos Salvos" onclick="addToList('+ data.id +');" myid="'+ data.id +'" hidden="" ><i class="glyphicon glyphicon-unchecked" myid="'+ data.id +'"></i></button>'+
+                            '    </div>'+
+                            '    <br><button id="addToList-'+ data.id +'" type="button" class="btn btn-default addToList " title="Adicionar / Remover aos Salvos" onclick="addToList('+ data.id +');" myid="'+ data.id +'" hidden="" ><i class="glyphicon glyphicon-unchecked" myid="'+ data.id +'"></i></button>'+
                             '  </div>'+
                             '</div>';
               $result.append('<tr><td><div class="col col-md-10" id = "#items_Salvos_item-'+ data.id +'">' + thumb + response + '</div></td></tr>')
@@ -106,9 +106,9 @@ function search(){
       }
     })
     .always(function(){
-          showTumbs();
-          recountsItems(thisTable());
-          setTimeout(() => {
+      recountsItems(thisTable());
+      setTimeout(() => {
+            showTumbs();
             $j('.form-group').each(function(index, element){
               console.log(index);
               $text = $j.trim($j('.form-control-static', this).text());
