@@ -8,14 +8,14 @@
         -------------------------->
         <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Search...</h3>
+              <h3 class="box-title">Buscar...</h3>
             </div>
             <div class="box-body">
 
               <div class="input-group input-group-lg">
                 <input id="term" type="text" class="form-control">
                     <span class="input-group-btn">
-                      <button id="_go" type="button" class="btn btn-info btn-flat">Go!</button>
+                      <button id="_go" type="button" class="btn btn-info btn-flat glyphicon glyphicon-search"></button>
                     </span>
               </div>
               <div id="found"></div>
@@ -75,7 +75,7 @@ function search(){
         var b = 0;
         var id = 0;
         var thumb ="";
-        $j('#found').text(' ' + msg.total + ' matches they found in: ' + msg.hits.length +' records')
+        $j('#found').text(' ' + msg.total + ' foram encontrados em ' + msg.hits.length +' registros.')
         
         msg.hits.forEach(function(item){
           i++;
@@ -102,7 +102,7 @@ function search(){
           $bar.css('width', b + '%');
         })
       }else{
-        $j('#found').text('nothing was found');
+        $j('#found').text('Nada foi encontrado, tente algo diferente.');
       }
     })
     .always(function(){
@@ -126,7 +126,7 @@ function search(){
                           
     })
   }else{
-    $j('#found').text('write more than 3 characters');
+    $j('#found').text('Por favor, escreva ao menos 3 caracteres.');
   }
 }
 

@@ -14,12 +14,12 @@
 	</script>
 
 <?php if($advanced_search_mode){ ?>
-	<button class="btn btn-lg btn-success pull-right search_mode" type="submit" name="Filter_x" value="1">Switch to simple search mode</button>
+	<button class="btn btn-lg btn-success pull-right search_mode" type="submit" name="Filter_x" value="1">Mudar para a busca Simples</button>
 	<?php include(dirname(__FILE__) . '/../defaultFilters.php'); ?>
 	
 <?php }else{ ?>
 
-	<button class="btn btn-lg btn-default pull-right search_mode" type="submit" name="Filter_x" value="1">Switch to advanced search mode</button>
+	<button class="btn btn-lg btn-default pull-right search_mode" type="submit" name="Filter_x" value="1">Mudar para a busca Avançada</button>
 			
 			<!-- load bootstrap datetime-picker -->
 			<link rel="stylesheet" href="resources/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
@@ -29,7 +29,7 @@
 			
 			<div class="page-header"><h1>
 				<a href="item_view.php" style="text-decoration: none; color: inherit;">
-					<img src="resources/table_icons/curriculum_vitae.png"> 					Itens Filters</a>
+					<img src="resources/table_icons/curriculum_vitae.png"> 					Busca de Itens</a>
 			</h1></div>
 
 				
