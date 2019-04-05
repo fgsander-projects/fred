@@ -11,6 +11,11 @@ class ComposerStaticInit6ccc22c6cead139e3b73aa35bb823b96
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Component\\Process\\' => 26,
+            'Spatie\\PdfToText\\' => 17,
+        ),
         'R' => 
         array (
             'React\\Promise\\' => 14,
@@ -31,6 +36,14 @@ class ComposerStaticInit6ccc22c6cead139e3b73aa35bb823b96
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
+        'Spatie\\PdfToText\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/pdf-to-text/src',
+        ),
         'React\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',

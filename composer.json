@@ -1,5 +1,6 @@
 {
     "require": {
-    "elasticsearch/elasticsearch": "~6.0"
+    "elasticsearch/elasticsearch": "~6.0",
+        "spatie/pdf-to-text": "^1.1"
     }
-   }   
+   }
