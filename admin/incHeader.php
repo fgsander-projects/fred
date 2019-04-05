@@ -233,7 +233,18 @@
 							</ul>
 						</li>
 					<?php } ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i> ElasticSearch <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="../hooks/search_AJX.php?cmd=erase&s=term&usr=admin"><i class="glyphicon menu-item-icon text-info glyphicon-remove"></i> delete document</a></li>
+							<li class="divider"></li>
+							<li><a href="../hooks/search_AJX.php?cmd=create&s=term&usr=admin"><i class="glyphicon menu-item-icon text-info glyphicon-transfer"></i> create document</a></li>
+						</ul>
+					</li>
 				</ul>
+
+
+
 
 				<div class="navbar-right">
 					<a href="<?php echo PREPEND_PATH; ?>index.php" class="btn btn-success navbar-btn"><?php echo $Translation["user's area"] ; ?></a>
