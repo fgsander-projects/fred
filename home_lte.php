@@ -91,7 +91,8 @@ function search(){
               var thumb =   '<div class="col-container">'+
                             '  <div class="col col-md-2" style="padding-right: 4px;padding-left: 10px;margin-bottom: 20px;">'+
                             '    <div id="imagesThumbs-'+ data.id +'" class="thumbs" title="'+ data.id +'" hidden="" style="display: block;">'+
-                            '    </div>'+
+                            '    </div><br>'+
+                            '    <button id="addToList-'+ data.id +'" type="button" class="btn btn-default addToList " title="Adicionar / Remover aos Salvos" onclick="addToList('+ data.id +');" myid="'+ data.id +'" hidden="" ><i class="glyphicon glyphicon-unchecked" myid="'+ data.id +'"></i></button>'+
                             '  </div>'+
                             '</div>';
               $result.append('<tr><td><div class="col col-md-10" id = "#items_Salvos_item-'+ data.id +'">' + thumb + response + '</div></td></tr>')
@@ -100,17 +101,35 @@ function search(){
           b=(i/msg.hits.length)*100;
           $bar.css('width', b + '%');
         })
-        setTimeout(() => {
-          showTumbs();
-        }, 1000);
       }else{
         $j('#found').text('nothing was found');
       }
+    })
+    .always(function(){
+          showTumbs();
+          recountsItems(thisTable());
+          setTimeout(() => {
+            // $j('.form-group').filter(function(){
+            //   //console.log($j('.form-control-static').eq(x).text());
+            //   //$object = $j('.form-control-static').eq(x);
+            //   $text = $j(this).next().next().text();
+            //   $text = $j.trim($text);
+            //   if (!$text){
+            //     console.log($j(this));
+            //     console.log($text.length);
+            //       //$j(this).remove();
+            //       return true;
+            //   }
+            //   return false;
+            // }).remove();
+          }, 1500);
+                          
     })
   }else{
     $j('#found').text('write more than 3 characters');
   }
 }
+
 </script>
 
 
