@@ -664,6 +664,10 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_estado_conservacao->ListData = $combo_estado_conservacao->ListItem;
 	}
 	$combo_estado_conservacao->SelectName = 'estado_conservacao';
+
+
+
+
 	// combobox: documentos_relacionados
 	$combo_documentos_relacionados = new Combo;
 	$combo_documentos_relacionados->ListType = 3;
@@ -686,6 +690,9 @@ function item_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Allow
 		$combo_documentos_relacionados->ListData = $combo_documentos_relacionados->ListItem;
 	}
 	$combo_documentos_relacionados->SelectName = 'documentos_relacionados';
+	
+	
+	
 	// combobox: numero_caixa
 	$combo_numero_caixa = new DataCombo;
 	// combobox: nome_caixa, filterable by: numero_caixa
