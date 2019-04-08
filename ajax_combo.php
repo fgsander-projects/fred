@@ -239,10 +239,43 @@
 		'tipo_publicacao' => array(  
 		),
 		'genero' => array(  
+			'genero' => array(
+				'parent_table' => 'genero',
+				'parent_pk_field' => 'id',
+				'parent_caption' => '`genero`.`genero`',
+				'parent_from' => '`genero` ',
+				'filterers' => array(),
+				'custom_query' => '',
+				'inherit_permissions' => true,
+				'list_type' => 0,
+				'not_null' => true
+			)
 		),
 		'formato' => array(  
+			'formato' => array(
+				'parent_table' => 'formato',
+				'parent_pk_field' => 'id',
+				'parent_caption' => '`formato`.`formato`',
+				'parent_from' => '`formato` ',
+				'filterers' => array(),
+				'custom_query' => '',
+				'inherit_permissions' => true,
+				'list_type' => 0,
+				'not_null' => true
+			)
 		),
 		'suporte' => array(  
+			'suporte' => array(
+				'parent_table' => 'suporte',
+				'parent_pk_field' => 'id',
+				'parent_caption' => '`suporte`.`suporte`',
+				'parent_from' => '`suporte` ',
+				'filterers' => array(),
+				'custom_query' => '',
+				'inherit_permissions' => true,
+				'list_type' => 0,
+				'not_null' => true
+			)
 		),
 		'numero_caixa' => array(  
 		),

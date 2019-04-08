@@ -26,7 +26,7 @@ if (!$table_from) {
 
 $where_id = "AND item.id = $id";
 
-//falte ver el member 
+//TODO: falta ver el member 
 
 
 $item = getDataTable($table_name, $where_id);
@@ -40,35 +40,49 @@ ob_start();
 <!-- insert HTML code-->
    <div class="panel-body">
 	<fieldset class="form-horizontal">
-                        <label class="col-xs-3 control-label">T&#237;tulo:</label>
-			<div class="col-xs-9">
-                            <div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['titulo']; ?></a></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">T&#237;tulo:</label>
+				<div class="col-xs-9">
+					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['titulo']; ?></a></div>
+				</div>
 			</div>
-			<label class="col-xs-3 control-label">Identifica&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><?php echo $item['identificacao']; ?></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">Identifica&#231;&#227;o:</label>
+				<div class="col-xs-9">
+					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['identificacao']; ?></a></div>
+				</div>
 			</div>
-			<label class="col-xs-3 control-label">Cole&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="colecao"><?php echo $item['colecao']; ?></span></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">Cole&#231;&#227;o:</label>
+				<div class="col-xs-9">
+					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="colecao"><?php echo $item['colecao']; ?></span></a></div>
+				</div>
 			</div>
-			<label class="col-xs-3 control-label">Grupo:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="grupo"><?php echo $item['grupo']; ?></span></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">Grupo:</label>
+				<div class="col-xs-9">
+					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="grupo"><?php echo $item['grupo']; ?></span></a></div>
+				</div>
 			</div>
-			<label class="col-xs-3 control-label">S&#233;rie:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="serie"><?php echo $item['serie']; ?></span></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">S&#233;rie:</label>
+				<div class="col-xs-9">
+					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="serie"><?php echo $item['serie']; ?></span></a></div>
+				</div>
 			</div>
-			<label class="col-xs-3 control-label">Subs&#233;rie:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><span id="subserie"><?php echo $item['subserie']; ?></span></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">Subs&#233;rie:</label>
+				<div class="col-xs-9">
+					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="subserie"><?php echo $item['subserie']; ?></span></a></div>
+				</div>
 			</div>
-			<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
-			<div class="col-xs-9">
-				<div class="form-control-static"><?php echo $item['descricao']; ?></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
+				<div class="col-xs-9">
+					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['descricao']; ?></a></div>
+				</div>
 			</div>
-                        <div id='item-uploads-<?php echo $id; ?>' class="form-control-static" hidden=""><?php echo $item['uploads']; ?></div>
+            <div id='item-uploads-<?php echo $id; ?>' class="form-control-static" hidden=""><?php echo $item['uploads']; ?></div>
 	</fieldset>
     </div>
 <?php

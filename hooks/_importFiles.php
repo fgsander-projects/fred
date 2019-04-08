@@ -20,7 +20,7 @@
 	include("{$hooks_dir}/../lib.php");
 
 	$x = new StdClass;
-	include_once("{$hooks_dir}/../header.php");
+	include_once("{$hooks_dir}/../header_old.php");
 	$user_data = getMemberInfo();
 	$user_group = strtolower($user_data["group"]);
 ?>
@@ -129,7 +129,7 @@
             if (d.valid === 'error') disabled = 'disabled';
             var f = '<div class="checkbox has-' + d.valid + ' ' + disabled + '">\
                         <label>\
-                            <input type="checkbox" myindex="' + i + '" ' + disabled + ' > <strong>' + d.fileName + '</strong> (in: ' + d.folder + ') correct name file:' + d.newName + d.msg +
+                            <input type="checkbox" myindex="' + i + '" ' + disabled + ' > <strong>' + d.fileName + '</strong> (in: ' + d.folder + ') correct name file: ' + d.msg +
                         '</label>\
                     </div>';
             $j('.panel-body-list').append(f);
@@ -156,4 +156,4 @@
     }
 </script>
 
-<?php include_once("$hooks_dir/../footer.php"); 
+<?php include_once("$hooks_dir/../footer_old.php"); 

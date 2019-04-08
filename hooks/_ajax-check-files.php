@@ -23,7 +23,7 @@
             if(!is_dir($path)) {exit404();}
         }
         
-	if (isset($_REQUEST['path'])){
+	    if (isset($_REQUEST['path'])){
             $files = scandir($path);
         }
 
@@ -55,10 +55,10 @@
             foreach($files as $file){
               $msg ='';
               $myFiles[] = json_encode(array(
-                        "valid"    => isValidFile($file,$completeCode,$msg),
+                        "valid"    => isValidFile($file,$msg),
                         "fileName" => $file,
                         "folder"   => $path,
-                        "newName"  => $completeCode,
+                        "newName"  => $file,
                         "msg"      => $msg,
                         "mxu"      => $maxUpload
                 ));
@@ -71,88 +71,34 @@
 		exit;
 	}
 
-        function isValidFile($file, &$completeCode, &$msg){
+        function isValidFile($file, &$msg){
            
-            $ret = checkCode(pathinfo($file), $completeCode,$msg);
+            $ret = checkCode(pathinfo($file),$msg);
             
             return $ret;
         }
         
-        function checkCode($file, &$completeCode, &$msg){
+        function checkCode($file, &$msg){
             $ret = 'error';
-            $a = explode("_", $file['filename']);//get genero code
-            //check if a valid item name
-            $cod = ifGenCode($a[0]);
-            if (isset($a[1]) && $cod >0){
-                ControlNumbers($a[1],$completeCode,$child,$msg);
-                $ret = availableCodeItem($a[0]."_".$completeCode,$id);
-                if ($ret === 'success'){
-                    //check chidknumber
-                    $ret = checkChild($child, $msg);
-                }else{
-                    $msg .= ' - The item code it is not available - ';
-                }
-                $ret = chekFileItem($a[0]."_".$completeCode.".".$file['extension'], $a[0] . "_" . $completeCode ,$id);
-                $completeCode = $a[0]."_".$completeCode.".".$file['extension'];
+            $a = $file['filename'];//get genero code
+            if ($a){
+                $ret = sqlValue("select identificacao from item where identificacao='$a'");
                 if($ret){
                    $ret = 'error'; 
                     $msg .= ' - The file name it\'s already uploaded - ';
+                }else{
+                    //TODO: controlar que el nombre del file sea valido
+                    $msg .= "ok to upload";
                 }
                 
             }else{
-                $msg .= ' - The genero code it is not valid o the root code dont exist - ';
+                $msg .= ' - The code it is not valid o the root code dont exist - ';
             }
             return $ret;
             
         }
         
-        function ifGenCode($code){//chech in gen code exist
-            $ret = sqlValue("SELECT id FROM genero WHERE base_codigo = '$code' ");
-            return $ret;
-        }
         
-        function ControlNumbers($a, &$completeCode, &$child, &$msg){
-            $b = explode("-",$a);//get numbers codes
-            if ($b[0]==='BRFM'){
-                //check the other numbers
-                if (intval($b[1])>0 && intval($b[2])>0 ){
-                    //check if codenumber is available
-                    $completeCode = $b[0]."-".rootCode($b[1])."-".childCode($b[2]);
-                    $child=intval($b[2]);
-                }else{
-                    $msg .= ' - the root code and/or child code are invalid - ';
-                    
-                }
-            }else {
-                $msg .= ' - Not exist SAFRA code in the name of file - ';
-            }
-            return;
-        }
-        
-        function rootCode($val){
-            //format de root code
-            return substr("000000" . $val, -6);
-        }
-        function childCode($val){
-            //format de child code
-            return substr("0000" . $val, -4);
-        }
-        
-        function availableCodeItem($code,&$id){
-            //error if the code exist!
-            $ret = sqlValue("SELECT id FROM frederico_morais WHERE identificacao = '$code' ");
-            $id=$ret;
-            if ($ret) {$ret = 'success';}else{$ret='error';}
-            return $ret;
-        }
-        
-        function getIdItem($code,&$id){
-            //error if the code exist!
-            $ret = sqlValue("SELECT id FROM frederico_morais WHERE identificacao = '$code' ");
-            $id=$ret;
-            $ret = sqlValue("SELECT uploads FROM frederico_morais WHERE identificacao = '$code' ");
-            return $ret;
-        }
         
         function chekFileItem($file,$code,&$id){
             $ret = FALSE;
@@ -168,105 +114,27 @@
             return $ret;
         }
         
-        function checkChild($code, &$msg){
-            $ret = 'success';
-            //if $code has =1 and code not exist its good return succes
-            if ($code > 1) { 
-                $ret = 'error';
-                $msg .= ' - The child code is >1 - ';
-            }
-            //if code exist rename to next availble child.
-                //if $code has >1 and code not exist need to rename to next child
-                //if $code has =1 and code exist need to find the next child code.
-                //if $code has >1 and code exist need to rename to next child code.
-            return $ret;
-        }
-        
         function insertRecord($code, &$eo){
-            $o['error']='';
-            $a = explode("_", $code);
-            $cod = ifGenCode($a[0]);//get genero code
-            $b = pathinfo($code);
-            $json = '';
-            
-            $data['genero'] = makeSafe($cod);
-            $data['file_rel'] = '';
-            $data['codigoBase'] = makeSafe($cod);
-            $data['codigoCompleto'] = makeSafe($b['filename']);
-            $data['titulo'] = makeSafe($b['filename']);
-            $data['descricao'] = br2nl('import automatically: '. makeSafe($code) . ' ' . date('l jS \of F Y h:i:s A') );
-            $data['suporte'] = '';
-            $data['formato'] = '';
-            $data['especie'] = '';
-            $data['tipo'] = '';
-            $data['cromia_icon'] = '';
-            $data['data'] =  date('l jS \of F Y h:i:s A');
-            $data['data'] = parseMySQLDate($data['data'], '');
-            $data['autor'] = '';
-            $data['empresa'] = '';
-            $data['depto'] = '';
-            $data['numero_item'] = '';
-            $data['pais'] = '';
-            $data['idioma'] = '';
-            $data['tags'] = '';
-            $data['paginas_text'] = '';
-            $data['local_guarda'] = '';
-            $data['ocr_text'] = '';
-            $data['data_entrada'] =  date('l jS \of F Y h:i:s A');
-            $data['data_entrada'] = parseMySQLDate($data['data_entrada'], '');
-            $data['data_saida'] = '';
-            $data['data_saida'] = parseMySQLDate($data['data_saida'], '');
-            $data['usuario_cad'] = '';
-            $data['uploadedFiles'] = $json;
-            $data['numGenero'] = '';
-            $data['manualCode'] = 'false';
-            $data['Dimensao'] = '';
-            
-            $o = array('silentErrors' => true);
-            sql('insert into `safra_acervo` set '
-                    . '`genero`=' . (($data['genero'] !== '' && $data['genero'] !== NULL) ? "'{$data['genero']}'" : 'NULL') . 
-                    ', `file_rel`=' . (($data['file_rel'] !== '' && $data['file_rel'] !== NULL) ? "'{$data['file_rel']}'" : 'NULL') . 
-                    ', `codigoBase`=' . (($data['codigoBase'] !== '' && $data['codigoBase'] !== NULL) ? "'{$data['codigoBase']}'" : 'NULL') . 
-                    ', `codigoCompleto`=' . (($data['codigoCompleto'] !== '' && $data['codigoCompleto'] !== NULL) ? "'{$data['codigoCompleto']}'" : 'NULL') .
-                    ', `titulo`=' . (($data['titulo'] !== '' && $data['titulo'] !== NULL) ? "'{$data['titulo']}'" : 'NULL') .
-                    ', `descricao`=' . (($data['descricao'] !== '' && $data['descricao'] !== NULL) ? "'{$data['descricao']}'" : 'NULL') . 
-                    ', `suporte`=' . (($data['suporte'] !== '' && $data['suporte'] !== NULL) ? "'{$data['suporte']}'" : 'NULL') . 
-                    ', `formato`=' . (($data['formato'] !== '' && $data['formato'] !== NULL) ? "'{$data['formato']}'" : 'NULL') . 
-                    ', `especie`=' . (($data['especie'] !== '' && $data['especie'] !== NULL) ? "'{$data['especie']}'" : 'NULL') . 
-                    ', `tipo`=' . (($data['tipo'] !== '' && $data['tipo'] !== NULL) ? "'{$data['tipo']}'" : 'NULL') . 
-                    ', `cromia_icon`=' . (($data['cromia_icon'] !== '' && $data['cromia_icon'] !== NULL) ? "'{$data['cromia_icon']}'" : 'NULL') . 
-                    ', `data`=' . (($data['data'] !== '' && $data['data'] !== NULL) ? "'{$data['data']}'" : 'NULL') . 
-                    ', `autor`=' . (($data['autor'] !== '' && $data['autor'] !== NULL) ? "'{$data['autor']}'" : 'NULL') . 
-                    ', `empresa`=' . (($data['empresa'] !== '' && $data['empresa'] !== NULL) ? "'{$data['empresa']}'" : 'NULL') . 
-                    ', `depto`=' . (($data['depto'] !== '' && $data['depto'] !== NULL) ? "'{$data['depto']}'" : 'NULL') . 
-                    ', `numero_item`=' . (($data['numero_item'] !== '' && $data['numero_item'] !== NULL) ? "'{$data['numero_item']}'" : 'NULL') . 
-                    ', `pais`=' . (($data['pais'] !== '' && $data['pais'] !== NULL) ? "'{$data['pais']}'" : 'NULL') . 
-                    ', `idioma`=' . (($data['idioma'] !== '' && $data['idioma'] !== NULL) ? "'{$data['idioma']}'" : 'NULL') . 
-                    ', `tags`=' . (($data['tags'] !== '' && $data['tags'] !== NULL) ? "'{$data['tags']}'" : 'NULL') . 
-                    ', `paginas_text`=' . (($data['paginas_text'] !== '' && $data['paginas_text'] !== NULL) ? "'{$data['paginas_text']}'" : 'NULL') .
-                    ', `local_guarda`=' . (($data['local_guarda'] !== '' && $data['local_guarda'] !== NULL) ? "'{$data['local_guarda']}'" : 'NULL') .
-                    ', `ocr_text`=' . (($data['ocr_text'] !== '' && $data['ocr_text'] !== NULL) ? "'{$data['ocr_text']}'" : 'NULL') . 
-                    ', `data_entrada`=' . (($data['data_entrada'] !== '' && $data['data_entrada'] !== NULL) ? "'{$data['data_entrada']}'" : 'NULL') . 
-                    ', `data_saida`=' . (($data['data_saida'] !== '' && $data['data_saida'] !== NULL) ? "'{$data['data_saida']}'" : 'NULL') . 
-                    ', `usuario_cad`=' . "'{$data['usuario_cad']}'" . 
-                    ', `uploadedFiles`=' . (($data['uploadedFiles'] !== '' && $data['uploadedFiles'] !== NULL) ? "'{$data['uploadedFiles']}'" : 'NULL') . 
-                    ', `numGenero`=' . (($data['numGenero'] !== '' && $data['numGenero'] !== NULL) ? "'{$data['numGenero']}'" : 'NULL') . 
-                    ', `manualCode`=' . (($data['manualCode'] !== '' && $data['manualCode'] !== NULL) ? "'{$data['manualCode']}'" : 'NULL') . 
-                    ', `Dimensao`=' . (($data['Dimensao'] !== '' && $data['Dimensao'] !== NULL) ? "'{$data['Dimensao']}'" : 'NULL'), $o);
-                    
-            if($o['error']!=''){
-                    $eo= $o['error'];
-                    exit;
-            }
+            $codes = explode("_",$code);
 
+            $col = sqlValue("select id from colecao where codigo_colecao='{$codes[0]}'");
+            $grp = sqlValue("select id from grupo where codigo_grupo='{$codes[1]}'");
+            $ser = sqlValue("select id from serie where codigo = '{$codes[2]}'");
+
+            $set['identificacao'] = $code;
+            $set['colecao'] = $col;//0
+            $set['grupo'] = $grp;//1
+            $set['serie'] = $ser;//2
+            $set['tipologia'] = '1';//REQUIRED
+            $set['numero_serie'] = intval($codes[3]);//REQUIRED
+            $set['descricao'] = 'BATCH UPLOAD';
+            insert('item',$set,$eo);
             $recID = db_insert_id(db_link());
-
-            // mm: save ownership data
-            set_record_owner('frederico_morais', $recID, getLoggedMemberID());
             return $recID;
         }
         
         function checkInsert($myFiles){
+
             $current_dir = dirname(__FILE__);
             include_once '_resampledIMG.php';
             include('multipleUpload/AppGiniPlugin.php');
@@ -286,7 +154,7 @@
                 $b = pathinfo($code);
                 //add new item
                 if ($valid != 'error'){
-//                    $id = insertRecord($code, $eo);
+                    $id = insertRecord($b['filename'], $eo);
                     $uploaded = getIdItem($b['filename'],$id);
                     $uploaded = json_decode($uploaded,TRUE);
                     //add the file to item, need id new record
@@ -294,6 +162,7 @@
                             $target = $dir. $plugin ->folder. '/upload/' . $code;
                             move_uploaded_file( $_FILES['uploadedFile']['tmp_name'][$i], $target);
                             //add thumbsnail
+                            //include('multipleUpload/loader.php');
                             $tumb = make_thumb($code,$b['filename'], $b['extension'], $plugin, $pag);
                             //agregar a la tabla de files
                             
@@ -322,7 +191,7 @@
                                 $json = json_encode($uploaded);
                             }
                             
-                            $fin = sql("UPDATE frederico_morais SET uploads= '$json' WHERE id = '$id' ",$eo);
+                            $fin = sql("UPDATE item SET uploads= '{$json}' WHERE id = '{$id}' ",$eo);
                             
                             if ($fin) {$f->valid = 'success';}else{$f->valid = 'error';}
                             $f->msg = "update item: $fin";
@@ -341,7 +210,12 @@
             return $ret ;
         }
         
-        
+        function getIdItem($code,&$id){
+            //error if the code exist!
+            $id = sqlValue("SELECT id FROM item WHERE identificacao = '{$code}' ");
+            $ret = sqlValue("SELECT uploads FROM item WHERE identificacao = '{$code}' ");
+            return $ret;
+        }
         
         
         

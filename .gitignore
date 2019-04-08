@@ -1,8 +1,10 @@
 /nbproject/private/
 .vscode/
+archivos/
 config.php
 setup.md5
 *.jpg
 *.pdf
 *.tif
 *.csv
+*.txt
