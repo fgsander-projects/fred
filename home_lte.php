@@ -8,23 +8,25 @@
         -------------------------->
         <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Buscar...</h3>
+              <h3 class="box-title"></h3>
             </div>
             <div class="box-body">
 
               <div class="input-group input-group-lg">
-                <input id="term" type="text" class="form-control">
+                <input id="term" placeholder="Buscar..." type="text" class="form-control">
                     <span class="input-group-btn">
                       <button id="_go" type="button" class="btn btn-info btn-flat glyphicon glyphicon-search"></button>
                     </span>
               </div>
-              <div id="found"></div>
-              <div class="progress">
-                <div id="records" class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0" style="width: 0%">
+             
+              <div class="progress" style="height: 35px; margin-top:15px;">
+                <div id="records" class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0" style="width: 0%;">
+				
                   <span class="sr-only"></span>
                 </div>
               </div>
               <div id="result">
+			   <div id="found"></div>
                 <table class="table table-hover">
                   <tbody>
                   
@@ -35,6 +37,11 @@
             </div>
             <!-- /.box-body -->
           </div>
+		  
+		  
+		  
+		
+		  
 
 <script>
 function thisTable(){
@@ -49,10 +56,15 @@ $j(document).on('keypress',function(e) {
       search();
     }
 });
+
+//$j('#term').on('change', function(){
+  //search_suggest();
+//})
+
 function search(){
    
   term = $j('#term').val();
-  if (term.length > 3){
+  if (term.length > 0){
     console.log(term);
     $j.ajax({
       method: "POST",
@@ -75,7 +87,7 @@ function search(){
         var b = 0;
         var id = 0;
         var thumb ="";
-        $j('#found').text(' ' + msg.total + ' foram encontrados em ' + msg.hits.length +' registros.')
+        $j('#found').text(' Encontrados ' + msg.hits.length +' registros.')
         
         msg.hits.forEach(function(item){
           i++;
@@ -122,11 +134,33 @@ function search(){
                           
     })
   }else{
-    $j('#found').text('Por favor, escreva ao menos 3 caracteres.');
+    $j('#found').text('Por favor, insira ao menos 3 caracteres.');
   }
 }
 
+
+
+
+//testes felipe - autocomplete
+
+function search_suggest(){
+   
+
+    $j.ajax({
+      method: "POST",
+      dataType: "json",
+      url:'hooks/suggest_AJX.php',
+      data: { cmd: 'search', s: term }                          
+	});
+};
+
+
+
 </script>
+
+
+
+	
 
 
 <?php include_once("$currDir/footer.php"); ?>

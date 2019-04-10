@@ -49,7 +49,7 @@ function deleteDocument(){
  }
      //Si no se pudo realizar la conexion mostramos este otro mensaje y nos salimos
  else{
-     return 'Conexion fallida</br>';
+     return 'Falha na conexão</br>';
  }
 }
 function processRequest($s){
@@ -63,14 +63,17 @@ function processRequest($s){
             'index' => 'documento',
             'type' => 'documento',
             "from" => 0, 
-            "size" => 50,
+            "size" => 100,
             'body' => [
                 'query' => [
+					
                     'multi_match' => [
                         'query' =>"$s",
+						'type' =>"best_fields",
                         "fields"=> ["contenido"],
                         "fuzziness" => "AUTO",
-                        "minimum_should_match" => "45%"
+                        "minimum_should_match" => "90%",
+						"operator" => "and"
                     ],
                 ],
                 "_source" => ["contenido","identificador"],

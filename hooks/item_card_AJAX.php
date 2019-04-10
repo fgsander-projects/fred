@@ -1,11 +1,11 @@
 <?php
-//  
+//
 // Author: Alejandro Landini
-// 
-// 
-// toDo: 
+//
+//
+// toDo:
 // revision:
-// 
+//
 //
 $cardDir = dirname(__FILE__);
 include("$cardDir/../defaultLang.php");
@@ -26,7 +26,7 @@ if (!$table_from) {
 
 $where_id = "AND item.id = $id";
 
-//TODO: falta ver el member 
+//TODO: falta ver el member
 
 
 $item = getDataTable($table_name, $where_id);
@@ -38,48 +38,66 @@ if (!$item){
 ob_start();
 ?>
 <!-- insert HTML code-->
+<!--
+
+<div class="col-md-8">
+  <dl class="dl-horizontal">
+    <dt class="item-titulo field-caption-tv">T&#237;tulo</dt>
+    <dd id="item-titulo" class="item-titulo"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['titulo']; ?></a></dd>
+
+    <dt class="item-descricao-caption field-caption-tv">Descri&#231;&#227;o:</dt>
+    <dd id="item-descricao-<%%VALUE(id)%%>" class="item-descricao"><%%SELECT%%><%%VALUE(descricao)%%><%%ENDSELECT%%></dd>
+
+    <dt class="item-identificacao-caption field-caption-tv">Identifica&#231;&#227;o:</dt>
+    <dd id="item-identificacao-<%%VALUE(id)%%>" class="item-identificacao"><%%SELECT%%><%%VALUE(identificacao)%%><%%ENDSELECT%%></dd>
+
+    <dt class="item-colecao-caption field-caption-tv">Cole&#231;&#227;o:</dt>
+    <dd id="item-colecao-<%%VALUE(id)%%>" class="item-colecao"><%%SELECT%%><%%VALUE(colecao)%%><%%ENDSELECT%%></dd>
+-->
+
+
    <div class="panel-body">
 	<fieldset class="form-horizontal">
 			<div class="form-group">
 				<label class="col-xs-3 control-label">T&#237;tulo:</label>
 				<div class="col-xs-9">
-					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['titulo']; ?></a></div>
+					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['titulo']; ?></a></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label">Identifica&#231;&#227;o:</label>
 				<div class="col-xs-9">
-					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['identificacao']; ?></a></div>
+					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['identificacao']; ?></a></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label">Cole&#231;&#227;o:</label>
 				<div class="col-xs-9">
-					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="colecao"><?php echo $item['colecao']; ?></span></a></div>
+					<div class="form-control-static"> <a target="_blank"  href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="colecao"><?php echo $item['colecao']; ?></span></a></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label">Grupo:</label>
 				<div class="col-xs-9">
-					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="grupo"><?php echo $item['grupo']; ?></span></a></div>
+					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="grupo"><?php echo $item['grupo']; ?></span></a></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label">S&#233;rie:</label>
 				<div class="col-xs-9">
-					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="serie"><?php echo $item['serie']; ?></span></a></div>
+					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="serie"><?php echo $item['serie']; ?></span></a></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label">Subs&#233;rie:</label>
 				<div class="col-xs-9">
-					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="subserie"><?php echo $item['subserie']; ?></span></a></div>
+					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="subserie"><?php echo $item['subserie']; ?></span></a></div>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="item-descricao">
 				<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
-				<div class="col-xs-9">
-					<div class="form-control-static"> <a href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['descricao']; ?></a></div>
+				<div class="item-serie">
+					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['descricao']; ?></a></div>
 				</div>
 			</div>
             <div id='item-uploads-<?php echo $id; ?>' class="form-control-static" hidden=""><?php echo $item['uploads']; ?></div>
