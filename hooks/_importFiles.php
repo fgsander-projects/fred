@@ -1,16 +1,6 @@
 <?php
 // 
 // Author: Alejandro Landini
-// _importFiles.php 5/6/18
-// toDo: 
-//      [ok] read list file from directory
-//      [ok] analise the files and check if exist in current database
-//      [] if exist, ask for your destiny, replace, add as copy or ignore
-//      [ok] if not exist and the name is valid name for item, create a record and upload the file to the system.
-// revision:
-//          *6/6/18 * translate button info
-//                  * now can select by file
-//                  * 
 //
 
 	define("PREPEND_PATH", "../");
@@ -86,7 +76,7 @@
                 },
                 success: function (files) {
                     btn.button('reset');
-//                    console.log(files);
+                    console.log(files);
                     listFiles(files);
                 },
                 cache: false,
@@ -120,7 +110,7 @@
         var disabled = '';
         $j('.panel-body-list').html('');
         retData = files;
-//        console.log(files);
+        console.log(files);
         var list = JSON.parse(files);
         var max = '20';
         $j.each(list,function(i,data){

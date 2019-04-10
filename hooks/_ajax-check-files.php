@@ -2,9 +2,6 @@
 // 
 // Author: Alejandro Landini
 // _nombre_ajax-checkfiles.php 4/6/18
-// toDo: 
-// revision:
-//  *6/6/18 change function split by explode
 //
 
 	/* Checks if provided 'path' is a path to a valid */
@@ -58,7 +55,7 @@
                         "valid"    => isValidFile($file,$msg),
                         "fileName" => $file,
                         "folder"   => $path,
-                        "newName"  => $file,
+                        "newName"  => getCodeFile($file),
                         "msg"      => $msg,
                         "mxu"      => $maxUpload
                 ));
@@ -82,13 +79,14 @@
             $ret = 'error';
             $a = $file['filename'];//get genero code
             if ($a){
-                $ret = sqlValue("select identificacao from item where identificacao='$a'");
+                $ret = getCodeID($a);
                 if($ret){
-                   $ret = 'error'; 
-                    $msg .= ' - The file name it\'s already uploaded - ';
+                   $ret = 'update'; 
+                    $msg .= ' - The code name it\'s already exist and can uploaded - ';
                 }else{
                     //TODO: controlar que el nombre del file sea valido
-                    $msg .= "ok to upload";
+                    $ret = 'insert';
+                    $msg .= "ok to upload as new code";
                 }
                 
             }else{
@@ -132,6 +130,29 @@
             $recID = db_insert_id(db_link());
             return $recID;
         }
+
+        function getCodeID($code){
+            $codes = explode("_",$code);
+
+            $col = sqlValue("SELECT id from colecao where codigo_colecao='{$codes[0]}'");
+            $grp = sqlValue("SELECT id from grupo where codigo_grupo='{$codes[1]}'");
+            $ser = sqlValue("SELECT id from serie where codigo = '{$codes[2]}'");
+
+            if (!$col && !$grp && !$ser){
+                return 'error in codes colecao, grupo o serie not exist';
+            }
+
+            $ret = sqlValue("SELECT id from item where identificacao = '$code'");
+
+            return $ret;
+
+        }
+
+        function getCodeFile($fileName){
+            $codes = explode("_",$fileName);
+            $code = $codes[0]."_".$codes[1]."_".$codes[2]."_". $codes[3];
+            return $code;
+        }
         
         function checkInsert($myFiles){
 
@@ -154,15 +175,15 @@
                 $b = pathinfo($code);
                 //add new item
                 if ($valid != 'error'){
-                    $id = insertRecord($b['filename'], $eo);
-                    $uploaded = getIdItem($b['filename'],$id);
+                    if ($valid === 'insert' ) $id = insertRecord($code, $eo);
+                    if ($valid === 'update' ) $id = getCodeID($code);
+                    $uploaded = getIdItem($code);
                     $uploaded = json_decode($uploaded,TRUE);
                     //add the file to item, need id new record
                     if($id >0 ){
                             $target = $dir. $plugin ->folder. '/upload/' . $code;
                             move_uploaded_file( $_FILES['uploadedFile']['tmp_name'][$i], $target);
                             //add thumbsnail
-                            //include('multipleUpload/loader.php');
                             $tumb = make_thumb($code,$b['filename'], $b['extension'], $plugin, $pag);
                             //agregar a la tabla de files
                             
@@ -177,10 +198,10 @@
                                     "type"          => $plugin->type,
                                     "hd_image"      => $tumb,
                                     "folder"        => $dir,
-                                    "folder_base"   => $plugin ->folder,
-                                    "size"          => $plugin ->size,
+                                    "folder_base"   => $plugin->folder,
+                                    "size"          => $plugin->size,
                                     "userUpload"    => $mi['username'],
-                                    "aproveUpload"  => 'true',
+                                    "aproveUpload"  => 'true'
                             );
                             if(empty($uploaded)){
                                 $json= json_encode($json);
@@ -210,9 +231,9 @@
             return $ret ;
         }
         
-        function getIdItem($code,&$id){
+        function getIdItem($code){
             //error if the code exist!
-            $id = sqlValue("SELECT id FROM item WHERE identificacao = '{$code}' ");
+            //$id = sqlValue("SELECT id FROM item WHERE identificacao = '{$code}' ");
             $ret = sqlValue("SELECT uploads FROM item WHERE identificacao = '{$code}' ");
             return $ret;
         }
