@@ -34,7 +34,7 @@
         }
         
         $myFiles = filesArray($files, $path,$maxFileUpload);
-            
+        
         if (isset($_POST['cmd']) && $_POST['cmd'] === 'i'){
             //start to import files
             $ret = json_encode(checkInsert($myFiles));
@@ -51,11 +51,14 @@
 	function filesArray($files, $path,$maxUpload){
             foreach($files as $file){
               $msg ='';
+              $f= pathinfo($file);
+              $code = getCodeFile($f['filename']);
               $myFiles[] = json_encode(array(
-                        "valid"    => isValidFile($file,$msg),
+                        "valid"    => checkCode($code,$msg),
+                        "code"     => $code,
                         "fileName" => $file,
                         "folder"   => $path,
-                        "newName"  => getCodeFile($file),
+                        "newName"  => $f['filename'],
                         "msg"      => $msg,
                         "mxu"      => $maxUpload
                 ));
@@ -68,23 +71,14 @@
 		exit;
 	}
 
-        function isValidFile($file, &$msg){
-           
-            $ret = checkCode(pathinfo($file),$msg);
-            
-            return $ret;
-        }
-        
-        function checkCode($file, &$msg){
+        function checkCode($code, &$msg){
             $ret = 'error';
-            $a = $file['filename'];//get genero code
-            if ($a){
-                $ret = getCodeID($a);
+            if ($code){
+                $ret = getCodeID($code, $msg);
                 if($ret){
                    $ret = 'update'; 
                     $msg .= ' - The code name it\'s already exist and can uploaded - ';
                 }else{
-                    //TODO: controlar que el nombre del file sea valido
                     $ret = 'insert';
                     $msg .= "ok to upload as new code";
                 }
@@ -131,7 +125,8 @@
             return $recID;
         }
 
-        function getCodeID($code){
+        //develve el id del código de indentificación
+        function getCodeID($code,&$msg){
             $codes = explode("_",$code);
 
             $col = sqlValue("SELECT id from colecao where codigo_colecao='{$codes[0]}'");
@@ -139,7 +134,8 @@
             $ser = sqlValue("SELECT id from serie where codigo = '{$codes[2]}'");
 
             if (!$col && !$grp && !$ser){
-                return 'error in codes colecao, grupo o serie not exist';
+                $msg .= " error in codes colecao, grupo o serie not exist [$col, $grp, $ser]";
+                return 0;
             }
 
             $ret = sqlValue("SELECT id from item where identificacao = '$code'");
@@ -147,7 +143,7 @@
             return $ret;
 
         }
-
+        // obtengo el código del archivo
         function getCodeFile($fileName){
             $codes = explode("_",$fileName);
             $code = $codes[0]."_".$codes[1]."_".$codes[2]."_". $codes[3];
@@ -170,21 +166,21 @@
             $ret =[];
             foreach ($myFiles as $myF){
                 $f=json_decode($myF);
-                $code = $f->newName;
+                $code = $f->code;
                 $valid = $f->valid;
-                $b = pathinfo($code);
+                $b = pathinfo($f->fileName);
                 //add new item
                 if ($valid != 'error'){
                     if ($valid === 'insert' ) $id = insertRecord($code, $eo);
-                    if ($valid === 'update' ) $id = getCodeID($code);
+                    if ($valid === 'update' ) $id = getCodeID($code, $msg);
                     $uploaded = getIdItem($code);
                     $uploaded = json_decode($uploaded,TRUE);
                     //add the file to item, need id new record
                     if($id >0 ){
-                            $target = $dir. $plugin ->folder. '/upload/' . $code;
+                            $target = $dir. $plugin ->folder. '/upload/' . $f->fileName;
                             move_uploaded_file( $_FILES['uploadedFile']['tmp_name'][$i], $target);
                             //add thumbsnail
-                            $tumb = make_thumb($code,$b['filename'], $b['extension'], $plugin, $pag);
+                            $tumb = make_thumb($f->fileName,$b['filename'], $b['extension'], $plugin, $pag);
                             //agregar a la tabla de files
                             
                             //file uploaded successfully							
@@ -192,7 +188,7 @@
                                     "response-type" => "success",
                                     "defaultImage"  => false,
                                     "isRenamed"     => 'false',
-                                    "fileName"      => $code,
+                                    "fileName"      => $f->newName,
                                     "extension"     => $b['extension'],
                                     "name"          => $b['filename'],
                                     "type"          => $plugin->type,
@@ -233,14 +229,6 @@
         
         function getIdItem($code){
             //error if the code exist!
-            //$id = sqlValue("SELECT id FROM item WHERE identificacao = '{$code}' ");
             $ret = sqlValue("SELECT uploads FROM item WHERE identificacao = '{$code}' ");
             return $ret;
         }
-        
-        
-        
-        
-        
-        
-        
