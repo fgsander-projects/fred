@@ -21,11 +21,11 @@
 
     <form method="post" enctype="multipart/form-data" action="_ajax-check-files.php">
         <div class="form-group">
-                <span class="help-block">Select the full path of the files you want to batch import from. Example <code>/var/www/html/photo-gallery</code></span>
+                <span class="help-block">Selecione os arquivos que deseja enviar <code></code></span>
                     <input id="btnupload" type="file" name="uploadedFile[]" directory multiple>
                     <input type="text" name="cmd" value="i" hidden="">
                     <div class="text-center">
-                        <button type="submit" data-loading-text="Starting Batch..." class="btn btn-success btn-lg" id="submit">Continue 
+                        <button type="submit" data-loading-text="Starting Batch..." class="btn btn-success btn-lg" id="submit">Enviar 
                             <i class="glyphicon glyphicon-chevron-right"></i>
                         </button>
                     </div>
@@ -33,14 +33,14 @@
         <br>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-            <span class="sr-only">0% Complete</span>
+            <span class="sr-only">0% Completo</span>
           </div>
         </div>
         <br>
                 <div class="col">
                         <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                        <div class="text-center text-bold" style="font-size: 1.5em; line-height: 2em;">Selected Files</div>
+                                        <div class="text-center text-bold" style="font-size: 1.5em; line-height: 2em;">Selecionar Arquivos</div>
                                 </div>
                                 <div class="panel-body">
                                         <div class="panel-body-list"></div>
@@ -119,14 +119,14 @@
             if (d.valid === 'error') disabled = 'disabled';
             var f = '<div class="checkbox has-' + d.valid + ' ' + disabled + '">\
                         <label>\
-                            <input type="checkbox" myindex="' + i + '" ' + disabled + ' > <strong>' + d.fileName + '</strong> (in: ' + d.folder + ') correct name file: ' + d.msg +
+                            <input type="checkbox" myindex="' + i + '" ' + disabled + ' > <strong>' + d.fileName + '</strong> (em: ' + d.folder + ') Padrão de nome: OK. ' + d.msg +
                         '</label>\
                     </div>';
             $j('.panel-body-list').append(f);
             max = d.mxu;
         });
         if(list.length > max){
-            alert("you are selected " + list.length + " files. The max files to upload is:" + max );
+            alert("Você selecionou " + list.length + " arquivos. O Máximo permitido para upload é:" + max );
         }else{
 //            alert("correct, you have selected less than 10 files");
         }

@@ -77,14 +77,14 @@
                 $ret = getCodeID($code, $msg);
                 if($ret){
                    $ret = 'update'; 
-                    $msg .= ' - The code name it\'s already exist and can uploaded - ';
+                    $msg .= ' - Este código já existe no banco de dados, ele será adicionado ao item.';
                 }else{
                     $ret = 'insert';
-                    $msg .= "ok to upload as new code";
+                    $msg .= "Este código não existe no banco de dados, será criado um novo item.";
                 }
                 
             }else{
-                $msg .= ' - The code it is not valid o the root code dont exist - ';
+                $msg .= ' - Este código não é válido.';
             }
             return $ret;
             
@@ -119,7 +119,7 @@
             $set['serie'] = $ser;//2
             $set['tipologia'] = '1';//REQUIRED
             $set['numero_serie'] = intval($codes[3]);//REQUIRED
-            $set['descricao'] = 'BATCH UPLOAD';
+            $set['descricao'] = 'ENVIADO EM LOTE';
             insert('item',$set,$eo);
             $recID = db_insert_id(db_link());
             return $recID;
@@ -134,7 +134,7 @@
             $ser = sqlValue("SELECT id from serie where codigo = '{$codes[2]}'");
 
             if (!$col && !$grp && !$ser){
-                $msg .= " error in codes colecao, grupo o serie not exist [$col, $grp, $ser]";
+                $msg .= " Erro no código: Coleção, Grupo ou Código não exitem. [$col, $grp, $ser]";
                 return 0;
             }
 
