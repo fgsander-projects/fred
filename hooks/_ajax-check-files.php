@@ -188,11 +188,7 @@
                                     "response-type" => "success",
                                     "defaultImage"  => false,
                                     "isRenamed"     => 'false',
-<<<<<<< HEAD
-                                    "fileName"      => $f->newName ."." . $b['extension'],
-=======
                                     "fileName"      => $b['basename'],
->>>>>>> b21b48624756644aca9511df60e01d2085ec3882
                                     "extension"     => $b['extension'],
                                     "name"          => $b['filename'],
                                     "type"          => $plugin->type,
