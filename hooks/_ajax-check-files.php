@@ -188,7 +188,7 @@
                                     "response-type" => "success",
                                     "defaultImage"  => false,
                                     "isRenamed"     => 'false',
-                                    "fileName"      => $f->newName,
+                                    "fileName"      => $f->newName ."." . $b['extension'],
                                     "extension"     => $b['extension'],
                                     "name"          => $b['filename'],
                                     "type"          => $plugin->type,

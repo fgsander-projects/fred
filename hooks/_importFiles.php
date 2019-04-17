@@ -21,7 +21,7 @@
 
     <form method="post" enctype="multipart/form-data" action="_ajax-check-files.php">
         <div class="form-group">
-                <span class="help-block">Selecione os arquivos que deseja enviar <code></code></span>
+                <span class="help-block">Selecione os arquivos que deseja importar <code></code></span>
                     <input id="btnupload" type="file" name="uploadedFile[]" directory multiple>
                     <input type="text" name="cmd" value="i" hidden="">
                     <div class="text-center">
@@ -40,7 +40,7 @@
                 <div class="col">
                         <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                        <div class="text-center text-bold" style="font-size: 1.5em; line-height: 2em;">Selecionar Arquivos</div>
+                                        <div class="text-center text-bold" style="font-size: 1.5em; line-height: 2em;">Arquivos Selecionados</div>
                                 </div>
                                 <div class="panel-body">
                                         <div class="panel-body-list"></div>
@@ -112,7 +112,7 @@
         retData = files;
         console.log(files);
         var list = JSON.parse(files);
-        var max = '20';
+        var max = '40';
         $j.each(list,function(i,data){
             disabled = '';
             var d = JSON.parse(data);
@@ -126,7 +126,7 @@
             max = d.mxu;
         });
         if(list.length > max){
-            alert("Você selecionou " + list.length + " arquivos. O Máximo permitido para upload é:" + max );
+            alert("Você selecionou " + list.length + " arquivos. O Máximo permitido para upload é: " + max );
         }else{
 //            alert("correct, you have selected less than 10 files");
         }

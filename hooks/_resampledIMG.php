@@ -38,8 +38,8 @@ function make_thumb($source, $fileName, $ext ,&$folder,&$ret){
 
                         if(strtolower($ext) === 'pdf'){
                             $quantum = $im->getQuantum();
-    //                            $im     ->setIteratorIndex(3); //this will return 1th page of the pdf file
-//                            $im  	->flattenImages(); no funciona??
+//                        $im     ->setIteratorIndex(3); //this will return 1th page of the pdf file
+//                        $im  	->flattenImages(); no funciona??
                         
                         }
 
