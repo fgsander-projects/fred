@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-xs-12">
         
-    <div class="page-header"><h1>Import Files</h1></div>
+    <div class="page-header"><h1>Importar Arquivos</h1></div>
 
     <form method="post" enctype="multipart/form-data" action="_ajax-check-files.php">
         <div class="form-group">
@@ -25,7 +25,7 @@
                     <input id="btnupload" type="file" name="uploadedFile[]" directory multiple>
                     <input type="text" name="cmd" value="i" hidden="">
                     <div class="text-center">
-                        <button type="submit" data-loading-text="Starting Batch..." class="btn btn-success btn-lg" id="submit">Enviar 
+                        <button type="submit" data-loading-text="Processando as imagens..." class="btn btn-success btn-lg" id="submit">Enviar 
                             <i class="glyphicon glyphicon-chevron-right"></i>
                         </button>
                     </div>
