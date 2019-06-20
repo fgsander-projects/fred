@@ -105,13 +105,13 @@ if ($cmd !== ''){
                                         . '</a>'
                                         .$video.$audio
                                     . '</div>';
-                            $html2 .= '<div style="max-height: 200px; overflow-x: auto;"><div class="column columns-thumbs">'
+                            $html2 .= '<div class="column columns-thumbs">'
                                         . '<img class="demo cursor" src="' . $url_th . '?m='. $modif .'" onclick="currentSlide('. $index. ',' .  $indice .')" alt="' . $a['name'] . '"/>'
-                                    . '</div></div>';
+                                    . '</div>';
                             $index += 1;
                         }
                     } 
-                    echo $html. $html2 . '</div>'. $end;
+                    echo $html. '<div style="max-height: 200px; overflow-x: auto;">' .$html2 . '</div></div>'. $end;
                     return;
                 case 'empty':
                     //TODO: poner no foto!
