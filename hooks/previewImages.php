@@ -1,3 +1,4 @@
+
 <?php
 // 
 // Author: Alejandro Landini
@@ -35,7 +36,7 @@ $currDir = dirname(__FILE__);
 if ($cmd !== ''){
         $folder ='hooks/projects/';
         $html = '<div>';
-        $html2='';
+        $html2 ='';
         $index = 1;
         $base_dir = realpath("{$currDir}/..");
         $modif = time();
@@ -51,9 +52,9 @@ if ($cmd !== ''){
                     foreach ($json['images'] as $image=>$a) {
                         $fo = $a['folder_base'];
                         if ( !empty($fo)){
-                            $folderO = substr ($fo,1).'/upload/'; //original
-                            $folderT = substr ($fo,1).'/th/'; //thumbs
-                            $folderL = substr ($fo,1).'/LO/'; //loRes
+                            $folderO = substr ($fo,1)."/upload/"; //original
+                            $folderT = substr ($fo,1)."/th/"; //thumbs
+                            $folderL = substr ($fo,1)."/LO/"; //loRes
                         }else{
                             $folderO = $folder; //original
                             $folderT = $folder; //thumbs
@@ -69,13 +70,15 @@ if ($cmd !== ''){
                         if (file_exists($source)){
                             $modif =filemtime($source);
                         }
-                        $href = '<a class="example-image-link" href="'.$url.'" data-lightbox="set-'.$indice.'" data-title="'. $title . '">'
-                                . '<img class="hover-shadow" src="' . $url_th . '?m='. $modif .'" alt="' . $a['fileName'] . '" style="display:block; width:65%; margin-left: auto; margin-right:auto; border-radius: 5px; margin-bottom:6px; "/>';
-                        if ($ext === 'pdf'){
-                            $href = "<a onclick=\"showPdf('". $url ."' , '".  $title ."' , '". $index."' , '". $indice . "')\">"
-                                . '<img class="hover-shadow" src="' . $url_th . '?m='. $modif .'" alt="' . $a['fileName'] . '" style="display:block; width:65%; margin-left: auto; margin-right:auto; border-radius: 5px; margin-bottom:6px; "/>';
-                        }
                         
+                        $style ='"valign="center" style="display:block; max-width:240px; max-height:290px; margin-left: auto; margin-right:auto; border-radius:5px; margin-bottom:6px; "/>';
+                        $href = '<a class="example-image-link" href="'.$url.'" data-lightbox="set-'.$indice.'" data-title="'. $title . '">';
+                        $thumbs = '<img class="" src="' . $url_th . '?m='. $modif .'" alt="' . $a['fileName'] . $style;
+
+                        if ($ext === 'pdf'){
+                            $href = "<a onclick=\"showPdf('". $url ."' , '".  $title ."' , '". $index."' , '". $indice . "')\">";
+                        }
+                       
                         //video type
                         $video='';
                         if ($a['type'] == 'mov'){
@@ -84,8 +87,7 @@ if ($cmd !== ''){
                                 $i = $a['thumb'] -1;
                                 $url_th = $folderT."{$a['name']}({$i})_th.jpg";
                             }
-                            $href ='<a class="launch-modal" href="#" data-modal-id="modal-video-' .$indice .'">'
-                                . '<img class="hover-shadow" src="' . $url_th . '?m='. $modif .'" alt="' . $a['fileName'] . '" style="display:block; width:65%; margin-left: auto; margin-right:auto; border-radius: 5px; margin-bottom:6px; "/>';
+                            $href ='<a class="launch-modal" href="#" data-modal-id="modal-video-' .$indice .'">';
                             $video = ModalVideo($indice,$url,$title).videoScripts($indice);
                         }
                         
@@ -95,33 +97,45 @@ if ($cmd !== ''){
                             $href ='<a class="launch-modal" href="#" data-modal-id="modal-audio-' .$indice .'">';
                             $audio = ModalAudio($indice,$url,$title).audioScripts($indice);
                             $url_th= 'hooks/audio/audio-wave-icon.png';
-                            
                         }
-                        
-                        if ($a['type'] == 'img' || $a['type'] == 'mov' || $ext == 'pdf' || $a['type'] == 'audio' ){
-                            // es tipo IMG o PDF
-                            $html .=  '<div class = "mySlides-'. $indice. '" style="border-bottom: 1px solid #efefef;">'
-                                        . $href 
+
+                        if ($a['type'] == 'img' ){
+                            // es tipo IMG
+                            $html .=  '<div class = "mySlides-'. $indice. '" style="border-bottom: 1px solid #efefef; max-width:250px; max-height:300px;">'
+                                        . $href . $thumbs
                                         . '</a>'
                                         .$video.$audio
                                     . '</div>';
-                            $html2 .= '<div class="column columns-thumbs">'
+                            $html2 .= '<div class="column columns-thumbs" style="width:50px; height:50px; margin-top:3px; margin-left:4px;">'
+                                        . '<img class="demo cursor" style="width:50px; height:50px; margin-left:3px;opacity:0.8" src="' . $url_th . '?m='. $modif .'" onclick="currentSlide('. $index. ',' .  $indice .')" alt="' . $a['name'] . '"/>'
+                                    . '</div>';
+                            $index += 1;
+                        }
+						
+						 if ($a['type'] == 'mov' || $ext == 'pdf' || $a['type'] == 'audio' ){
+                            // es tipo IMG o PDF o MOV o AUDIO
+                            $html .=  '<div class = "mySlides-'. $indice. '" style="border-bottom: 1px solid #efefef;">'
+                                        . $href . $thumbs
+                                        . '</a>'
+                                        .$video.$audio
+                                    . '</div>';
+                            $html2 .= '<div class="column columns-thumbs" style="width:50px; height:50px; margin-top:3px; margin-left:4px">'
                                         . '<img class="demo cursor" src="' . $url_th . '?m='. $modif .'" onclick="currentSlide('. $index. ',' .  $indice .')" alt="' . $a['name'] . '"/>'
                                     . '</div>';
                             $index += 1;
                         }
+						
+						
                     } 
-                    echo $html. $html2 . '</div>'. $end;
+                    echo $html. '<div style="max-height: 200px; overflow-x: auto;">' .$html2 . '</div></div>'. $end;
                     return;
                 case 'empty':
-                    //poner no foto!
+                    //TODO: poner no foto!
                     echo '';
                     return;
                 case 'form':
                     $form = '';
                     //carga un formulario para ver las opciones de la imágen!
-//                    include 'pdf-text/PdfToText.phpclass';
-//                    include 'requestDownload_AJX.php';
                     $mi= getMemberInfo();
                     usort($json['images'], 'cmp');
                     //vairifica y agrega que todos los item tenga el campo de aprobación, solo se guarda si el usuario hace click en salvar.
@@ -615,7 +629,7 @@ function myscripts($indice){
         //habilitar el boton de descarga y desabilitar el boton de pedido
     </script>
     <?php
-    $ret .= ob_get_contents();
+    $ret = ob_get_contents();
     ob_get_clean();
     return $ret;       
 }
@@ -714,7 +728,7 @@ function videoScripts($indice){
         });
     </script>
     <?php
-    $ret .= ob_get_contents();
+    $ret = ob_get_contents();
     ob_get_clean();
     return $ret;       
 }
@@ -744,7 +758,7 @@ function audioScripts($indice){
 //        $j('#audio-<?php //echo $indice;?>').mediaPlayer();
     </script>
     <?php
-    $ret .= ob_get_contents();
+    $ret = ob_get_contents();
     ob_get_clean();
     return $ret;       
 }

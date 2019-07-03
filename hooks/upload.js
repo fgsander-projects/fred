@@ -1,3 +1,4 @@
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -159,10 +160,13 @@ function showTumbs(){
                     showSlides((getDefualtImage(a)), x);
                 },1000);
                 $j('div.column').hide();
-                var len = a.images.length -1;
+                var len = a.images.length;
                 if (len > 0){
-                    $j('#imagesThumbs-' + x).append('<kbd>(+' + (len) + ')</kbd>');
-                }
+                    $j('#imagesThumbsButton-' + x).append('<span>' + (len) + '</span>');
+                }else{
+					$j('#imagesThumbsButton-' + x).append('<span>' + (len) + '</span>');
+					
+				};
             }
         });
     });
@@ -254,24 +258,16 @@ function setPdfThumb(i,tv){
 }
     
 function showSlides(n,x) {
-    if (x === undefined || x === null){
-        x = '' ;
-    }
-    var i;
-    var sld = "mySlides-" + x;
-    var dot = "demo";
-    var slides = document.getElementsByClassName(sld);
-    var dots = document.getElementsByClassName(dot);
-    var slideIndex = slides.length;
-    if (slideIndex === 0) return;
-    if (n > slideIndex) {slideIndex = 1;}
-    if (n < 1) {slideIndex = slides.length;}
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
+    if (x === undefined || x === null){x = '' ;}
+    var slides = $j(".mySlides-" + x);
+    var dots = $j(".demo");
+    
+    if (slides.length === 0) return;
+    if (n > slides.length) {n = 1;}
+    if (n < 1) {n = slides.length;}
+
+    slides.hide();
+    dots.removeClass("active")
     slides[n-1].style.display = "block";
     dots[n-1].className += " active";
 }

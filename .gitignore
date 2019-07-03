@@ -8,4 +8,6 @@ setup.md5
 *.tif
 *.csv
 *.txt
+*.mp4
+*.png
 images/mpi.json
