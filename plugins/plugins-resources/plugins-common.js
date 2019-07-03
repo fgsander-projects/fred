@@ -143,6 +143,40 @@ AppGiniPlugin = {
 	*/
 	fk_fields: {},
 
+	/*
+		set to true in plugin code to enable debugging to browser console
+		debugging is done using AppGiniPlugin.debug()
+	*/
+	enableDebugging: false,
+
+	/**
+	 *  @brief display a debug message in browser console if enableDebugging is true
+	 *  
+	 *  @param [in] fn name of function to display in console
+	 *  @param [in] p* optional values of function parameters, up to 5 supported
+	 */	
+	debug: function(fn, p1, p2, p3, p4, p5) {
+		if(!this.enableDebugging) return;
+		var msg = fn + '(';
+		if(p1 != undefined) msg += (  "'" + p1 + "'");
+		if(p2 != undefined) msg += (", '" + p2 + "'");
+		if(p3 != undefined) msg += (", '" + p3 + "'");
+		if(p4 != undefined) msg += (", '" + p4 + "'");
+		if(p5 != undefined) msg += (", '" + p5 + "'");
+		msg += ')';
+
+		console.log(msg);
+	},
+
+	randomHash: function(length) {
+		length = length || 20;
+		var hash = '', pool = 'abcdefghijklmnopqrstuvwxyz0123456789';
+		for(var i = 0; i < length; i++) {
+			hash += pool.charAt(Math.random() * pool.length);
+		}
+		return hash;
+	},
+
 	/**
 	 *  @brief retrieve an array of tables in project
 	 *  

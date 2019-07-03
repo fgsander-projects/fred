@@ -170,41 +170,29 @@
 		 * @return XML project file object 
 		 */
 		public function get_xml_file($fileHash, &$projectFile){
-			try {
+			if(!function_exists('simpleXML_load_file'))
+				die('Please, enable simplexml extention in your php.ini configuration file.');
 
-				$projects = scandir("../projects");
-				$projects = array_diff($projects, array('.', '..'));
-				$userProject = $fileHash;
-				$projectFile = null;
+			// scan projects dir for a file with matching MD5 hash
+			$projectFile = null;
+			$d = dir(dirname(__FILE__) . '/../projects');
+			while(false !== ($entry = $d->read())) {
+				if($entry == '..' || $entry == '.') continue;
 
-				foreach ($projects as $project) {
-					if ($userProject == md5($project)) {
-						$projectFile = $project;
-						break;
-					}
+				if(md5($entry) == $fileHash) {
+					$projectFile = $entry;
+					break;
 				}
-				if (!$projectFile)
-					throw new RuntimeException('Project file not found.');
-
-				// validate simpleXML extension enabled
-				if (!function_exists('simpleXML_load_file')) {
-					throw new RuntimeException('Please, enable simplexml extention in your php.ini configuration file.');
-				}
-
-
-				// validate that the file is not corrupted
-				@$xmlFile = simpleXML_load_file("../projects/$projectFile", 'SimpleXMLElement', LIBXML_NOCDATA);
-				if (!$xmlFile) {
-					throw new RuntimeException('Invalid axp file.');
-				}
-				
-				$this->project_xml = $xmlFile;
-
-				return $xmlFile;
-			} catch (RuntimeException $e) {
-				echo "<br>" . $this->error_message($e->getMessage());
-				exit;
 			}
+			$d->close();
+
+			if(!$projectFile) return false;
+
+			// validate that the file is not corrupted
+			@$xmlFile = simpleXML_load_file("../projects/{$projectFile}", 'SimpleXMLElement', LIBXML_NOCDATA);
+			if(!$xmlFile) return false;
+			
+			return ($this->project_xml = $xmlFile);
 		}
 		
 		/**
@@ -217,6 +205,18 @@
 				return false;
 			}
 			return true;
+		}
+
+		/**
+		 * Quit with 403 status in case current user is not admin
+		 *
+		 * @param      string  $msg    Optional message to display before quitting
+		 */
+		public function reject_non_admin($msg = '') {
+			if($this->is_admin()) return;
+
+			@header('HTTP/1.0 403 Forbidden');
+			die($msg);
 		}
 		
 		/**
@@ -269,11 +269,11 @@
 		 * @return string '<link rel="stylesheet" ...'
 		 */
 		public function get_theme_css_links(){
-			//$host_app_header = @file_get_contents(dirname(__FILE__) . '/../../header.php');
-			//if(!$host_app_header){
+			$host_app_header = @file_get_contents(dirname(__FILE__) . '/../../header_old.php');
+			if(!$host_app_header){
 				/* try to guess the theme and assume no 3D effect */
 				return '<link rel="stylesheet" href="../../resources/initializr/css/bootstrap.css">';
-			//}
+			}
 			
 			$regex = '/<link\s+rel="stylesheet".*?resources\/initializr\/css\/(.*?)\.css"/i';
 			$mat = array();
@@ -563,7 +563,7 @@
 			if(!$new_function_code) return $this->error('add_to_hook', 'Error while injecting code');
 			$hook_code = str_replace($old_function_code, $new_function_code, $hook_code);
 			if(!@file_put_contents($hook_file_path, $hook_code)) return $this->error('add_to_hook', 'Could not save changes');	
-				 
+			return true; 
 		}
 		
 		/**
@@ -889,7 +889,8 @@
 				if($table_name != $tn) continue;
 				
 				foreach($table->field as $fn => $field){
-					$fields[] = "{$table_name}.{$field->name}";
+					$cfn = (string) $field->name;
+					$fields[] = "{$table_name}.{$cfn}";
 				}
 				
 				return $fields;
@@ -1040,7 +1041,7 @@
 		 *  @param [in] $config optional associative array with the following keys: 'next_page' the relative path of the next page user is sent to after submitting this form, defaults to 'generate.php'. 'path_parameter' is the name of the parameter containing the specified path to be sent to the next page, defaults to 'path'. 'extra_options' is an associative array of additional options to be displayed in the form as radio buttons where the key is the option name and the value is the displayed label.
 		 *  @return HTML code of form
 		 */
-		public function show_select_output_folder($config = array()){
+		public function show_select_output_folder($config = array()) {
 			if(!isset($config['next_page'])) $config['next_page'] = 'generate.php';
 			if(!isset($config['path_parameter'])) $config['path_parameter'] = 'path';
 			if(!isset($config['extra_options']) || !is_array($config['extra_options'])) $config['extra_options'] = array();
@@ -1053,6 +1054,7 @@
 					<div class="input-group">
 						<input type="text" class="form-control" id="output-folder" name="<?php echo $config['path_parameter']; ?>" value="<?php echo $this->app_path; ?>" autofocus>
 						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" id="recheck-output-folder"><i class="glyphicon glyphicon-refresh"></i></button>
 							<button class="btn btn-default" type="button" id="output-folder-status" disabled>Please wait ...</button>
 						</span>
 					</div>
@@ -1068,7 +1070,7 @@
 					</div>
 				<?php } ?>
 				
-				<div class="text-center"><button type="submit" class="btn btn-success btn-lg" id="submit">Continue <i class="glyphicon glyphicon-chevron-right"></i></button></div>
+				<div class="text-center"><button type="submit" class="btn btn-primary btn-lg" id="submit" style="padding: 0.5em 4em;">Continue <i class="glyphicon glyphicon-chevron-right"></i></button></div>
 				
 				<script>
 					$j(function(){
@@ -1117,6 +1119,7 @@
 						
 						check_app_path();
 						$j('#output-folder').keyup(check_app_path);
+						$j('#recheck-output-folder').click(check_app_path);
 					})
 				</script>
 			</form>
@@ -1226,11 +1229,13 @@
 		function get_pk_field_name($table_name) {
 			$tables = $this->project_xml->table;
 			foreach($tables as $table) {
-				if($table->name != $table_name) continue;
+				$ctn = (string) $table->name;
+				if($ctn != $table_name) continue;
 
 				$table_fields = $table->field;
 				foreach($table_fields as $field){
-					if(strtolower((string)$field->primaryKey) == 'true') return $field->name;
+					if(strtolower((string) $field->primaryKey) == 'true')
+						return (string) $field->name;
 				}
 			}
 			
@@ -1243,7 +1248,7 @@
 		function get_table_names() {
 			$tables_array = array();			
 			foreach($this->project_xml->table as $table) {
-				$tables_array[] = $table->name;
+				$tables_array[] = (string) $table->name;
 			}
 			
 			return $tables_array;
@@ -1279,15 +1284,161 @@
 			return '';
 		}
 
-	}
+		function random_hash($length = 20) {
+			$pool = 'abcdefghijklmnopqrstuvwxyz0123456789';
+			$hash = '';
+			for($i = 0; $i < $length; $i++) {
+				$hash .= $pool[rand(0, strlen($pool))];
+			}
+			return $pool;
+		}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		/**
+			@param $tn string, name of table
+			@return table object for given table name if exists, false otherwise
+		*/
+		function table($tn) {
+			$ti = $this->table_index($tn);
+			if($ti == -1) return false;
+			return $this->project_xml->table[$ti];
+		}
+
+		/**
+			@param $tn string, name of table
+			@param $fn string, name of field
+			@return field object for given table and field names if exist, false otherwise
+		*/
+		function field($tn, $fn) {
+			$ti = $this->table_index($tn);
+			if($ti == -1) return false;
+
+			$fi = $this->field_index($tn, $fn);
+			if($fi == -1) return false;
+
+			return $this->project_xml->table[$ti]->field[$fi];
+		}
+
+		/**
+			@param $tn string, name of table
+			@param $fn string, name of field
+			@return 0-based field index for given table and field names if exist, -1 otherwise
+		*/
+		function field_index($tn, $fn) {
+			$table = $this->table($tn);
+			if($table === false) return -1;
+
+			// find field
+			for($fi = 0; $fi < count($table->field); $fi++) {
+				$cfn = (string) $table->field[$fi]->name;
+				if($cfn == $fn) return $fi;
+			}
+
+			return -1;
+		}
+
+		/**
+			@param $tn string, name of table
+			@return 0-based index of given table name if exists, -1 otherwise
+		*/
+		function table_index($tn) {
+			$prj = $this->project_xml;
+
+			// find table
+			for($ti = 0; $ti < count($prj->table); $ti++) {
+				$ctn = (string) $prj->table[$ti]->name;
+				if($ctn == $tn) return $ti;
+			}
+
+			return -1;
+		}
+
+		/**
+		 * exit execution with HTTP status code 500 in JSON mode
+		 *
+		 * @param      <string>  $error  The error message response
+		 */
+		public function ajax_json_error($error) {
+			@header('Content-type: application/json');
+			@header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+			die(json_encode(array('error' => $error)));
+		}
+		
+		/**
+		 * exit execution normally, sending given $data as JSON response
+		 *
+		 * @param      <(object|array)>  $data   The data to output as JSON response
+		 */
+		public function ajax_json_return($data) {
+			@header('Content-type: application/json');
+			die(json_encode($data));
+		}
+
+		/**
+		 * Retrieve plugin node for given table name, or false if none. Assumes table structure as follows: table->plugins->plugin_name->{node-to-return}
+		 *
+		 * @param      <string>  $tn     table name
+		 * @return     <(object|boolean)> plugin object or false if not found
+		 */
+		public function get_table_plugin_node($tn) {
+			$table = $this->table($tn);
+			if($table === false) return false;
+
+			if(!isset($table->plugins)) return false;
+			if(!isset($table->plugins->{$this->name})) return false;
+
+			return $table->plugins->{$this->name};
+		}
+
+		/**
+		 *  Get date/time format string for use in different cases.
+		 *  
+		 *  @param [in] $destination string, one of these: 'php' (see date function), 'mysql', 'moment'
+		 *  @param [in] $datetime string, one of these: 'd' = date, 't' = time, 'dt' = both
+		 *  @return string
+		 */
+		public function datetime_format($destination = 'php', $datetime = 'd') {
+			$date_formats = array(
+				1 => 'Ymd',
+				2 => 'dmY',
+				3 => 'mdY'
+			);
+
+			$time_formats = array(
+				12 => 'h:i:s A',
+				24 => 'H:i:s'
+			);
+
+			$separators = array(
+				1 => '-',
+				2 => ' ',
+				3 => '.',
+				4 => '/',
+				5 => ','
+			);
+			
+			$df_raw = $date_formats[(int) $this->project_xml->dateFormat];
+			$tf = $time_formats[(int) $this->project_xml->timeFormat];
+			$sep = $separators[(int) $this->project_xml->dateSeparator];
+
+			$df = "{$df_raw[0]}{$sep}{$df_raw[1]}{$sep}{$df_raw[2]}";
+
+			switch(strtolower($destination)){
+				case 'mysql':
+					$date = str_replace(array('m', 'd', 'y'), array('%m', '%d', '%Y'), $df);
+					$time = str_replace(array('H', 'h', 'i', 's', 'A'), array('%H', '%h', '%i', '%s', '%p'), $tf);
+					break;
+				case 'moment':
+					$date = str_replace(array('m', 'd', 'y'), array('MM', 'DD', 'YYYY'), $df);
+					$time = str_replace(array('H', 'h', 'i', 's'), array('HH', 'hh', 'mm', 'ss'), $tf);
+					break;
+				default: // php
+					$date = $df;
+					$time = $tf;
+			}
+
+			$datetime = strtolower($datetime);
+			if($datetime == 'dt' || $datetime == 'td') return "{$date} {$time}";
+			if($datetime == 't') return $time;
+			return $date;
+		}
+	}
