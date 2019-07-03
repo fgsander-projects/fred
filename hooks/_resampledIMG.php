@@ -45,8 +45,8 @@ function make_thumb($source, $fileName, $ext ,&$folder,&$ret){
 
                       
                         $im   	->setimageformat("jpg");
-                        $im   	->setresolution(600, 600);
-                        $im   	->borderImage($color, 1, 1);
+                        $im   	->setresolution(72, 72);
+                      //  $im   	->borderImage($color, 1, 1);
                         $im   	->thumbnailimage(300, 0); // width and height
                         $im   	->writeimage($target);
                         $im   	->clear();
