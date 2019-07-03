@@ -4,6 +4,8 @@ archivos/
 config.php
 setup.md5
 *.jpg
+*.jpeg
+*.png
 *.pdf
 *.tif
 *.csv

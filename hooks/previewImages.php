@@ -71,7 +71,7 @@ if ($cmd !== ''){
                             $modif =filemtime($source);
                         }
                         
-                        $style ='"valign="center" style="display:block; max-width:240px; max-height:290px; margin-left: auto; margin-right:auto; border-radius:5px; margin-bottom:6px; "/>';
+                        $style = '"valign="center" style="display:block; max-width:240px; max-height:290px; margin-left: auto; margin-right:auto; border-radius:5px; margin-bottom:6px; "/>';
                         $href = '<a class="example-image-link" href="'.$url.'" data-lightbox="set-'.$indice.'" data-title="'. $title . '">';
                         $thumbs = '<img class="" src="' . $url_th . '?m='. $modif .'" alt="' . $a['fileName'] . $style;
 
