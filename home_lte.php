@@ -87,7 +87,7 @@ function search(){
         var b = 0;
         var id = 0;
         var thumb ="";
-        $j('#found').text(' Encontrados ' + msg.hits.length +' registros.')
+        $j('#found').text(' Mostrando ' + msg.hits.length +' registros de ' + msg.total)
         
         msg.hits.forEach(function(item){
           i++;

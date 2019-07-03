@@ -54,52 +54,35 @@ ob_start();
     <dt class="item-colecao-caption field-caption-tv">Cole&#231;&#227;o:</dt>
     <dd id="item-colecao-<%%VALUE(id)%%>" class="item-colecao"><%%SELECT%%><%%VALUE(colecao)%%><%%ENDSELECT%%></dd>
 -->
+<div class="col-md-10">
+<dl class="dl-horizontal">
+						<dt class="item-identificacao-caption field-caption-tv">Identifica&#231;&#227;o:</dt>
+						<dd id="item-identificacao-<%%VALUE(id)%%>" class="item-identificacao"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['identificacao']; ?></a></dd>
+						
+						<dt class="item-titulo_atribuido-caption field-caption-tv">T&#237;tulo </dt>
+						<dd id="item-titulo_atribuido-<%%VALUE(id)%%>" class="item-titulo_atribuido"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['titulo']; ?></a></dd>
+						
+						<dt class="item-descricao-caption field-caption-tv">Descri&#231;&#227;o:</dt>
+						<dd id="item-descricao-<%%VALUE(id)%%>" class="item-descricao"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['descricao']; ?></a></dd>
+						
+						<dt class="item-colecao-caption field-caption-tv">Cole&#231;&#227;o:</dt>
+						<dd id="item-colecao-<%%VALUE(id)%%>" class="item-colecao"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['colecao']; ?></a></dd>
+						
+						<dt class="item-grupo-caption field-caption-tv">Grupo:</dt>
+						<dd id="item-grupo-<%%VALUE(id)%%>" class="item-grupo"><a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['grupo']; ?></a></dd>
 
+						<dt class="item-serie-caption field-caption-tv">S&#233;rie:</dt>
+						<dd id="item-serie-<%%VALUE(id)%%>" class="item-serie"><a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['serie']; ?></a></dd>
 
-   <div class="panel-body">
-	<fieldset class="form-horizontal">
-			<div class="form-group">
-				<label class="col-xs-3 control-label">T&#237;tulo:</label>
-				<div class="col-xs-9">
-					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['titulo']; ?></a></div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">Identifica&#231;&#227;o:</label>
-				<div class="col-xs-9">
-					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['identificacao']; ?></a></div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">Cole&#231;&#227;o:</label>
-				<div class="col-xs-9">
-					<div class="form-control-static"> <a target="_blank"  href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="colecao"><?php echo $item['colecao']; ?></span></a></div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">Grupo:</label>
-				<div class="col-xs-9">
-					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="grupo"><?php echo $item['grupo']; ?></span></a></div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">S&#233;rie:</label>
-				<div class="col-xs-9">
-					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="serie"><?php echo $item['serie']; ?></span></a></div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">Subs&#233;rie:</label>
-				<div class="col-xs-9">
-					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <span id="subserie"><?php echo $item['subserie']; ?></span></a></div>
-				</div>
-			</div>
-			<div class="item-descricao">
-				<label class="col-xs-3 control-label">Descri&#231;&#227;o:</label>
-				<div class="item-serie">
-					<div class="form-control-static"> <a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>"> <?php echo $item['descricao']; ?></a></div>
-				</div>
-			</div>
+						<dt class="item-subserie-caption field-caption-tv">Subs&#233;rie:</dt>
+						<dd id="item-subserie-<%%VALUE(id)%%>" class="item-subserie"><a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['subserie']; ?></a></dd>
+
+						<dt class="item-tipologia-caption field-caption-tv">Tipologia / Esp&#233;cie:</dt>
+						<dd id="item-tipologia-<%%VALUE(id)%%>" class="item-tipologia"><a target="_blank" href="item_view.php?SelectedID=<?php echo $id; ?>">  <?php echo $item['tipologia']; ?></a></dd>
+
+</dl>
+</div>
+
             <div id='item-uploads-<?php echo $id; ?>' class="form-control-static" hidden=""><?php echo $item['uploads']; ?></div>
 	</fieldset>
     </div>
