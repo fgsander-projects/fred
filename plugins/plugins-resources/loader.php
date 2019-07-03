@@ -27,11 +27,11 @@
 		/* Ensure that the projects folder has write permission */
 		if ( !is_dir("{$plugins_dir}/projects" )){
 			if (! @mkdir ( "{$plugins_dir}/projects" , 0775)){
-				$error_msgs[] = 'Could not create projects directory.<br>Please create \'projects\' directory inside the SPM root directory.';		
+				$error_msgs[] = 'Could not create projects directory.<br>Please create \'projects\' directory inside the plugins directory.';		
 			}
 		}
 		
-		if ( ! is_writable( "../projects" )){
+		if ( ! is_writable( "{$plugins_dir}/projects" )){
 			$error_msgs[] = 'Please, change the permission of the \'projects\' folder to be writeable.';		
 		}
 

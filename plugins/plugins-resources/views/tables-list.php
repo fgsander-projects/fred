@@ -30,9 +30,10 @@
 </div>
 
 <style>
-	#<?php echo $list_id; ?>{
-		min-height: 150px;
-		overflow-Y:scroll;
+	#<?php echo $list_id; ?> {
+		min-height: 5rem;
+		max-height: 70vh;
+		overflow-y: auto;
 	}
 </style>
 
@@ -50,7 +51,7 @@
 		
 		<?php if($select_first_table){ ?>
 			/* select the first table on page load */
-			$j('#<?php echo $list_id; ?> > a').first().click();
+			$j('#<?php echo $list_id; ?> > a').first().focus().click();
 		<?php } ?>
 		
 		/* set table list height on resizing the page */
