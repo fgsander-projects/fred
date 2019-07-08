@@ -55,7 +55,7 @@ function deleteItem(id, tableName){
             data: { cmd: 'deleteItem', id: id, tableName: tableName}
         })
         .done(function(msg){
-        })
+        });
 }
 
 function recountsItems(tableName){
@@ -107,14 +107,14 @@ function checkIsSaved(id,tableName){
                 if ($j(tag + ' > i').hasClass('glyphicon-unchecked')){
                     $j(tag + ' > i').removeClass('glyphicon-unchecked');
                     $j(tag + ' > i').addClass('glyphicon-check');
-                };
+                }
             }else{
                 $j(tag ).removeClass('btn-success');
                 $j(tag ).addClass('btn-default');
                 if ($j(tag + ' > i').hasClass('glyphicon-check')){
                     $j(tag + ' > i').removeClass('glyphicon-check');
                     $j(tag + ' > i').addClass('glyphicon-unchecked');
-                };
+                }
                 }
         });
 }
@@ -158,7 +158,7 @@ function showTumbs(){
                 setTimeout(function(){ 
                     $j('#imagesThumbs-' + x).show();
                     showSlides((getDefualtImage(a)), x);
-                },1000);
+                },500);
                 $j('div.column').hide();
                 var len = a.images.length;
                 if (len > 0){
@@ -166,7 +166,7 @@ function showTumbs(){
                 }else{
 					$j('#imagesThumbsButton-' + x).append('<span>' + (len) + '</span>');
 					
-				};
+				}
             }
         });
     });
@@ -267,7 +267,7 @@ function showSlides(n,x) {
     if (n < 1) {n = slides.length;}
 
     slides.hide();
-    dots.removeClass("active")
+    dots.removeClass("active");
     slides[n-1].style.display = "block";
     dots[n-1].className += " active";
 }
@@ -304,13 +304,14 @@ function showMov(file, n, t = 'video/mp4') {
 
 function getUploadedFile(id){ //si viene un id es una fucnion de la TV
     $uploads = $j('#uploads');
+    var a = "";
     if (id){
-        var a = $j('#' + thisTable() + '-uploads-' + id).text();
+        a = $j('#' + thisTable() + '-uploads-' + id).text();
     }else{
         if (content_type() === 'print-detailview'){
-            var a = $uploads.text();
+            a = $uploads.text();
         }else{
-            var a = $uploads.val();
+            a = $uploads.val();
         }   
     }
     if (!IsJsonString(a)){
@@ -432,9 +433,9 @@ function beforeApplyFilters(event){
                   var fieldNum =  $j(this).attr('name').match(/(\d+)/)[0];
                   $j(":input[name='FilterField["+fieldNum+"]']").val('');
 
-                  };
+                  }
         });
-};
+}
 
 function beforeCancelFilters(){
     //other fields
@@ -447,12 +448,12 @@ function beforeCancelFilters(){
             }else{
                     $j(this).parent(".row ").find('input[id^="lookupoperator"]').val('equal-to');
             }
-    })
+    });
     //options case ( populate with initial data)
     $j(":input[class='populatedOptionsData']").each(function(){
 
             $j(":input[name='FilterValue["+$j(this).attr('name')+"]']").val($j(this).val());
-    })
+    });
     //remove unsuplied fields
     beforeApplyFilters();
     return true;
@@ -480,7 +481,7 @@ function array_move(arr, old_index, new_index) {
     arr.images.splice(new_index, 0, arr.images.splice(old_index, 1)[0]);
 //    return arr; // for testing
     $j('#uploadedFiles').val(returnJsonstr(arr));
-};
+}
 
 function returnJsonstr(a){
     a = JSON.stringify(a);
