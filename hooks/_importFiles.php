@@ -112,7 +112,7 @@
         retData = files;
         console.log(files);
         var list = JSON.parse(files);
-        var max = '40';
+        var max = '120';
         $j.each(list,function(i,data){
             disabled = '';
             var d = JSON.parse(data);
