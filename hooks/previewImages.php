@@ -14,21 +14,22 @@
 // 
 //
 
-if(!function_exists('makeSafe')){
-    include("../lib.php");
-} 
+// if(!function_exists('makeSafe')){
+    // include("../lib.php");
+// } 
 
-$cmd    = isset($_POST['cmd'])    ? $_POST['cmd']    : '';
-$source = isset($_POST['source']) ? $_POST['source'] : '';
-$json   = isset($_POST['json'])   ? $_POST['json']   : [];
-$indice = isset($_POST['indice']) ? $_POST['indice'] : '';//id
-$title  = isset($_POST['title'])  ? $_POST['title']  : '';
+$cmd        = isset($_POST['cmd'])    ? $_POST['cmd']    : '';
+$source     = isset($_POST['source']) ? $_POST['source'] : '';
+$json       = isset($_POST['json'])   ? $_POST['json']   : [];
+$indice     = isset($_POST['indice']) ? $_POST['indice'] : '';//id
+$title      = isset($_POST['title'])  ? $_POST['title']  : '';
+$current    = isset($_POST['current']) ? $_POST['current'] : '';
 
 $invalid_characters = array("$", "%", "#", "<", ">", "|", "\"");
-$title = makesafe(str_replace($invalid_characters, "",$title));
+$title      = str_replace($invalid_characters, "",$title);
 
-$name   = isset($_POST['name'])   ? $_POST['name']   : '';
-$largo  = isset($_POST['largo'])  ? $_POST['largo']  : '';
+$name       = isset($_POST['name'])   ? $_POST['name']   : '';
+$largo      = isset($_POST['largo'])  ? $_POST['largo']  : '';
 $tableName  = isset($_POST['tableName'])  ? $_POST['tableName']  : '';
 
 $currDir = dirname(__FILE__);
@@ -42,6 +43,37 @@ if ($cmd !== ''){
         $modif = time();
         if ($json !== []){
             switch ($cmd){
+                case 'TV':
+                    $a = $json;//[$current];
+                    //var_dump($current);
+                    $html = '<div class = "th-'. $indice .'">';
+                    $end = '</div>';
+                    $fo = $a['folder_base'];
+                    $folderT = substr ($fo,1)."/th/"; //thumbs
+                    $folderO = substr ($fo,1)."/upload/"; //original
+                    $ext = strtolower($a['extension']);
+                    $url = $folderO.$a['fileName'];
+                        if ($a['hd_image'] === 'true'){
+                            $url = $folderL.$a['name'].'_LO.jpg';
+                        }
+                    $url_th = $folderT."{$a['name']}_th.jpg";
+                    $style = '"valign="center" style="display:block; max-width:205px; max-height:290px; margin-left: auto; margin-right:auto; border-radius:5px; margin-bottom:6px; "/>';
+                    $href = '<a class="example-image-link" href="'.$url.'" data-lightbox="set-'.$indice.'" data-title="'. $title . '">';
+                    if ($ext === 'pdf'){
+                        $href = "<a onclick=\"showPdf('". $url ."' , '".  $title ."' , '". $index."' , '". $indice . "')\">";
+                    }
+                    $thumbs = '<img class="" src="' . $url_th . '" alt="' . $a['fileName'] .'"'. $style;
+                    $html .=  '<div class = "mySlides-'. $indice. '" style="border-bottom: 1px solid #efefef; max-width:250px; max-height:300px;">'
+                                        . $href . $thumbs
+                                        . '</a>'
+                                    . '</div>';
+                    $html2 .= '<div class="column columns-thumbs" style="width:50px; height:50px; margin-top:3px; margin-left:4px;">'
+                    . '<img class="demo cursor" style="margin-left:3px;opacity:0.8" src="' . $url_th . '" onclick="currentSlide('. $index. ',' .  $indice .')" alt="' . $a['name'] . '"/>'
+                    . '</div>';
+                    echo $html . '<div style="max-height: 200px; overflow-x: auto;">' . $html2 . '</div></div>'. $end;
+                    //echo  "TV ".($current)."--[".$a['fileName']."]---".$json['images'];
+
+                    return;
                 case 'full':
                     $end ='';
                     if($indice !== '') {
@@ -53,7 +85,7 @@ if ($cmd !== ''){
                         $fo = $a['folder_base'];
                         if ( !empty($fo)){
                             $folderO = substr ($fo,1)."/upload/"; //original
-                            $folderT = substr ($fo,1)."/th/"; //thumbs
+                            $folderT = substr ($fo,1)."/th/"; //thumbs$folderT = substr ($fo,1)."/th/"; //thumbs
                             $folderL = substr ($fo,1)."/LO/"; //loRes
                         }else{
                             $folderO = $folder; //original
@@ -71,7 +103,7 @@ if ($cmd !== ''){
                             $modif =filemtime($source);
                         }
                         
-                        $style = '"valign="center" style="display:block; max-width:240px; max-height:290px; margin-left: auto; margin-right:auto; border-radius:5px; margin-bottom:6px; "/>';
+                        $style = '"valign="center" style="display:block; max-width:205px; max-height:290px; margin-left: auto; margin-right:auto; border-radius:5px; margin-bottom:6px; "/>';
                         $href = '<a class="example-image-link" href="'.$url.'" data-lightbox="set-'.$indice.'" data-title="'. $title . '">';
                         $thumbs = '<img class="" src="' . $url_th . '?m='. $modif .'" alt="' . $a['fileName'] . $style;
 
@@ -106,7 +138,7 @@ if ($cmd !== ''){
                                         . '</a>'
                                         .$video.$audio
                                     . '</div>';
-                            //TODO: check if can disbale thumbs if TV
+                            //TODO: check if can disable thumbs if TV
                             if ($tableName){
 
                                 $html2 .= '<div class="column columns-thumbs" style="width:50px; height:50px; margin-top:3px; margin-left:4px;">'
@@ -138,6 +170,9 @@ if ($cmd !== ''){
                     echo '';
                     return;
                 case 'form':
+                    if(!function_exists('getMemberInfo')){
+                        include("../lib.php");
+                    } 
                     $form = '';
                     //carga un formulario para ver las opciones de la imágen!
                     $mi= getMemberInfo();

@@ -3,9 +3,9 @@ function thisTable(){
 }
 
 $j(function(){
-    initTable();
     removeEmpty();
     showTumbs();
+    initTable();
     $current = $j('#current_view');
     if ($current.val()== 'DVP'){
         remove_DVP_empty();

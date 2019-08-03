@@ -137,15 +137,43 @@ function showTumbs(){
             a = {images:[]};
             b= 'empty';
             $j('#downloadOtherFiles-'+x).toggle();
+            $j('#imagesThumbsButton-'+x).toggle();
+            
         }else{
             if (content_type() === 'print-tableview'){
                 $j('#downloadOtherFiles-'+x).toggle();
+                $j('#imagesThumbsButton-'+x).toggle();
                 $j('#addToList-'+x).hide();
             }
             
             a = JSON.parse(a);
         }
-        $j('#imagesThumbs-' + x).html('');
+        var imgTumb = $j('#imagesThumbs-' + x);
+
+        imgTumb.html('');
+        var current = getDefualtImage(a);
+        cmd = 'TV';
+
+        //console.log(a.images[current], cmd, x, title, current);
+
+        // $j.ajax({
+        //     method: 'POST',
+        //     dataType: 'html',
+        //     url:'hooks/previewImages.php',
+        //     cache: 'false',
+        //     data: {json: a.images[(current-1)], cmd: cmd, indice: x, title: title, tableName: thisTable(), current: current},
+        //     success: function(response){
+        //         //function at response
+        //         //console.log(response);
+        //         imgTumb.html(response).show();
+        //         showSlides(0, x);
+        //         $j('div.column').hide();
+        //         $j('#imagesThumbsButton-' + x).append('<span>' + (a.images.length) + '</span>');
+        //     }
+        // });
+
+
+
         $j.ajax({
             method: 'POST',
             dataType: 'html',
@@ -164,7 +192,7 @@ function showTumbs(){
                 if (len > 0){
                     $j('#imagesThumbsButton-' + x).append('<span>' + (len) + '</span>');
                 }else{
-					$j('#imagesThumbsButton-' + x).append('<span>' + (len) + '</span>');
+					   $j('#imagesThumbsButton-' + x).append('<span>' + (len) + '</span>');
 					
 				}
             }
@@ -596,7 +624,7 @@ function openMailForm(){
 
 function requestDownload(btn,indice){
 //    alert(indice + " " + btn.attributes['filename'].value);
-    var fn = btn.attributes['filename'].value;
+    var fn = btn.attributes.filename.value;
     $j.ajax({
            method: "POST",
            dataType: "json",
