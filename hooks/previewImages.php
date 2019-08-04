@@ -25,8 +25,8 @@ $indice     = isset($_POST['indice']) ? $_POST['indice'] : '';//id
 $title      = isset($_POST['title'])  ? $_POST['title']  : '';
 $current    = isset($_POST['current']) ? $_POST['current'] : '';
 
-$invalid_characters = array("$", "%", "#", "<", ">", "|", "\"");
-$title      = str_replace($invalid_characters, "",$title);
+$invalid_characters = array("$", "%", "#", "<", ">", "|", "\"","\n");
+$title      = makeSafe_preview(str_replace($invalid_characters, "",$title));
 
 $name       = isset($_POST['name'])   ? $_POST['name']   : '';
 $largo      = isset($_POST['largo'])  ? $_POST['largo']  : '';
@@ -821,3 +821,29 @@ function audioScripts($indice){
 //      "aproveUpload":true
 //      }
 //      ]}
+
+function makeSafe_preview($string, $is_gpc = true){
+    if($is_gpc) $string = (get_magic_quotes_gpc() ? stripslashes($string) : $string);
+    //if(!db_link()){ sql("select 1+1", $eo); }
+
+    // prevent double escaping
+    $na = explode(',', "\x00,\n,\r,',\",\x1a");
+    $escaped = true;
+    $nosc = true; // no special chars exist
+    foreach($na as $ns){
+        $dan = substr_count($string, $ns);
+        $esdan = substr_count($string, "\\{$ns}");
+        if($dan != $esdan) $escaped = false;
+        if($dan) $nosc = false;
+    }
+    if($nosc){
+        // find unescaped \
+        $dan = substr_count($string, '\\');
+        $esdan = substr_count($string, '\\\\');
+        if($dan != $esdan * 2) $escaped = false;
+    }
+
+    return ($escaped ? $string : $string);
+}
+
+
