@@ -139,12 +139,12 @@ if ($cmd !== ''){
                                         .$video.$audio
                                     . '</div>';
                             //TODO: check if can disable thumbs if TV
-                            if ($tableName){
+                            //if ($tableName){
 
                                 $html2 .= '<div class="column columns-thumbs" style="width:50px; height:50px; margin-top:3px; margin-left:4px;">'
                                             . '<img class="demo cursor" style="width:50px; height:50px; margin-left:3px;opacity:0.8" src="' . $url_th . '?m='. $modif .'" onclick="currentSlide('. $index. ',' .  $indice .')" alt="' . $a['name'] . '"/>'
                                         . '</div>';
-                            }
+                            //}
                             $index += 1;
                         }
 						
